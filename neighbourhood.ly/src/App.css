@@ -1,4 +1,111 @@
-.App {
+body {
+	background-color: #FEF9FB;
+	margin: 0;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+#sidebar {
+	  padding: 5px;
+	  background-color: #252627;
+    height: 100%;
+    width: 250px;
+    position:fixed;
+
+}
+
+#sidebar ul {
+  	/* margin-top: 100%;
+    padding: 0px; */
+    position: absolute;
+    top: 45%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#sidebar ul li {
+    margin-top: 50px;
+    font-weight: bold;
+	  list-style: none;
+	  text-align: center;
+    font-size: x-large;
+    color: #FEF9FB;
+}
+
+#infoBar {
+    margin-left: 350px;
+    width: 35%;
+
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.title {
+    color: #252627;
+    font-size:xx-large;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.description {
+    color: #252627;
+    font-size: x-large;
+
+}
+
+#signInTab {
+    width: 300px;
+    margin-left: 70%;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+}
+
+.signInTabHeader {
+    font-size: xx-large;
+    padding: 2px;
+    font-weight: bold;
+}
+
+
+#signInTab ul {
+    padding: 0px;
+}
+
+#signInTab ul li {
+    margin: 5px;
+	  list-style: none;
+	  text-align: left;
+    font-size: medium;
+    color: #252627;
+}
+
+.signInInput {
+    margin-bottom: 20px;
+    width: 90%;
+    border: none;
+    border-bottom: 1px solid #252627;
+    background-color: #FEF9FB;
+}
+
+.signInButton {
+    width: 92%;
+    background-color: #252627;
+    color: #FEF9FB;
+    border-width: 10px;
+    border-color: #252627;
+    /*border-style: solid;*/ /*this removes the shaddow from the button*/
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +142,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
