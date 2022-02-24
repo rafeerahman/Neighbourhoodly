@@ -1,26 +1,25 @@
 import React from 'react';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
-import InfoBar from './InfoBar';
-import Sidebar from './Sidebar';
-import SignInTab from './SignInTab';
+import Register from './Register';
+import LogIn from './LogIn';
 class App extends React.Component {
 
   render() {
     
     return (
-      <div>
+      <BrowserRouter>
+      
+        <Switch>
+          <Route exact path = "/" 
+            render={() => (<Register/>)}
+          />
+          <Route exact path = "/LogIn"
+            render={() => (<LogIn/>)}
+          />
+        </Switch>
 
-        <Sidebar  tab1="About Us" ref1=""
-                  tab2="Neighbourhoods" ref2=""
-                  tab3="Rankings" ref3=""
-                  tab4="Login" ref4=""
-        />
-
-        <InfoBar />
-
-        <SignInTab SignInType="Register"/>
-
-      </div>
+      </BrowserRouter>
     )
     
   }
