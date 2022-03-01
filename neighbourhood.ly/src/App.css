@@ -1,7 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+}
+
+
 body {
 	background-color: #FEF9FB;
 	margin: 0;
-	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-family: 'Inter', sans-serif;
 }
 
 a {
@@ -12,24 +21,24 @@ a {
 #sidebar {
 	  padding: 5px;
 	  background-color: #252627;
-    height: 100%;
+    height: 100vh;
     width: 250px;
-    position:fixed;
+    position: fixed;
+    z-index: 1;  
 
 }
 
 #sidebar ul {
   	/* margin-top: 100%;
     padding: 0px; */
-    position: absolute;
-    top: 45%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    position: relative;
+    top: 25%;
+    
+    
 }
 
 #sidebar ul li {
-    margin-top: 50px;
-    font-weight: bold;
+    margin-bottom: 50px;
 	  list-style: none;
 	  text-align: center;
     font-size: x-large;
@@ -39,11 +48,19 @@ a {
 #infoBar {
     margin-left: 350px;
     width: 35%;
-
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+.sidebar {
+  left: -100%;
+  transition: all 0.5s;
+}
+
+.sidebar.active {
+  left: 0;
 }
 
 .title {

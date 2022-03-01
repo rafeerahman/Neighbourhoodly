@@ -14,6 +14,7 @@ class SignIn extends React.Component {
                       tab2="Neighbourhoods"
                       tab3="Rankings"
                       tab4="Register"
+                      showMenu={true}
             />
     
             <InfoBar />

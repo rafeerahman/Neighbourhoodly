@@ -14,6 +14,7 @@ class Register extends React.Component {
                       tab2="Neighbourhoods"
                       tab3="Rankings"
                       tab4="Login"
+                      showMenu={true}
             />
     
             <InfoBar />
