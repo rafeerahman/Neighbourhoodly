@@ -10,6 +10,7 @@ class SignInTab extends React.Component {
         username: "",
         password: "",
         retypePassword: "",
+        // code below requires server call
         users: [
             {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
             {name: "user", password: "user", email: "user@user.com", type: "user"}
@@ -31,13 +32,9 @@ class SignInTab extends React.Component {
 
         // Check if username is in the list and then check if password matches the user that is saved
         const validUser = users.find(user => user.email === this.state.email)
-        if (validUser === undefined) {
+        if (validUser === undefined || validUser.password !== this.state.password) {
             // WIP
             return 
-        }
-        if (validUser.password !== this.state.password) {
-            // WIP
-            return
         }
         if (validUser.type === "admin") {
             // user is an admin
