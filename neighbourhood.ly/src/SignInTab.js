@@ -11,7 +11,8 @@ class SignInTab extends React.Component {
         password: "",
         retypePassword: "",
         users: [
-            {name: "admin", password: "admin", email: "admin@admin.com"}
+            {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
+            {name: "user", password: "user", email: "user@user.com", type: "user"}
         ]
     }
 
@@ -22,6 +23,27 @@ class SignInTab extends React.Component {
         this.setState({
             [name]: value
         })
+    }
+
+    checkLogin = () => {
+        console.log("Login check")
+        const users = this.state.users
+
+        // Check if username is in the list and then check if password matches the user that is saved
+        const validUser = users.find(user => user.email === this.state.email)
+        if (validUser === undefined) {
+            // WIP
+            return 
+        }
+        if (validUser.password !== this.state.password) {
+            // WIP
+            return
+        }
+        if (validUser.type === "admin") {
+            // user is an admin
+        }
+        console.log("Successfully logged in")
+
     }
 
     render() {
@@ -90,7 +112,8 @@ class SignInTab extends React.Component {
                                 name="password"
                                 className="signInInput" 
                                 type="text"/></li>
-                    <li><input  className="signInButton" 
+                    <li><input  className="signInButton"
+                                onClick={ this.checkLogin } 
                                 type="submit" 
                                 value="Log In"/></li>
                 </ul>
