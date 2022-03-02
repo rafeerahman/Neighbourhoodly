@@ -6,12 +6,29 @@ import UserReview from '../components/UserReview';
 import UserReviewForm from '../components/UserReviewForm';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import pickachuAvatar from '../images/pickachuAvatar.png'
 
 export class NeighbourhoodPage extends Component {
+  state = {
+    currentUser: "change later", // User will probably have avatar property and name, so get from there if they post a review.
+    allDbReviews: [
+      {
+        user: "Bob Sally",
+        avatar: pickachuAvatar,
+        reviewTitle: "Lots of things to do",
+        date: "2022/03/01",
+        starRating: 4,
+        reviewBody: "This neighbourhood felt very safe and I liked it."
+      }
+    ]
+  }
+
   render() {
 
     const {name, safetyScore, avgUserRating} = this.props
-    
+    console.log("Hello from neighb page")
+    console.log(this.state.allDbReviews)
+
     // Going to reorganize into components later.
     return (
       <div>
@@ -39,11 +56,21 @@ export class NeighbourhoodPage extends Component {
           <div className='bottom-content'>
             <UserReviewsStyled className="userReviews">
               <SearchBar className="searchBar"/>
-              <UserReview/>
+              {this.state.allDbReviews.map((review) => {
+                return (
+                  <UserReview 
+                    user={review.user} 
+                    avatar={review.avatar} 
+                    title={review.reviewTitle}
+                    body = {review.reviewBody}
+                    date = {review.date}
+                    rating = {review.starRating} />
+                )
+              })}
             </UserReviewsStyled>
               
             <ReviewFormStyled className="reviewForm">
-                <UserReviewForm/>
+                <UserReviewForm neighbourhoodPage={this}/>
             </ReviewFormStyled>
           </div>
         </NeighbourhoodPageStyled>
@@ -55,34 +82,43 @@ export class NeighbourhoodPage extends Component {
 const ReviewFormStyled = styled.div`
   position: relative;
   margin-top: 20px;
-  margin-left: 40px;
-  float: left; 
-  height: 730px;
-  padding: 50px;
+  margin-left: 10px;
+  height: 700px;
+  padding: 30px;
   background-color: #EBEBEB;
+  float: left;
 `
 
 const UserReviewsStyled = styled.div`
-  position: relative;
   float: left;
-  width: 1200px;
-  height: 730px;
-  padding-top: 40px;
-  padding-left: 40px;
+  position: relative;
+  width: 1000px;
+  padding: 40px;
   margin-top: 20px;
   background-color: #EBEBEB;
   
 `
 const NeighbourhoodPageStyled = styled.div`
   position: relative;
-  float: left;
-  margin-top: 80px;
-  margin-left: 80px;
-  .bottom-content {}
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  padding-top: 40px;
+  margin-left: 40px;
+ 
+
+  .bottom-content {
+    
+  }
+
   .header-content {
+    margin-right: 40px;
+    max-width: 250px;
+    overflow: auto;
     .title {
       font-size: 48px;
       margin-bottom: 20px;
+      text-align: center;
     }
     .icon {
       font-size: 48px;
@@ -96,7 +132,10 @@ const NeighbourhoodPageStyled = styled.div`
       margin-bottom: 20px;
     }
     ul li {
-      display: inline-flex;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
       align-items: center;
       margin-right: 30px;
     }

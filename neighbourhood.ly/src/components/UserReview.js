@@ -1,24 +1,26 @@
 import React, { Component } from 'react'
-import pickachuAvatar from '../images/pickachuAvatar.png'
 import StarIcon from '@mui/icons-material/Star';
 import styled from 'styled-components';
 
 export default class UserReview extends Component {
   render() {
+
+    const {user, avatar, title, body, date, rating} = this.props
+
     return (
     <UserReviewStyled className="userReview">
         <Left className="left">
-            <p>Bob Sally</p>
-            <img src={pickachuAvatar}/>
+        <img src={avatar}/>
+            <p>{user}</p>
         </Left>
         <Right className="right-content">
-          <h3>Review title</h3>
-          <p>Date: 2022/03/01</p>
-          <StarIcon/>
-          <StarIcon/>
-          <StarIcon/>
+          <h3>{title}</h3>
+          <p>{date}</p>
+          {[...Array(rating)].map(iterate => {
+            return <StarIcon/>
+          })}
           <div className="review-content">
-            <p>What a great neighbourhood!</p>
+            <p>{body}</p>
           </div>
         </Right>
     </UserReviewStyled>
@@ -35,13 +37,21 @@ const UserReviewStyled = styled.div`
 const Left = styled.div`
     font-size: 28px;
     font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 125px;
+    overflow-wrap: break-word;
     text-align: center;
+    
     
     img {
         height: 100px;
         width: 100px;
         border-radius: 50%;
         border: 1px solid black;
+        
     }
 `
 

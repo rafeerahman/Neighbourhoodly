@@ -24,8 +24,9 @@ export default class NeighbourhoodListPage extends Component {
 
 const NeighbourhoodContainer = styled.div`
     float: left;
-    margin: 120px;
-
+    position: relative;
+    margin: 5% 0 0 10%;
+    
     h1 {
         font-size: 36px;
         font-weight: 500;

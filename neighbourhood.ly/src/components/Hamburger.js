@@ -18,7 +18,7 @@ export class Hamburger extends Component {
 
   render() {
     return (
-        <div>
+        <Menu>
            {this.state.showSidebar ? 
               <MenuBtnStyled onClick={this.toggleSidebar}>
                 <CloseIcon className="close"/>
@@ -38,16 +38,18 @@ export class Hamburger extends Component {
                 tab4="Home" 
                 showMenu={this.state.showSidebar}/>
             
-        </div>
+        </Menu>
     )
   }
 }
 
+const Menu = styled.div`
+  position: absolute;
+`
 const MenuBtnStyled = styled.button`
-    position: relative;
+    position: absolute;
     background-color: transparent;
     border: none;
-    float: left;
     z-index: 999;
     cursor: pointer;
 
