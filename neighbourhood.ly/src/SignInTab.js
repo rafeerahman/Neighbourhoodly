@@ -6,6 +6,7 @@ import './App.css';
 class SignInTab extends React.Component {
 
     state = {
+        showFailedLogin: false,
         email: "",
         username: "",
         password: "",
@@ -26,28 +27,38 @@ class SignInTab extends React.Component {
         })
     }
 
-    checkLogin = () => {
+    checkLogin = (props) => {
         console.log("Login check")
         const users = this.state.users
 
         // Check if username is in the list and then check if password matches the user that is saved
         const validUser = users.find(user => user.email === this.state.email)
         if (validUser === undefined || validUser.password !== this.state.password) {
-            // WIP
-            return 
+            if (!this.state.showFailedLogin) {
+                this.toggleLoginCheck()
+            }
+            return
         }
         if (validUser.type === "admin") {
             // user is an admin
         }
         console.log("Successfully logged in")
+        
+        
 
+    }
+
+    toggleLoginCheck = () => {
+        this.setState({
+            showFailedLogin: !this.state.showFailedLogin
+        })
     }
 
     render() {
 
         const {SignInType} = this.props
         
-        if (SignInType == "Register"){
+        if (SignInType === "Register"){
             return (
                 <div id="signInTab">
                 <div className='signInTabHeader'>
@@ -90,7 +101,7 @@ class SignInTab extends React.Component {
             )
         }
         
-        if (SignInType == "LogIn"){
+        if (SignInType === "LogIn"){
             return (
                 <div id="signInTab">
                 <div className='signInTabHeader'>
@@ -110,14 +121,17 @@ class SignInTab extends React.Component {
                                 className="signInInput" 
                                 type="text"/></li>
                     <li><input  className="signInButton"
+                                defaultChecked={this.state.showFailedLogin}
                                 onClick={ this.checkLogin } 
                                 type="submit" 
                                 value="Log In"/></li>
+                    {
+                        this.state.showFailedLogin ? <li>Invalid email or password</li> : null
+                    }
                 </ul>
                 </div>
             )
         }
-
     }
 }
 
