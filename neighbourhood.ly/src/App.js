@@ -6,6 +6,7 @@ import LogIn from './pages/homePages/LogIn';
 import NeighbourhoodListPage from './pages/NeighbourhoodListPage';
 import NeighbourhoodPage from './pages/NeighbourhoodPage';
 import UserHome from './pages/homePages/UserHome';
+import Rankings from './pages/Rankings';
 
 class App extends React.Component {
   state = {
@@ -63,6 +64,10 @@ class App extends React.Component {
 
           <Route exact path = "/Neighbourhoods"
             render={() => (<NeighbourhoodListPage data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler}/>)}
+          />
+
+          <Route exact path = "/Rankings"
+            render={() => (<Rankings data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler}/>)}
           />
 
           {neighbourhoods.map((neighbourhood) => (
