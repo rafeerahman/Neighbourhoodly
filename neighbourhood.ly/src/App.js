@@ -8,7 +8,18 @@ import NeighbourhoodPage from './pages/NeighbourhoodPage';
 
 class App extends React.Component {
 
+  state = {
+    loggedIn: false
+  }
+
+  logInHandler = () => {
+    this.setState({
+        loggedIn: !this.setState.loggedIn
+    })
+}
+
   render() {
+
     const neighbourhoods = [
       {
         title: "Yonge-St Clair",
@@ -22,18 +33,19 @@ class App extends React.Component {
       }
     ]
     
+    
     return (
       <BrowserRouter>
       
         <Switch>
           <Route exact path = "/" 
-            render={() => (<Register/>)}
+            render={() => (<Register appState={ this.state } logInHandler={this.logInHandler}/>)}
           />
           <Route exact path = "/LogIn"
-            render={() => (<LogIn/>)}
+            render={() => (<LogIn appState={ this.state } logInHandler={this.logInHandler}/>)}
           />
           <Route exact path = "/Neighbourhoods"
-            render={() => (<NeighbourhoodListPage data={neighbourhoods}/>)}
+            render={() => (<NeighbourhoodListPage data={neighbourhoods} appState={ this.state } logInHandler={this.logInHandler}/>)}
           />
 
           {neighbourhoods.map((neighbourhood) => (

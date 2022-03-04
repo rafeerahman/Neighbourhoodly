@@ -29,7 +29,7 @@ class SignInTab extends React.Component {
         })
     }
 
-    checkLogin = (props) => {
+    checkLogin = () => {
         console.log("Login check")
         const users = this.state.users
 
@@ -47,6 +47,7 @@ class SignInTab extends React.Component {
             // user is an admin
         }
         console.log("Successfully logged in")
+        this.props.updateLogin()
 
     }
 

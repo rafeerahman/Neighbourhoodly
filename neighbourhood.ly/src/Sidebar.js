@@ -14,7 +14,7 @@ class Sidebar extends React.Component {
                 showMenu,        
             } = this.props
         
-      if (SignInType == "Register"){
+      if (SignInType === "Register"){
         return (
           <div id="sidebar" className = {showMenu ? "sidebar active" : "sidebar"}>
             <ul>
@@ -26,7 +26,19 @@ class Sidebar extends React.Component {
           </div>
         )
       }
-      if (SignInType == "LogIn"){
+      if (SignInType === "LogIn"){
+        return (
+          <div id="sidebar">
+            <ul>
+              <li><a href="">{tab1}</a></li>
+              <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
+              <li><a href="">{tab3}</a></li>
+              <li><Link to={'/'}><a href="">{tab4}</a></Link></li>
+            </ul>
+          </div>
+        )
+      }
+      if (SignInType === "MainMenu"){
         return (
           <div id="sidebar">
             <ul>
