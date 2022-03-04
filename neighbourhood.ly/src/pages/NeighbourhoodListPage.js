@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Hamburger from '../components/Hamburger'
 import NeighbourhoodList from '../components/NeighbourhoodList'
+import Sidebar from '../components/Sidebar'
 
 
 export default class NeighbourhoodListPage extends Component {
@@ -11,7 +12,14 @@ export default class NeighbourhoodListPage extends Component {
 
     return (
         <div>
-            <Hamburger isLoggedIn={isLoggedIn}/>
+            {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
+            <Sidebar className="sidebar" 
+                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
+                tab1="About Us"
+                tab2="Neighbourhoods"
+                tab3="Rankings"
+                tab4="Home" 
+                showMenu={true}/>
             <NeighbourhoodContainer> 
                 <h1>Select a neighbourhood</h1>
                 <NeighbourhoodList neighbourhoods={data}/>
@@ -26,6 +34,7 @@ const NeighbourhoodContainer = styled.div`
     float: left;
     position: relative;
     margin: 5% 0 0 10%;
+    margin-left: 320px;
     
     h1 {
         font-size: 36px;

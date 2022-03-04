@@ -35,7 +35,7 @@ export class NeighbourhoodPage extends Component {
       <div>
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
          <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "Register"}
+                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"

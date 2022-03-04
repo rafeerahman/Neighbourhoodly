@@ -15,7 +15,7 @@ class SignIn extends React.Component {
 
         return (
             <div>
-            {
+            {   // Probably dont need some of this anymore
                 this.props.appState.loggedIn ? 
                 <><Sidebar SignInType="MainMenu"
                             tab1="About Us"
