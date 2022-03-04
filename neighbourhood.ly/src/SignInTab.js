@@ -4,6 +4,9 @@ import './App.css';
 // still need to add functionality to the register button
 // so that it adds users to the state
 class SignInTab extends React.Component {
+    constructor (props) {
+        super(props)
+    }
 
     state = {
         showFailedLogin: false,
@@ -33,17 +36,26 @@ class SignInTab extends React.Component {
 
         // Check if username is in the list and then check if password matches the user that is saved
         const validUser = users.find(user => user.email === this.state.email)
+
         if (validUser === undefined || validUser.password !== this.state.password) {
             if (!this.state.showFailedLogin) {
                 this.toggleLoginCheck()
             }
             return
         }
+
         if (validUser.type === "admin") {
             // user is an admin
+            // Changing isLoggedInState
+            if (this.state.showFailedLogin === true) {
+                this.toggleLoginCheck()
+                this.props.appState.setLoggedInTrue()  // Setting isLoggedIn to true.
+                console.log(this.props.appState.state.isLoggedIn)
+            }  
         }
-        console.log("Successfully logged in")
         
+        console.log("Successfully logged in")
+        return true       
         
 
     }
@@ -56,8 +68,10 @@ class SignInTab extends React.Component {
 
     render() {
 
-        const {SignInType} = this.props
+        const {SignInType, appState} = this.props
         
+        
+
         if (SignInType === "Register"){
             return (
                 <div id="signInTab">
@@ -120,13 +134,13 @@ class SignInTab extends React.Component {
                                 name="password"
                                 className="signInInput" 
                                 type="text"/></li>
-                    <li><input  className="signInButton"
+                    <li><input className="signInButton"
                                 defaultChecked={this.state.showFailedLogin}
                                 onClick={ this.checkLogin } 
                                 type="submit" 
                                 value="Log In"/></li>
                     {
-                        this.state.showFailedLogin ? <li>Invalid email or password</li> : null
+                        this.state.showFailedLogin ? <li>Invalid email or password</li> : console.log('Logged in')
                     }
                 </ul>
                 </div>

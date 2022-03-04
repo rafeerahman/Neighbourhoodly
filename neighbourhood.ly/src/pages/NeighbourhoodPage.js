@@ -137,7 +137,6 @@ const NeighbourhoodPageStyled = styled.div`
       justify-content: center;
       text-align: center;
       align-items: center;
-      margin-right: 30px;
     }
   }
 `

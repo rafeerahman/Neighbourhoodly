@@ -5,10 +5,16 @@ import Sidebar from './Sidebar';
 import SignInTab from './SignInTab';
 
 class SignIn extends React.Component {
+
+
     render() {
+        const {appState} = this.props
+
+        console.log(appState.state.isLoggedIn);
+
         return (
             <div>
-
+                
             <Sidebar  SignInType="LogIn"
                       tab1="About Us"
                       tab2="Neighbourhoods"
@@ -19,7 +25,7 @@ class SignIn extends React.Component {
     
             <InfoBar />
     
-            <SignInTab SignInType="LogIn"/>
+            <SignInTab SignInType="LogIn" appState={appState}/>
     
           </div>
         )
