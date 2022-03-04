@@ -10,6 +10,8 @@ class SignInTab extends React.Component {
 
     state = {
         showFailedLogin: false,
+        showFailedPassword: false,
+        showExistingUser: false,
         email: "",
         username: "",
         password: "",
@@ -30,7 +32,7 @@ class SignInTab extends React.Component {
         })
     }
 
-    checkLogin = (props) => {
+    checkLogin = () => {
         console.log("Login check")
         const users = this.state.users
 
@@ -39,7 +41,9 @@ class SignInTab extends React.Component {
 
         if (validUser === undefined || validUser.password !== this.state.password) {
             if (!this.state.showFailedLogin) {
-                this.toggleLoginCheck()
+                this.setState({
+                    showFailedLogin: !this.state.showFailedLogin
+                })
             }
             return
         }
@@ -53,18 +57,49 @@ class SignInTab extends React.Component {
                 console.log(this.props.appState.state.isLoggedIn)
             }  
         }
-        
         console.log("Successfully logged in")
-        return true       
-        
+        this.props.updateLogin()
 
     }
 
-    toggleLoginCheck = () => {
+    checkSignUp = () => {
+        console.log("Sign Up check")
+        const users = this.state.users
+
+        if (this.state.password !== this.state.retypePassword) {
+            if (!this.state.showFailedPassword) {
+                this.setState({
+                    showFailedPassword: !this.state.showFailedPassword
+                })
+            }
+            return
+        }
+
+        if (users.some(user => user.email === this.state.email)) {
+            if (!this.state.showExistingUser) {
+                this.setState({
+                    showExistingUser: !this.state.showExistingUser
+                })
+            }
+            return
+        }
+
+        const newUser = {
+            name: this.state.username,
+            password: this.state.password,
+            email: this.state.password,
+            type: this.state.type
+        }
+
+        users.push(newUser)
+
         this.setState({
-            showFailedLogin: !this.state.showFailedLogin
+            users: users
         })
+        console.log("Successfully Signed Up!")
+
     }
+
 
     render() {
 
@@ -108,6 +143,7 @@ class SignInTab extends React.Component {
                                 type="text"/></li>
                     
                     <li><input  className="signInButton"
+                                onClick={ this.checkSignUp} 
                                 type="submit" 
                                 value="Register"/></li>
                 </ul>
