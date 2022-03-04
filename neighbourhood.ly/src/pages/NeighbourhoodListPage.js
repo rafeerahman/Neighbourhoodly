@@ -7,11 +7,11 @@ import NeighbourhoodList from '../components/NeighbourhoodList'
 export default class NeighbourhoodListPage extends Component {
 
   render() {
-    const {data} = this.props
+    const {data, isLoggedIn} = this.props
 
     return (
         <div>
-            <Hamburger/>
+            <Hamburger isLoggedIn={isLoggedIn}/>
             <NeighbourhoodContainer> 
                 <h1>Select a neighbourhood</h1>
                 <NeighbourhoodList neighbourhoods={data}/>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import styled from 'styled-components'
-import Sidebar from '../Sidebar';
+import Sidebar from './Sidebar';
 import CloseIcon from '@mui/icons-material/Close';
 
 export class Hamburger extends Component {
@@ -17,6 +17,8 @@ export class Hamburger extends Component {
   }
 
   render() {
+    const {isLoggedIn} = this.props
+
     return (
         <Menu>
            {this.state.showSidebar ? 
@@ -31,7 +33,7 @@ export class Hamburger extends Component {
 
             
               <Sidebar className="sidebar" 
-                SignInType="Register"
+                SignInType={isLoggedIn() ? "MainMenu" : "Register"}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"

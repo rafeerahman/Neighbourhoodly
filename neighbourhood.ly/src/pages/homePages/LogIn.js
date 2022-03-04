@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.css';
-import InfoBar from './InfoBar';
-import Sidebar from './Sidebar';
-import SignInTab from './SignInTab';
+import '../../App.css';
+import InfoBar from '../../components/InfoBar';
+import Sidebar from '../../components/Sidebar';
+import SignInTab from '../../components/SignInComponents/SignInTab';
 
 class SignIn extends React.Component {
 
@@ -11,6 +11,7 @@ class SignIn extends React.Component {
     }
 
     render() {
+        const {users} = this.props
 
         return (
             <div>
@@ -28,7 +29,7 @@ class SignIn extends React.Component {
                             tab3="Rankings"
                             tab4="Register"
                             showMenu={true} /><InfoBar />
-                <SignInTab SignInType="LogIn" updateLogin={this.updateLogin}/></>
+                <SignInTab users={users} SignInType="LogIn" isLoggedIn={this.props.isLoggedIn} updateLogin={this.updateLogin}/></>
             }
           </div>
         )

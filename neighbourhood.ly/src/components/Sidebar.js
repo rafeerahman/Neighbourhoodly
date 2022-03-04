@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import './App.css';
+import '../App.css';
 
 class Sidebar extends React.Component {
     render() {
       const {   SignInType,
+                handleLogout, // From userhome.js
                 tab1,
                 tab2,
                 tab3,
@@ -28,7 +29,7 @@ class Sidebar extends React.Component {
       }
       if (SignInType === "LogIn"){
         return (
-          <div id="sidebar">
+          <div id="sidebar" className = {showMenu ? "sidebar active" : "sidebar"}>
             <ul>
               <li><a href="">{tab1}</a></li>
               <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
@@ -40,12 +41,13 @@ class Sidebar extends React.Component {
       }
       if (SignInType === "MainMenu"){
         return (
-          <div id="sidebar">
+          <div id="sidebar" className = {showMenu ? "sidebar active" : "sidebar"}>
             <ul>
               <li><a href="">{tab1}</a></li>
               <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
               <li><a href="">{tab3}</a></li>
               <li><Link to={'/'}><a href="">{tab4}</a></Link></li>
+              <li><Link onClick={handleLogout} to={'/'}>{tab5}</Link></li>
             </ul>
           </div>
         )

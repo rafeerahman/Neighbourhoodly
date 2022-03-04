@@ -7,6 +7,7 @@ import UserReviewForm from '../components/UserReviewForm';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import pickachuAvatar from '../images/pickachuAvatar.png'
+import Sidebar from '../components/Sidebar';
 
 export class NeighbourhoodPage extends Component {
   state = {
@@ -25,14 +26,21 @@ export class NeighbourhoodPage extends Component {
 
   render() {
 
-    const {name, safetyScore, avgUserRating} = this.props
+    const {name, safetyScore, avgUserRating, isLoggedIn} = this.props
     console.log("Hello from neighb page")
     console.log(this.state.allDbReviews)
 
     // Going to reorganize into components later.
     return (
       <div>
-         <Hamburger/>
+         {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
+         <Sidebar className="sidebar" 
+                SignInType={isLoggedIn() ? "MainMenu" : "Register"}
+                tab1="About Us"
+                tab2="Neighbourhoods"
+                tab3="Rankings"
+                tab4="Home" 
+                showMenu={true}/>
          <NeighbourhoodPageStyled>
           <div className="header-content">
             <h1 className="title">{name}</h1>
@@ -114,7 +122,9 @@ const NeighbourhoodPageStyled = styled.div`
   .header-content {
     margin-right: 40px;
     max-width: 250px;
+    margin-left: 250px;
     overflow: auto;
+    
     .title {
       font-size: 48px;
       margin-bottom: 20px;

@@ -1,11 +1,13 @@
 import React from 'react';
-import './App.css';
-import InfoBar from './InfoBar';
-import Sidebar from './Sidebar';
-import SignInTab from './SignInTab';
+import '../../App.css';
+import InfoBar from '../../components/InfoBar';
+import Sidebar from '../../components/Sidebar';
+import SignInTab from '../../components/SignInComponents/SignInTab';
 
 class Register extends React.Component {
     render() {
+        const {users} = this.props
+
         return (
             <div>
 
@@ -20,7 +22,7 @@ class Register extends React.Component {
             <InfoBar />
     
             {/* If this.state.loggedIn , <SignInTab SignInType="Profile"/> */}
-            <SignInTab SignInType="Register"/>
+            <SignInTab users={users} SignInType="Register" isLoggedIn={this.props.isLoggedIn}/>
     
           </div>
         )
