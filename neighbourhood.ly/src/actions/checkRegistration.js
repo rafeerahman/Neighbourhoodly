@@ -30,7 +30,7 @@ export const checkRegistration = (SignInTab) => {
     const newUser = {
         name: SignInTab.state.username,
         password: SignInTab.state.password,
-        email: SignInTab.state.password,
+        email: SignInTab.state.email,
         type: SignInTab.state.type
     }
 
