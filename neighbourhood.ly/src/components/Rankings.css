@@ -1,0 +1,70 @@
+/* table{
+	border-collapse: collapse;
+	border: 0px;
+    border-bottom: 1px solid #928787;
+} */
+
+th {
+	border-collapse: collapse;
+	border: 0px;
+    border-bottom: 1px solid #928787;
+    font-size: 20px;
+    text-align: left;
+    padding: 10px;
+    padding-right: 30px;
+    padding-top: 40px;
+}
+
+td {
+	border-collapse: collapse;
+	border: 0px;
+    border-bottom: 1px solid #928787;
+    font-size: 20px;
+    text-align: left;
+    padding: 10px;
+    padding-right: 30px;
+}
+
+button {
+    font-size: 16px;
+    width: 150px;
+    height: 50px;
+    background-color: #252627;
+    color: #EBEBEB;
+    border-width: 10px;
+    border-color: #252627;
+    vertical-align: middle;
+}
+
+.RankingContainer {
+    float: left;
+    position: relative;
+    margin: 5% 0 0 10%;
+    margin-left: 320px;
+}
+
+.RankingContainer ul li {
+    margin: 30px;
+    display: inline-block;
+}
+
+.sortBar {
+    position: absolute;
+    left: 110%;
+    top: 15%;
+
+    width: 29%;
+    height: 380px;
+    background: #EBEBEB;
+}
+
+.sortBar ul {
+    margin-top: 25px;
+    vertical-align: middle;    
+}
+
+.sortBar ul li {
+    margin: 10px;
+    margin-left: 30px;
+    display: block;
+}
