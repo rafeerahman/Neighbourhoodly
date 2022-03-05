@@ -9,19 +9,20 @@ import SortBar from '../components/SortBar'
 import '../components/Rankings.css'
 
 export class Rankings extends Component {
+    // Not currently working properly
     render(){
-        const {data, isLoggedIn} = this.props
+        const {data, isLoggedIn, isAdmin} = this.props
         return(
             <div>
 
                 <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
+                handleAdmin={isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
                 tab4="Home" 
                 showMenu={true}/>
-                
 
                 <div className='RankingContainer'>
                     <ul>

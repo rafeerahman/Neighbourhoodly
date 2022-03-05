@@ -6,6 +6,7 @@ class Sidebar extends React.Component {
     render() {
       const {   SignInType,
                 handleLogout, // From userhome.js
+                handleAdmin,
                 tab1,
                 tab2,
                 tab3,
@@ -47,7 +48,10 @@ class Sidebar extends React.Component {
               <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
               <li><Link to={"/Rankings"}><a href="">{tab3}</a></Link></li>
               <li><Link to={'/'}><a href="">{tab4}</a></Link></li>
-              <li><Link onClick={handleLogout} to={'/'}>{tab5}</Link></li>
+              {
+                handleAdmin() ? <li><Link to={'/AdminDashboard'}><a href="">{tab5}</a></Link></li> : null
+              }
+              <li><Link onClick={handleLogout} to={'/'}>{tab6}</Link></li>
             </ul>
           </div>
         )

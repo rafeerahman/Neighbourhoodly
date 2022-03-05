@@ -11,7 +11,6 @@ class LogInForm extends Component {
         e.preventDefault()
         await checkLogin(this.props.SignInState)
 
-        console.log(this.props.SignInState.props.isLoggedIn())
         if (this.props.SignInState.props.isLoggedIn()) {
             this.props.history.push('/')
         }
