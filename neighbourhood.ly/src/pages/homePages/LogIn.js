@@ -6,8 +6,9 @@ import SignInTab from '../../components/SignInComponents/SignInTab';
 
 class SignIn extends React.Component {
 
-    updateLogin = () => {
-        this.props.logInHandler()
+    updateLogin = (admin) => {
+        this.props.logInHandler(admin)
+
     }
 
     render() {
@@ -15,14 +16,6 @@ class SignIn extends React.Component {
 
         return (
             <div>
-            {   // Probably dont need some of this anymore
-                this.props.appState.loggedIn ? 
-                <><Sidebar SignInType="MainMenu"
-                            tab1="About Us"
-                            tab2="Neighbourhoods"
-                            tab3="Rankings"
-                            tab4="Register"
-                            showMenu={true} /><InfoBar /></> : 
                 <><Sidebar SignInType="LogIn"
                             tab1="About Us"
                             tab2="Neighbourhoods"
@@ -30,7 +23,6 @@ class SignIn extends React.Component {
                             tab4="Register"
                             showMenu={true} /><InfoBar />
                 <SignInTab users={users} SignInType="LogIn" isLoggedIn={this.props.isLoggedIn} updateLogin={this.updateLogin}/></>
-            }
           </div>
         )
     }

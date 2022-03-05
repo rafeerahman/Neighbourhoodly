@@ -4,11 +4,9 @@ export const checkLogin = (signInTab) => {
     const users = signInTab.state.users
 
     // Check if username is in the list and then check if password matches the user that is saved
-    console.log(users)
     const validUser = users.find(user => user.email === signInTab.state.email)
 
     if (validUser === undefined || validUser.password !== signInTab.state.password) {
-        console.log(validUser)
         if (!signInTab.state.showFailedLogin) {
             signInTab.setState({
                 showFailedLogin: !signInTab.state.showFailedLogin
@@ -17,12 +15,11 @@ export const checkLogin = (signInTab) => {
         }
         return
     }
+    console.log("Successfully logged in")
     if (validUser.type === "admin") {
         // user is an admin
-        if (signInTab.state.showFailedLogin === true) {
-            
-        }  
+        signInTab.props.updateLogin(true)
+        return
     }
-    console.log("Successfully logged in")
-    signInTab.props.updateLogin()
+    signInTab.props.updateLogin(false)
 };

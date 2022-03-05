@@ -3,8 +3,7 @@ import '../../App.css';
 import RegistrationForm from './RegistrationForm';
 import LogInForm from './LogInForm';
 
-// still need to add functionality to the register button
-// so that it adds users to the state
+
 class SignInTab extends React.Component {
     constructor (props) {
         super(props)
