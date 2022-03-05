@@ -17,13 +17,13 @@ class SignIn extends React.Component {
 
         return (
             <div>
-                <><Sidebar SignInType="LogIn"
+                <Sidebar SignInType="LogIn"
                             tab1="About Us"
                             tab2="Neighbourhoods"
                             tab3="Rankings"
                             tab4="Register"
                             showMenu={true} /><InfoBar />
-                <SignInTab users={users} SignInType="LogIn" isLoggedIn={this.props.isLoggedIn} updateLogin={this.updateLogin}/></>
+                <SignInTab users={users} SignInType="LogIn" isLoggedIn={this.props.isLoggedIn} updateLogin={this.updateLogin}/>
           </div>
         )
     }

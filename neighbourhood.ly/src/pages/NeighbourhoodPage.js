@@ -26,7 +26,7 @@ export class NeighbourhoodPage extends Component {
 
   render() {
 
-    const {name, safetyScore, avgUserRating, isLoggedIn} = this.props
+    const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin} = this.props
     console.log("Hello from neighb page")
     console.log(this.state.allDbReviews)
 
@@ -36,6 +36,7 @@ export class NeighbourhoodPage extends Component {
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
          <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
+                handleAdmin={isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"

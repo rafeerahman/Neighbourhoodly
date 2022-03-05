@@ -3,15 +3,17 @@ import NeighbourhoodList from '../components/NeighbourhoodList'
 import Sidebar from '../components/Sidebar'
 
 export class Rankings extends Component {
+    // Not currently working properly
     render(){
-        const {data, isLoggedIn} = this.props
+        const {data, isLoggedIn, isAdmin} = this.props
         return(
             <Sidebar className="sidebar" 
             SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
+            handleAdmin={isAdmin}
             tab1="About Us"
             tab2="Neighbourhoods"
-            tab3="Rankings"
-            tab4="Home" 
+            tab3="Home"
+            tab4="Profile"
             showMenu={true}/>
         )
     }

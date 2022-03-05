@@ -87,7 +87,7 @@ class App extends React.Component {
           />
 
           <Route exact path = "/Rankings"
-            render={() => (<Rankings data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler}/>)}
+            render={() => (<Rankings data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
           />
 
           {neighbourhoods.map((neighbourhood) => (
