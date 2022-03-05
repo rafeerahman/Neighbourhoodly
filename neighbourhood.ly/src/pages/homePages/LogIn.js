@@ -6,8 +6,9 @@ import SignInTab from '../../components/SignInComponents/SignInTab';
 
 class SignIn extends React.Component {
 
-    updateLogin = (admin) => {
-        this.props.logInHandler(admin)
+    updateLogin = (updatedEmail, isAdmin) => {
+        this.props.logInHandler(updatedEmail, isAdmin)
+        
 
     }
 

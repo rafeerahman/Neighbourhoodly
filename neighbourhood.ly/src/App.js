@@ -11,21 +11,28 @@ import Rankings from './pages/Rankings';
 class App extends React.Component {
   state = {
     loggedIn: false,
-    admin: false
+    admin: false,
+    userEmail: ""
   }
 
-  logInHandler = (isAdmin) => {
-    if (typeof isAdmin != "boolean") {
-      isAdmin = false
-    }
-    if (isAdmin || this.state.admin) {
+  logInHandler = (updatedEmail, isAdmin) => {
+    if (isAdmin) {
       this.setState({
-        admin: !this.state.admin   // setState is async, becareful when debugging
-      }, () => {console.log("admin changed: " + this.state.admin)})
+        admin: true
+      })
     }
     this.setState({
-      loggedIn: !this.state.loggedIn   // setState is async, becareful when debugging
-    }, () => {console.log("loggedIn changed: " + this.state.loggedIn)})
+      loggedIn: true,
+      userEmail: updatedEmail
+    })
+  }
+
+  logoutHandler = () => {
+    this.setState({
+      admin: false,
+      loggedIn: false,
+      userEmail: ""
+    })
   }
 
   isLoggedIn = () => (
@@ -63,7 +70,7 @@ class App extends React.Component {
         <Switch>
           { this.state.loggedIn ? 
             <Route exact path = "/" 
-              render={() => (<UserHome appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler}/>)}
+              render={() => (<UserHome appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler} logoutHandler={this.logoutHandler}/>)}
             /> :
             <Route exact path = "/" 
               render={() => (<Register users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler}/>)}
@@ -72,7 +79,7 @@ class App extends React.Component {
           }
 
           <Route exact path = "/LogIn"
-            render={() => (<LogIn users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler}/>)}
+            render={() => (<LogIn users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler} logoutHandler={this.logoutHandler}/>)}
           />
 
           <Route exact path = "/Neighbourhoods"
