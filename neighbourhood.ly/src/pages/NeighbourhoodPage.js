@@ -8,27 +8,13 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import pickachuAvatar from '../images/pickachuAvatar.png'
 import Sidebar from '../components/Sidebar';
+import { uid } from 'react-uid';
 
 export class NeighbourhoodPage extends Component {
-  state = {
-    currentUser: "change later", // User will probably have avatar property and name, so get from there if they post a review.
-    allDbReviews: [
-      {
-        user: "Bob Sally",
-        avatar: pickachuAvatar,
-        reviewTitle: "Lots of things to do",
-        date: "2022/03/01",
-        starRating: 4,
-        reviewBody: "This neighbourhood felt very safe and I liked it."
-      }
-    ]
-  }
-
   render() {
 
-    const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin} = this.props
+    const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin, reviews} = this.props
     console.log("Hello from neighb page")
-    console.log(this.state.allDbReviews)
 
     // Going to reorganize into components later.
     return (
@@ -65,9 +51,9 @@ export class NeighbourhoodPage extends Component {
           <div className='bottom-content'>
             <UserReviewsStyled className="userReviews">
               <SearchBar className="searchBar"/>
-              {this.state.allDbReviews.map((review) => {
+              {reviews.map((review) => {
                 return (
-                  <UserReview 
+                  <UserReview key={uid(review)}
                     user={review.user} 
                     avatar={review.avatar} 
                     title={review.reviewTitle}

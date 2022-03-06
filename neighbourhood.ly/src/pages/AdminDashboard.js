@@ -6,7 +6,7 @@ import { uid } from 'react-uid'
 
 export class AdminDashboard extends React.Component {
     render(){
-        const {users, isAdmin} = this.props
+        const {users, reviews, isAdmin} = this.props
         return(
             <div>
                 <Sidebar className="sidebar" 
@@ -39,7 +39,9 @@ export class AdminDashboard extends React.Component {
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
                                     <td>{user.name}</td>
-                                    <td></td>
+                                    <td>{reviews.filter(review => review.email === user.email).length}</td>
+                                    <button >View Reviews</button>
+                                    <button >Ban User</button>
                                 </tr> 
                                 )
                             })

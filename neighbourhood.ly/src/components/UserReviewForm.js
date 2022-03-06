@@ -35,12 +35,12 @@ export default class extends Component {
       <ReviewFormStyled>
           <h2>Submit a review</h2>
             <form action="">
-              <label className="input-header" for="reviewTitle">Title</label>
+              <label className="input-header" htmlFor="reviewTitle">Title</label>
               <input name="reviewTitle" 
                     onChange={this.handleInputChange} 
                     value={this.state.reviewTitle}  
                     placeholder="Title"/>
-              <label className="input-header" for="reviewContent">Content</label>
+              <label className="input-header" htmlFor="reviewContent">Content</label>
               <textarea 
                 onChange={this.handleInputChange}
                 name="reviewContent"

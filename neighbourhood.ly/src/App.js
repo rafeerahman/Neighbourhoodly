@@ -12,123 +12,124 @@ import AdminDashboard from './pages/AdminDashboard';
 import pickachuAvatar from './images/pickachuAvatar.png'
 
 class App extends React.Component {
-  state = {
-    loggedIn: false,
-    admin: false,
-    userEmail: ""
-  }
-
-  logInHandler = (updatedEmail, isAdmin) => {
-    if (isAdmin) {
-      this.setState({
-        admin: true
-      })
+    state = {
+        loggedIn: false,
+        admin: false,
+        userEmail: ""
     }
-    this.setState({
-      loggedIn: true,
-      userEmail: updatedEmail
-    })
-  }
 
-  logoutHandler = () => {
-    this.setState({
-      admin: false,
-      loggedIn: false,
-      userEmail: ""
-    })
-  }
+    logInHandler = (updatedEmail, isAdmin) => {
+        if (isAdmin) {
+            this.setState({
+                admin: true
+            })
+        }
+        this.setState({
+            loggedIn: true,
+            userEmail: updatedEmail
+        })
+    }
 
-  isLoggedIn = () => (
-    this.state.loggedIn
-  )
+    logoutHandler = () => {
+        this.setState({
+        admin: false,
+        loggedIn: false,
+        userEmail: ""
+        })
+    }
 
-  isAdmin = () => (
-    this.state.admin
-  )
-
-  render() {
-
-    const neighbourhoods = [
-      {
-        title: "Yonge-St Clair",
-        safetyScore: 8,
-        avgUserRating: 7,
-      },
-      {
-        title: "York University Heights",
-        safetyScore: 8.5,
-        avgUserRating: 9,
-      }
-    ]
-
-    const users = [
-      {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
-      {name: "user", password: "user", email: "user@user.com", type: "user"}
-    ]
-    
-    const reviews = [
-      {
-        email: "user@user.com",
-        user: "user",
-        avatar: pickachuAvatar,
-        reviewTitle: "Lots of things to do",
-        date: "2022/03/01",
-        starRating: 4,
-        reviewBody: "This neighbourhood felt very safe and I liked it."
-      }
-    ]
-    
-    return (
-      <BrowserRouter>
-      
-        <Switch>
-          { this.state.loggedIn ? 
-            <Route exact path = "/" 
-              render={() => (<UserHome appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler} logoutHandler={this.logoutHandler}/>)}
-            /> :
-            <Route exact path = "/" 
-              render={() => (<Register users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler}/>)}
-            /> 
-            
-          }
-
-          <Route exact path = "/LogIn"
-            render={() => (<LogIn users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler} logoutHandler={this.logoutHandler}/>)}
-          />
-
-          <Route exact path = "/Neighbourhoods"
-            render={() => (<NeighbourhoodListPage data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler}/>)}
-          />
-
-          <Route exact path = "/Rankings"
-            render={() => (<Rankings data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
-          />
-
-          <Route exact path = "/AdminDashboard"
-            render={() => (<AdminDashboard users={users} appState={ this.state } logInHandler={this.logInHandler} isAdmin={this.isAdmin} logoutHandler={this.logoutHandler}/>)}
-          />
-
-          <Route exact path = "/Profile"
-            render={() => (<Profile users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
-          />
-
-          {neighbourhoods.map((neighbourhood) => (
-                <Route exact path={`/${neighbourhood.title}`}
-                  render={() => (
-                    <NeighbourhoodPage 
-                      isLoggedIn={this.isLoggedIn}
-                      name={neighbourhood.title}
-                      safetyScore={neighbourhood.safetyScore}
-                      avgUserRating={neighbourhood.avgUserRating}
-                    />)
-                  }/>
-              ))}
-        </Switch>
-
-      </BrowserRouter>
+    isLoggedIn = () => (
+        this.state.loggedIn
     )
-    
-  }
+
+    isAdmin = () => (
+        this.state.admin
+    )
+
+    render() {
+
+        const neighbourhoods = [
+        {
+            title: "Yonge-St Clair",
+            safetyScore: 8,
+            avgUserRating: 7,
+        },
+        {
+            title: "York University Heights",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        }
+        ]
+
+        const users = [
+        {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
+        {name: "user", password: "user", email: "user@user.com", type: "user"}
+        ]
+        
+        const reviews = [
+        {
+            email: "user@user.com",
+            user: "user",
+            avatar: pickachuAvatar,
+            reviewTitle: "Lots of things to do",
+            date: "2022/03/01",
+            starRating: 4,
+            reviewBody: "This neighbourhood felt very safe and I liked it."
+        }
+        ]
+        
+        return (
+        <BrowserRouter>
+        
+            <Switch>
+            { this.state.loggedIn ? 
+                <Route exact path = "/" 
+                render={() => (<UserHome appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler} logoutHandler={this.logoutHandler}/>)}
+                /> :
+                <Route exact path = "/" 
+                render={() => (<Register users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler}/>)}
+                /> 
+                
+            }
+
+            <Route exact path = "/LogIn"
+                render={() => (<LogIn users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler} logoutHandler={this.logoutHandler}/>)}
+            />
+
+            <Route exact path = "/Neighbourhoods"
+                render={() => (<NeighbourhoodListPage data={neighbourhoods} reviews={reviews} appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler}/>)}
+            />
+
+            <Route exact path = "/Rankings"
+                render={() => (<Rankings data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
+            />
+
+            <Route exact path = "/AdminDashboard"
+                render={() => (<AdminDashboard users={users} reviews={reviews} appState={ this.state } logInHandler={this.logInHandler} isAdmin={this.isAdmin} logoutHandler={this.logoutHandler}/>)}
+            />
+
+            <Route exact path = "/Profile"
+                render={() => (<Profile users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
+            />
+
+            {neighbourhoods.map((neighbourhood) => (
+                    <Route exact path={`/${neighbourhood.title}`}
+                    render={() => (
+                        <NeighbourhoodPage 
+                        isLoggedIn={this.isLoggedIn}
+                        reviews={reviews}
+                        name={neighbourhood.title}
+                        safetyScore={neighbourhood.safetyScore}
+                        avgUserRating={neighbourhood.avgUserRating}
+                        />)
+                    }/>
+                ))}
+            </Switch>
+
+        </BrowserRouter>
+        )
+        
+    }
 
 }
 
