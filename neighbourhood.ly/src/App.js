@@ -151,6 +151,7 @@ class App extends React.Component {
             <Route exact path = "/Profile"
                 render={() => (<Profile 
                     users={users} 
+                    reviews={reviews} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     logInHandler={this.logInHandler} 
