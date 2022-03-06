@@ -10,6 +10,7 @@ import Rankings from './pages/Rankings';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 import pickachuAvatar from './images/pickachuAvatar.png'
+import AboutUs from './pages/AboutUs';
 
 class App extends React.Component {
     state = {
@@ -119,6 +120,13 @@ class App extends React.Component {
                     isLoggedIn={this.isLoggedIn} 
                     isAdmin={this.isAdmin} 
                     logInHandler={this.logInHandler}/>)}
+            />
+
+            <Route exact path = "/AboutUs"
+                render={() => (<AboutUs
+                    isLoggedIn={this.isLoggedIn}
+                    isAdmin={this.isAdmin} 
+                />)}
             />
 
             <Route exact path = "/Rankings"
