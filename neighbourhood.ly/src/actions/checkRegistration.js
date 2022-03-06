@@ -22,6 +22,7 @@ export const checkRegistration = (SignInTab) => {
         return
     }
 
+
     if (SignInTab.state.password === '' || SignInTab.state.email === '' || SignInTab.state.username === '') {
         console.log('failed')
         return 

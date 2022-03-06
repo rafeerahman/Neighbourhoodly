@@ -7,6 +7,7 @@ import NeighbourhoodListPage from './pages/NeighbourhoodListPage';
 import NeighbourhoodPage from './pages/NeighbourhoodPage';
 import UserHome from './pages/homePages/UserHome';
 import Rankings from './pages/Rankings';
+import AdminDashboard from './pages/AdminDashboard';
 
 class App extends React.Component {
   state = {
@@ -88,6 +89,10 @@ class App extends React.Component {
 
           <Route exact path = "/Rankings"
             render={() => (<Rankings data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
+          />
+
+          <Route exact path = "/AdminDashboard"
+            render={() => (<AdminDashboard users={users} appState={ this.state } logInHandler={this.logInHandler} isAdmin={this.isAdmin} logoutHandler={this.logoutHandler}/>)}
           />
 
           {neighbourhoods.map((neighbourhood) => (

@@ -54,6 +54,15 @@ a {
     transform: translateY(-50%);
 }
 
+#admin {
+  margin-left: 350px;
+    width: 35%;
+    position: absolute;
+    top: 10%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
 .sidebar {
   left: -100%;
   transition: all 0.5s;

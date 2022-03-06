@@ -10,6 +10,9 @@ class RegistrationForm extends Component {
     if (success) {
       this.props.history.push('/LogIn')
     }
+    else {
+
+    }
   }
 
   render() {
@@ -54,8 +57,12 @@ class RegistrationForm extends Component {
                         type="submit" 
                         value="Register"/></li>
 
-            {/* For later: if errorCheck() put some error message in DOM}
-                put if statement stuff from checkRegistration.js into an errorCheck()  function and import/use it here... */}
+            {
+                SignInState.state.showFailedPassword ? <li>Passwords do not match</li> : null
+            }
+            {
+                SignInState.state.showExistingUser ? <li>User already exists. Please log in</li> : null
+            }
         </ul>
         </div>
     )
