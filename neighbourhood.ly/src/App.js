@@ -61,7 +61,7 @@ class App extends React.Component {
         }
         ]
 
-        let users = [
+        const users = [
         {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
         {name: "user", password: "user", email: "user@user.com", type: "user"}
         ]
@@ -70,6 +70,7 @@ class App extends React.Component {
         {
             email: "user@user.com",
             user: "user",
+            neighbourhoodTitle: "Yonge-St Clair",
             avatar: pickachuAvatar,
             reviewTitle: "Lots of things to do",
             date: "2022/03/01",
@@ -154,6 +155,7 @@ class App extends React.Component {
                         <NeighbourhoodPage 
                         isLoggedIn={this.isLoggedIn}
                         name={neighbourhood.title}
+                        reviews={reviews}
                         safetyScore={neighbourhood.safetyScore}
                         avgUserRating={neighbourhood.avgUserRating}
                         />)

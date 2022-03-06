@@ -5,12 +5,19 @@ import styled from 'styled-components'
 import { uid } from 'react-uid'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { AdminReviews } from '../components/AdminReviews';
 
 export class AdminDashboard extends React.Component {
 
     state = {
         users: this.props.users,
         reviews: this.props.reviews
+    }
+
+    removeReview = (review) => {
+        this.setState({
+            reviews: this.state.reviews.filter(other => other !== review)
+        })
     }
 
     render(){
@@ -49,13 +56,12 @@ export class AdminDashboard extends React.Component {
                                     <td>{user.name}</td>
                                     <td>{this.state.reviews.filter(review => review.email === user.email).length}</td>
                                     <Popup trigger={<button className="button">View Reviews</button>} modal>
-                                        <span> Modal content </span>
+                                        <AdminReviews reviews={this.state.reviews} user={user} removeReview={this.removeReview}> </AdminReviews>
                                     </Popup>
-                                    <button onClick={() => {
-                                        this.setState({
-                                            users: this.state.users.filter(other => other.email !== user.email)})
-                                    }}>Ban User
-                                    </button>
+                                    {user.type === "admin" ? null :
+                                    <button onClick={() => {this.setState({users: this.state.users.filter(other => other.email !== user.email)})}}>
+                                        Ban User
+                                    </button>}
                                 </tr> 
                                 )
                             })
