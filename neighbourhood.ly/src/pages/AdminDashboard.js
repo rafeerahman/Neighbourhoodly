@@ -3,6 +3,8 @@ import '../App.css';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components'
 import { uid } from 'react-uid'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 export class AdminDashboard extends React.Component {
     render(){
@@ -40,7 +42,9 @@ export class AdminDashboard extends React.Component {
                                     <td>{user.email}</td>
                                     <td>{user.name}</td>
                                     <td>{reviews.filter(review => review.email === user.email).length}</td>
-                                    <button >View Reviews</button>
+                                    <Popup trigger={<button className="button">View Reviews</button>} modal>
+                                        <span> Modal content </span>
+                                    </Popup>
                                     <button >Ban User</button>
                                 </tr> 
                                 )
