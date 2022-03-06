@@ -10,6 +10,7 @@ import Rankings from './pages/Rankings';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 import pickachuAvatar from './images/pickachuAvatar.png'
+import AboutUs from './pages/AboutUs';
 
 class App extends React.Component {
     state = {
@@ -65,6 +66,7 @@ class App extends React.Component {
         }
         ]
 
+
         let users = [
             {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
             {name: "user", password: "user", email: "user@user.com", type: "user"}
@@ -72,7 +74,8 @@ class App extends React.Component {
         
         const reviews = [
         {
-            user: users[0],
+            user: users[0]
+            neighbourhoodTitle: "Yonge-St Clair",
             avatar: pickachuAvatar,
             reviewTitle: "Lots of things to do",
             date: "2022/03/01",
@@ -131,6 +134,13 @@ class App extends React.Component {
                     logInHandler={this.logInHandler}/>)}
             />
 
+            <Route exact path = "/AboutUs"
+                render={() => (<AboutUs
+                    isLoggedIn={this.isLoggedIn}
+                    isAdmin={this.isAdmin} 
+                />)}
+            />
+
             <Route exact path = "/Rankings"
                 render={() => (<Rankings 
                     data={neighbourhoods} 
@@ -153,6 +163,7 @@ class App extends React.Component {
             <Route exact path = "/Profile"
                 render={() => (<Profile 
                     users={users} 
+                    reviews={reviews} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     logInHandler={this.logInHandler} 
@@ -167,6 +178,7 @@ class App extends React.Component {
                         reviews={reviews}
                         isLoggedIn={this.isLoggedIn}
                         name={neighbourhood.title}
+                        reviews={reviews}
                         safetyScore={neighbourhood.safetyScore}
                         avgUserRating={neighbourhood.avgUserRating}
                         />)
