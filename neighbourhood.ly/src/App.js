@@ -7,6 +7,7 @@ import NeighbourhoodListPage from './pages/NeighbourhoodListPage';
 import NeighbourhoodPage from './pages/NeighbourhoodPage';
 import UserHome from './pages/homePages/UserHome';
 import Rankings from './pages/Rankings';
+import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 
 class App extends React.Component {
@@ -93,6 +94,10 @@ class App extends React.Component {
 
           <Route exact path = "/AdminDashboard"
             render={() => (<AdminDashboard users={users} appState={ this.state } logInHandler={this.logInHandler} isAdmin={this.isAdmin} logoutHandler={this.logoutHandler}/>)}
+          />
+
+          <Route exact path = "/Profile"
+            render={() => (<Profile users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
           />
 
           {neighbourhoods.map((neighbourhood) => (

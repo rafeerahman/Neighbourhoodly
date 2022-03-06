@@ -47,7 +47,7 @@ class Sidebar extends React.Component {
               <li><a href="">{tab1}</a></li>
               <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
               <li><Link to={"/Rankings"}><a href="">{tab3}</a></Link></li>
-              <li><Link to={'/'}><a href="">{tab4}</a></Link></li>
+              <li><Link to={"/Profile"}><a href="">{tab4}</a></Link></li>
               {
                 handleAdmin() ? <li><Link to={'/AdminDashboard'}><a href="">{tab5}</a></Link></li> : null
               }
