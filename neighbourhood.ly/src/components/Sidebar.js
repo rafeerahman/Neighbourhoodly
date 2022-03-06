@@ -35,7 +35,7 @@ class Sidebar extends React.Component {
               <li><Link to={"/AboutUs"}><a href="">{tab1}</a></Link></li>
               <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
               <li><Link to={"/Rankings"}><a href="">{tab3}</a></Link></li>
-              <li><Link to={'/'}><a href="">{tab4}</a></Link></li>
+              <li><Link to={'/'}><a href="">Home</a></Link></li>
             </ul>
           </div>
         )

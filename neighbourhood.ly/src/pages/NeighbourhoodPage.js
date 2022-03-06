@@ -11,9 +11,32 @@ import Sidebar from '../components/Sidebar';
 import { uid } from 'react-uid';
 
 export class NeighbourhoodPage extends Component {
+  state = {
+    currentUser: "change later", // User will probably have avatar property and name, so get from there if they post a review.
+    search: "",
+    allDbReviews: this.props.reviews
+  }
+
+  filterReviews = (searchValue) => {
+    if (searchValue == "") {
+      this.setState({
+        allDbReviews: this.props.reviews
+      })
+    } else {
+      const reviews = this.props.reviews.filter((review) => {
+        const allText = review.user.name + " " + review.reviewTitle + " " + review.date + " " + review.reviewBody
+        console.log(allText);
+        return allText.toLowerCase().includes(searchValue.toLowerCase())}
+        )
+      // console.log("yo " + searchValue);
+      this.setState({
+        allDbReviews: reviews
+      })
+    }
+  }
   render() {
 
-    const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin, reviews} = this.props
+    const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin, user, reviews} = this.props
     console.log("Hello from neighb page")
 
     // Going to reorganize into components later.
@@ -26,7 +49,9 @@ export class NeighbourhoodPage extends Component {
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
-                tab4="Home" 
+                tab4="Profile"
+                tab5="Admin Dashboard"
+                tab6="Home"
                 showMenu={true}/>
          <NeighbourhoodPageStyled>
           <div className="header-content">
@@ -50,8 +75,8 @@ export class NeighbourhoodPage extends Component {
 
           <div className='bottom-content'>
             <UserReviewsStyled className="userReviews">
-              <SearchBar className="searchBar"/>
-              {reviews.map((review) => {
+              <SearchBar parent={this} filterReviews={this.filterReviews} className="searchBar"/>
+              {this.state.allDbReviews.map((review) => {
                 return (
                   <UserReview key={uid(review)}
                     user={review.user} 
@@ -65,7 +90,7 @@ export class NeighbourhoodPage extends Component {
             </UserReviewsStyled>
               
             <ReviewFormStyled className="reviewForm">
-                <UserReviewForm neighbourhoodPage={this}/>
+                <UserReviewForm user={user} neighbourhoodPage={this}/>
             </ReviewFormStyled>
           </div>
         </NeighbourhoodPageStyled>

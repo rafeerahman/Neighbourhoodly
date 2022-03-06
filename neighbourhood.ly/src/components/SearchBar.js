@@ -3,11 +3,25 @@ import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
 
 export default class SearchBar extends Component {
+    handleInputChange = (e) => {
+        const target = e.target
+        const value = target.value
+        const name = target.name
+        const parent = this.props.parent;
+
+        if (parent != null) {
+            parent.setState({
+                [name]: value
+            }, this.props.filterReviews(value));
+        }
+    }
   render() {
+      const {parent, filterReviews} = this.props; // wherever search is used, the page (state) should have a searchState in it
+
     return (
         <SearchBarStyled className="Search">
             <SearchIcon className="searchIcon"/>
-            <input placeholder="Search"></input>
+            <input name="search" value={parent.state.search} onChange={this.handleInputChange} placeholder="Search"></input>
         </SearchBarStyled>
     )
   }

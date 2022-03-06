@@ -1,20 +1,24 @@
-import pickachu from '../images/pickachu.jpg'
 
-export const submitReview = (pageState, reviewsForm) => {
+export const submitReview = (pageState, reviewsForm, user) => {
     const allReviews = pageState.state.allDbReviews
     const reviewTitle = reviewsForm.state.reviewTitle
     const reviewBody = reviewsForm.state.reviewContent;
     const starRating = reviewsForm.state.starRating;
     
+    if (reviewBody == "" || reviewTitle == "" || starRating == null) {
+      alert("Please enter all fields");
+      return;
+    }
     
     allReviews.unshift({
-        user: "duummy user change later",
-        avatar: pickachu,
+        user: user,
+        avatar: null, // Default avatar, add if condition once profile page is finished
         reviewTitle: reviewTitle,
         date: getStringDate(),
         reviewBody: reviewBody,
         starRating: starRating
     })
+
     console.log(allReviews[0].avatar)
 
     pageState.setState({
