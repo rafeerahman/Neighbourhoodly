@@ -18,8 +18,8 @@ export const checkLogin = (signInTab) => {
     console.log("Successfully logged in")
     if (validUser.type === "admin") {
         // user is an admin
-        signInTab.props.updateLogin(validUser.email, true)
+        signInTab.props.updateLogin(validUser, true)
         return
     }
-    signInTab.props.updateLogin(validUser.email, false)
+    signInTab.props.updateLogin(validUser, false)
 };

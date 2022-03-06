@@ -29,7 +29,7 @@ export default class extends Component {
 
 
   render() {
-    const {neighbourhoodPage} = this.props 
+    const {neighbourhoodPage, user} = this.props 
 
     return (
       <ReviewFormStyled>
@@ -62,7 +62,7 @@ export default class extends Component {
                   )
               })}
             
-              <button type="reset" onClick={() => submitReview(neighbourhoodPage, this)} className="submitReview">Post</button>
+              <button type="button" onClick={() => submitReview(neighbourhoodPage, this, user)} className="submitReview">Post</button>
             </form>
       </ReviewFormStyled>
     )
