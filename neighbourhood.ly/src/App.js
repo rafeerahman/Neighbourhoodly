@@ -9,6 +9,7 @@ import UserHome from './pages/homePages/UserHome';
 import Rankings from './pages/Rankings';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
+import pickachuAvatar from './images/pickachuAvatar.png'
 
 class App extends React.Component {
   state = {
@@ -65,6 +66,17 @@ class App extends React.Component {
       {name: "user", password: "user", email: "user@user.com", type: "user"}
     ]
     
+    const reviews = [
+      {
+        email: "user@user.com",
+        user: "user",
+        avatar: pickachuAvatar,
+        reviewTitle: "Lots of things to do",
+        date: "2022/03/01",
+        starRating: 4,
+        reviewBody: "This neighbourhood felt very safe and I liked it."
+      }
+    ]
     
     return (
       <BrowserRouter>
