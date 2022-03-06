@@ -2,10 +2,11 @@ import React from 'react';
 import '../App.css';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components'
+import { uid } from 'react-uid'
 
 export class AdminDashboard extends React.Component {
     render(){
-        const {data, isAdmin} = this.props
+        const {users, isAdmin} = this.props
         return(
             <div>
                 <Sidebar className="sidebar" 
@@ -22,7 +23,29 @@ export class AdminDashboard extends React.Component {
                         Administrator Dashboard
                     </div>
                 </div>
-            <Dashboard className="dashboard">
+            <Dashboard>
+                <table className="userTable">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Total Posts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            users.map((user) => {
+                                return(
+                                <tr key={uid(user)}>
+                                    <td>{user.email}</td>
+                                    <td>{user.name}</td>
+                                    <td></td>
+                                </tr> 
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
             </Dashboard>
             </div>
         )
@@ -30,13 +53,13 @@ export class AdminDashboard extends React.Component {
 }
 
 const Dashboard = styled.div`
-  float: left;
-  position: relative;
-  width: 1500px;
-  padding: 40px;
-  margin-top: 200px;
-  margin-left: 350px;
-  background-color: #EBEBEB;
+    float: left;
+    position: relative;
+    width: 1500px;
+    padding: 40px;
+    margin-top: 200px;
+    margin-left: 350px;
+    background-color: #EBEBEB;
   
 `
 
