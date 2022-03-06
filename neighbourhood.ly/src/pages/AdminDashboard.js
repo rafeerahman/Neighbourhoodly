@@ -7,8 +7,14 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 export class AdminDashboard extends React.Component {
+
+    state = {
+        users: this.props.users,
+        reviews: this.props.reviews
+    }
+
     render(){
-        const {users, reviews, isAdmin} = this.props
+        const {isAdmin} = this.props
         return(
             <div>
                 <Sidebar className="sidebar" 
@@ -36,16 +42,20 @@ export class AdminDashboard extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            users.map((user) => {
+                            this.state.users.map((user) => {
                                 return(
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
                                     <td>{user.name}</td>
-                                    <td>{reviews.filter(review => review.email === user.email).length}</td>
+                                    <td>{this.state.reviews.filter(review => review.email === user.email).length}</td>
                                     <Popup trigger={<button className="button">View Reviews</button>} modal>
                                         <span> Modal content </span>
                                     </Popup>
-                                    <button >Ban User</button>
+                                    <button onClick={() => {
+                                        this.setState({
+                                            users: this.state.users.filter(other => other.email !== user.email)})
+                                    }}>Ban User
+                                    </button>
                                 </tr> 
                                 )
                             })

@@ -61,7 +61,7 @@ class App extends React.Component {
         }
         ]
 
-        const users = [
+        let users = [
         {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
         {name: "user", password: "user", email: "user@user.com", type: "user"}
         ]
@@ -84,32 +84,68 @@ class App extends React.Component {
             <Switch>
             { this.state.loggedIn ? 
                 <Route exact path = "/" 
-                render={() => (<UserHome appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler} logoutHandler={this.logoutHandler}/>)}
+                    render={() => (<UserHome 
+                    appState={ this.state } 
+                    isLoggedIn={this.isLoggedIn} 
+                    isAdmin={this.isAdmin} 
+                    logInHandler={this.logInHandler} 
+                    logoutHandler={this.logoutHandler}/>)}
                 /> :
                 <Route exact path = "/" 
-                render={() => (<Register users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler}/>)}
+                render={() => (<Register 
+                    users={users} 
+                    appState={ this.state } 
+                    isLoggedIn={this.isLoggedIn} 
+                    logInHandler={this.logInHandler}/>)}
                 /> 
                 
             }
 
             <Route exact path = "/LogIn"
-                render={() => (<LogIn users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler} logoutHandler={this.logoutHandler}/>)}
+                render={() => (<LogIn 
+                    users={users} 
+                    appState={ this.state } 
+                    isLoggedIn={this.isLoggedIn} 
+                    isAdmin={this.isAdmin} 
+                    logInHandler={this.logInHandler} 
+                    logoutHandler={this.logoutHandler}/>)}
             />
 
             <Route exact path = "/Neighbourhoods"
-                render={() => (<NeighbourhoodListPage data={neighbourhoods} reviews={reviews} appState={ this.state } isLoggedIn={this.isLoggedIn} isAdmin={this.isAdmin} logInHandler={this.logInHandler}/>)}
+                render={() => (<NeighbourhoodListPage 
+                    data={neighbourhoods} 
+                    appState={ this.state } 
+                    isLoggedIn={this.isLoggedIn} 
+                    isAdmin={this.isAdmin} 
+                    logInHandler={this.logInHandler}/>)}
             />
 
             <Route exact path = "/Rankings"
-                render={() => (<Rankings data={neighbourhoods} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
+                render={() => (<Rankings 
+                    data={neighbourhoods} 
+                    appState={ this.state } 
+                    isLoggedIn={this.isLoggedIn} 
+                    logInHandler={this.logInHandler} 
+                    isAdmin={this.isAdmin}/>)}
             />
 
             <Route exact path = "/AdminDashboard"
-                render={() => (<AdminDashboard users={users} reviews={reviews} appState={ this.state } logInHandler={this.logInHandler} isAdmin={this.isAdmin} logoutHandler={this.logoutHandler}/>)}
+                render={() => (<AdminDashboard
+                     users={users} 
+                     reviews={reviews} 
+                     appState={ this.state } 
+                     logInHandler={this.logInHandler} 
+                     isAdmin={this.isAdmin} 
+                     logoutHandler={this.logoutHandler}/>)}
             />
 
             <Route exact path = "/Profile"
-                render={() => (<Profile users={users} appState={ this.state } isLoggedIn={this.isLoggedIn} logInHandler={this.logInHandler} isAdmin={this.isAdmin}/>)}
+                render={() => (<Profile 
+                    users={users} 
+                    appState={ this.state } 
+                    isLoggedIn={this.isLoggedIn} 
+                    logInHandler={this.logInHandler} 
+                    isAdmin={this.isAdmin}/>)}
             />
 
             {neighbourhoods.map((neighbourhood) => (
@@ -117,7 +153,6 @@ class App extends React.Component {
                     render={() => (
                         <NeighbourhoodPage 
                         isLoggedIn={this.isLoggedIn}
-                        reviews={reviews}
                         name={neighbourhood.title}
                         safetyScore={neighbourhood.safetyScore}
                         avgUserRating={neighbourhood.avgUserRating}
