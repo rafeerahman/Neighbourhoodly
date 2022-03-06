@@ -10,33 +10,43 @@ import '../components/Rankings.css'
 
 export class RankingsList extends Component {
 
-    // state = {
-    //     sort: "highestRating"
-    // }
+    state = {
+        sort: "highestRating"
+    }
+
+    handleInputChange = event => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+          sort: name
+        });
+    };
 
     render() {
 
-    let sort = "highestRating"
+    // let sort = "highestRating"
     const {neighbourhoods} = this.props
     let rank = 0
 
-    if (sort == "highestRating") {
+    if (this.state.sort == "highestRating") {
         neighbourhoods.sort((first, second) => {
             return second.avgUserRating - first.avgUserRating
         });
-    } else if (sort == "lowestRating") {
+    } else if (this.state.sort == "lowestRating") {
         neighbourhoods.sort((first, second) => {
             return first.avgUserRating - second.avgUserRating
         });
-    } else if (sort == "highestSafety") {
+    } else if (this.state.sort == "highestSafety") {
         neighbourhoods.sort((first, second) => {
             return second.safetyScore - first.safetyScore
         });
-    } else if (sort == "lowestSafety") {
+    } else if (this.state.sort == "lowestSafety") {
         neighbourhoods.sort((first, second) => {
             return first.safetyScore - second.safetyScore
         });
-    } else if (sort == "alpha") {
+    } else if (this.state.sort == "alpha") {
         neighbourhoods.sort((first, second) => {
             if (first.title.toLowerCase() > second.title.toLowerCase()){
               return 1
@@ -90,17 +100,19 @@ export class RankingsList extends Component {
                     <ul>
                         <li><h3>Sort By:</h3></li>
                         <li>
-                            <button onClick={sort = "highestRating"}>Highest Rating</button>
+                            <button onClick={this.handleInputChange} name="highestRating">Highest Rating</button>
                         </li>
                         <li>
-                            <button onClick={sort = "lowestRating"}>Lowest Rating</button>
+                            <button onClick={this.handleInputChange} name="lowestRating">Lowest Rating</button>
                         </li>
                         <li>
-                            <button onClick={sort = "highestSafety"}>Highest Rating</button>                        </li>
+                            <button onClick={this.handleInputChange} name="highestSafety">Highest Safety</button>                        
+                        </li>
                         <li>
-                            <button onClick={sort = "lowestSafety"}>Lowest Rating</button>                         </li>
+                            <button onClick={this.handleInputChange} name="lowestSafety">Lowest Rating</button>                                                
+                        </li>
                         <li>
-                            <button onClick={sort = "alpha"}>Alphabetical</button>
+                            <button onClick={this.handleInputChange} name="alpha">Alphabetical</button>                                                
                         </li>                       
                     </ul>
             </div>
