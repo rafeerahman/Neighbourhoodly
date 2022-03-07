@@ -15,6 +15,7 @@ export const checkLogin = (signInTab) => {
         }
         return
     }
+    
     console.log("Successfully logged in")
     if (validUser.type === "admin") {
         // user is an admin

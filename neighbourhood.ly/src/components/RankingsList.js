@@ -22,12 +22,18 @@ export class RankingsList extends Component {
         this.setState({
           sort: name
         });
+
+        console.log('hi');
     };
+    
+    setNeighbourhoods = (neighbourhoods) => { 
+        this.props.parent.setNeighbourhoods(neighbourhoods) 
+    }
 
     render() {
 
     // let sort = "highestRating"
-    const {neighbourhoods} = this.props
+    const {neighbourhoods, parent} = this.props
     let rank = 0
 
     if (this.state.sort == "highestRating") {
@@ -55,7 +61,7 @@ export class RankingsList extends Component {
             }
         });
     }
-
+    
     return (
         <div>          
             <tbody>
@@ -100,19 +106,19 @@ export class RankingsList extends Component {
                     <ul>
                         <li><h3>Sort By:</h3></li>
                         <li>
-                            <button onClick={this.handleInputChange} name="highestRating">Highest Rating</button>
+                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="highestRating">Highest Rating</button>
                         </li>
                         <li>
-                            <button onClick={this.handleInputChange} name="lowestRating">Lowest Rating</button>
+                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="lowestRating">Lowest Rating</button>
                         </li>
                         <li>
-                            <button onClick={this.handleInputChange} name="highestSafety">Highest Safety</button>                        
+                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="highestSafety">Highest Safety</button>                        
                         </li>
                         <li>
-                            <button onClick={this.handleInputChange} name="lowestSafety">Lowest Rating</button>                                                
+                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="lowestSafety">Lowest Rating</button>                                                
                         </li>
                         <li>
-                            <button onClick={this.handleInputChange} name="alpha">Alphabetical</button>                                                
+                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="alpha">Alphabetical</button>                                                
                         </li>                       
                     </ul>
             </div>
