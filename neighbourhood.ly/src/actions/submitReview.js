@@ -1,5 +1,5 @@
 
-export const submitReview = (pageState, reviewsForm, user) => {
+export const submitReview = (pageState, reviewsForm, user, title) => {
     const allReviews = pageState.state.allDbReviews
     const reviewTitle = reviewsForm.state.reviewTitle
     const reviewBody = reviewsForm.state.reviewContent;
@@ -14,13 +14,13 @@ export const submitReview = (pageState, reviewsForm, user) => {
         user: user,
         avatar: null, // Default avatar, add if condition once profile page is finished
         reviewTitle: reviewTitle,
+        neighbourhoodTitle: title,
         date: getStringDate(),
         reviewBody: reviewBody,
         starRating: starRating
     })
 
     // console.log(allReviews[0].avatar)
-
     pageState.setState({
         allDbReviews: allReviews
     })

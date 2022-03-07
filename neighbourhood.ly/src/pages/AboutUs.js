@@ -23,7 +23,7 @@ class AboutUs extends Component {
                 </div>
 
                 <div className='disc'>
-                The housing market in Toronto is as expensive as ever and the last thing someone wants is to sign a lease or a mortgage only to move and be disappointed by their new neighbourhood! That’s where Neighborly.to comes in - a comprehensive one stop destination for all things Toronto neighbourhoods.
+                    The housing market in Toronto is as expensive as ever and the last thing someone wants is to sign a lease or a mortgage only to move and be disappointed by their new neighbourhood! That’s where Neighborly.to comes in - a comprehensive one stop destination for all things Toronto neighbourhoods.
                 </div>
 
                 <div className='creatorsBox'>

@@ -83,6 +83,26 @@ class App extends React.Component {
             title: "York University Heights",
             safetyScore: 8.5,
             avgUserRating: 9,
+        },
+        {
+            title: "Bay Street Corridor",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Bayview Village",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Woodbine-Lumsden",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Yonge-Eglinton",
+            safetyScore: 8.5,
+            avgUserRating: 9,
         }
         ]
         
@@ -91,7 +111,7 @@ class App extends React.Component {
             user: this.state.users[0],
             neighbourhoodTitle: "Yonge-St Clair",
             avatar: pickachuAvatar,
-            reviewTitle: "Lots of things to do",
+            reviewTitle: "Lots of things to do at Yonge-St Claire",
             date: "2022/03/01",
             starRating: 4,
             reviewBody: "This neighbourhood felt very safe and I liked it."
@@ -100,10 +120,10 @@ class App extends React.Component {
             user: this.state.users[1],
             neighbourhoodTitle: "York University Heights",
             avatar: pickachuAvatar,
-            reviewTitle: "Cool place",
+            reviewTitle: "York University is great!",
             date: "2022/03/01",
             starRating: 4,
-            reviewBody: "Testing"
+            reviewBody: "Great restaurants"
         }
         ]
         

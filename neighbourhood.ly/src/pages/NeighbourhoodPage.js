@@ -78,20 +78,24 @@ export class NeighbourhoodPage extends Component {
               <SearchBar parent={this} filter={this.filterReviews} className="searchBar"/>
               
               {this.state.allDbReviews.map((review) => {
-                return (
-                  <UserReview key={uid(review)}
-                    user={review.user} 
-                    avatar={review.avatar} 
-                    title={review.reviewTitle}
-                    body = {review.reviewBody}
-                    date = {review.date}
-                    rating = {review.starRating} />
-                )
+                // console.log(review.neighbourhoodTitle)
+                // console.log(name)
+                if (review.neighbourhoodTitle == name) {
+                  return (
+                    <UserReview key={uid(review)}
+                      user={review.user} 
+                      avatar={review.avatar} 
+                      title={review.reviewTitle}
+                      body = {review.reviewBody}
+                      date = {review.date}
+                      rating = {review.starRating} />
+                  )
+                }
               })}
             </UserReviewsStyled>
               
             <ReviewFormStyled className="reviewForm">
-                <UserReviewForm user={user} neighbourhoodPage={this}/>
+                <UserReviewForm user={user} neighbourhoodTitle={name} neighbourhoodPage={this}/>
             </ReviewFormStyled>
           </div>
         </NeighbourhoodPageStyled>
