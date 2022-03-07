@@ -19,7 +19,9 @@ export default class NeighbourhoodListPage extends Component {
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
-                tab4="Home" 
+                tab4="Profile"
+                tab5="Admin Dashboard"
+                tab6="Home"
                 showMenu={true}/>
             <NeighbourhoodContainer> 
                 <h1>Select a neighbourhood</h1>

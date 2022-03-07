@@ -10,6 +10,7 @@ import Rankings from './pages/Rankings';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 import pickachuAvatar from './images/pickachuAvatar.png'
+import AboutUs from './pages/AboutUs';
 
 class App extends React.Component {
     state = {
@@ -20,10 +21,11 @@ class App extends React.Component {
         [
             {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
             {name: "user", password: "user", email: "user@user.com", type: "user"}
-        ]
+        ],
+        user: null
     }
 
-    logInHandler = (updatedEmail, isAdmin) => {
+    logInHandler = (user, isAdmin) => {
         if (isAdmin) {
             this.setState({
                 admin: true
@@ -31,8 +33,10 @@ class App extends React.Component {
         }
         this.setState({
             loggedIn: true,
-            userEmail: updatedEmail
+            user: user
         })
+
+        // setTimeout(() => console.log(this.state.user), 5000);
     }
 
     logoutHandler = () => {
@@ -55,13 +59,15 @@ class App extends React.Component {
         this.setState({users: this.state.users})
     }
 
-    isLoggedIn = () => (
-        this.state.loggedIn
-    )
+    isLoggedIn = () => {
+        console.log("Logged in status: ", this.state.loggedIn);
+        return this.state.loggedIn
+    }
 
-    isAdmin = () => (
-        this.state.admin
-    )
+    isAdmin = () => {
+        console.log("Admin status: ", this.state.admin);
+        return this.state.admin
+    }
 
     render() {
 
@@ -80,14 +86,21 @@ class App extends React.Component {
         
         const reviews = [
         {
-            email: "user@user.com",
-            user: "user",
+            user: users[0]
             neighbourhoodTitle: "Yonge-St Clair",
             avatar: pickachuAvatar,
             reviewTitle: "Lots of things to do",
             date: "2022/03/01",
             starRating: 4,
             reviewBody: "This neighbourhood felt very safe and I liked it."
+        }, 
+        {
+            user: users[0],
+            avatar: pickachuAvatar,
+            reviewTitle: "Lots of things to do",
+            date: "2022/03/01",
+            starRating: 4,
+            reviewBody: "Testing"
         }
         ]
         
@@ -133,6 +146,13 @@ class App extends React.Component {
                     logInHandler={this.logInHandler}/>)}
             />
 
+            <Route exact path = "/AboutUs"
+                render={() => (<AboutUs
+                    isLoggedIn={this.isLoggedIn}
+                    isAdmin={this.isAdmin} 
+                />)}
+            />
+
             <Route exact path = "/Rankings"
                 render={() => (<Rankings 
                     data={neighbourhoods} 
@@ -156,6 +176,7 @@ class App extends React.Component {
             <Route exact path = "/Profile"
                 render={() => (<Profile 
                     users={this.state.users} 
+                    reviews={reviews} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     logInHandler={this.logInHandler} 
@@ -166,6 +187,8 @@ class App extends React.Component {
                     <Route exact path={`/${neighbourhood.title}`}
                     render={() => (
                         <NeighbourhoodPage 
+                        user={this.state.user}
+                        reviews={reviews}
                         isLoggedIn={this.isLoggedIn}
                         isAdmin={this.isAdmin}
                         name={neighbourhood.title}

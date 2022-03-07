@@ -3,26 +3,21 @@ import styled from 'styled-components'
 import Sidebar from '../components/Sidebar'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import pickachuAvatar from '../images/pickachuAvatar.png'
+import EditIcon from '@mui/icons-material/Edit';
 
 export class Profile extends Component {
     state = {
-        currentUser: "Bob Sally", // User will probably have avatar property and name, so get from there if they post a review.
+        user: this.props.appState.userEmail, // Take from the state later
+        username: "Bob Sally", // User will probably have avatar property and name, so get from there if they post a review.
         avatar: pickachuAvatar,
         neighbourhood: "Yonge-St Clair",
         origin: "Toronto, Ontario",
-        allDbReviews: [
-          {
-            user: "Bob Sally",
-            avatar: pickachuAvatar,
-            reviewTitle: "Lots of things to do",
-            date: "2022/03/01",
-            starRating: 4,
-            reviewBody: "This neighbourhood felt very safe and I liked it."
-          }
-        ]
+        description: "Businessman and part-time neighbourhood explorer of Toronto.",
+        reviews: this.props.reviews.filter(element => element.email === this.props.appState.userEmail),
       }
+
     render() {
-        let {data, isLoggedIn, isAdmin} = this.props
+        const {isLoggedIn, isAdmin} = this.props
         console.log("Hello from profile page") 
         return (
             <div>
@@ -45,13 +40,19 @@ export class Profile extends Component {
                                 <div className = "profile"></div> 
                                 <img src = {this.state.avatar} alt = "avatar" width = '128px' height = '128px'/>
                                 <div className="profile-info"> 
-                                    <name>{this.state.currentUser}</name>
+                                    <h2>{this.state.username}</h2>
                                     <p className="location">{this.state.neighbourhood}, <br></br>{this.state.origin}</p>
                                 </div>
-
                             </div> 
+                            <div className="bottom-section">
+                                <h3>About me:</h3>
+                                <p className="desc">{this.state.description}</p>  
+                                <h4>Recent Review:</h4>  
+                                <div className="reviewContainer"></div>
+                            </div>
                         </div>
                         </ProfileStyled> 
+                        
             </div>      
         )
     }
@@ -80,15 +81,15 @@ const ProfileStyled = styled.div`
         }
     }
     .profile-content {
-        display: flex;
+        display: inline-block;
         background: #E5E5E5;
-        width: 1200px;
+        width: 1000px;
         height: 700px;
 
         .profile-strip{
             display: flex;
             margin-top: 64px;
-            width: 1200px;
+            width: 1000px;
             height: 200px;
 
             background: rgba(146, 135, 135, 0.5);
@@ -98,8 +99,8 @@ const ProfileStyled = styled.div`
                 display: inline-block;
                 vertical-align: middle;
 
-                name {
-                    margin-top: 32px;
+                h2 {
+                    margin-top: 8px;
                     margin-left: 32px;
                     font-style: normal;
                     font-size: 32px;
@@ -108,7 +109,7 @@ const ProfileStyled = styled.div`
                 }
                 
                 .location {
-                    margin-top: 32px;
+                    margin-top: 24px;
                     margin-left: 32px;
                     font-style: normal;
                     font-size: 16px;
@@ -120,6 +121,46 @@ const ProfileStyled = styled.div`
                 margin-left: 32px;
                 border: 2px solid;
                 border-radius: 50%;
+            }
+        }
+
+        .bottom-section{
+            display: inline-block;
+            margin-top: 16px;
+            margin-left: 32px;
+            width: 1000px;
+            height: 200px; 
+
+            h3{
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 16px;   
+                color: #928787;
+            }
+            .desc {
+                margin-top: 16px;
+                font-style: normal;
+                font-size: 16px;
+            }
+
+            h4{
+                margin-top: 64px;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 16px;   
+            }
+
+            .reviewContainer{
+                display: inline-block;
+                border-radius: 25px;
+                margin-top: 16px;
+                
+                width: 600px;
+                height: 150px; 
+
+                background: #C4C4C4;
             }
         }
     }

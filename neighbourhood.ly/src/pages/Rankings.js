@@ -73,7 +73,7 @@ export class Rankings extends Component {
                             </SearchBarStyled>
                             <RankingsList neighbourhoods={data}/>
                         </li>  */}
-                        <li> <SearchBar/> <RankingsList neighbourhoods={data}/> </li>
+                        <li> <SearchBar parent={null}/> <RankingsList neighbourhoods={data}/> </li>
                         {/* <li> 
                             <SearchBar 
                                 handleChange=

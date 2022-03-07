@@ -19,7 +19,7 @@ class Sidebar extends React.Component {
         return (
           <div id="sidebar" className = {showMenu ? "sidebar active" : "sidebar"}>
             <ul>
-              <li><a href="">{tab1}</a></li>
+              <li><Link to={"/AboutUs"}><a href="">{tab1}</a></Link></li>
               <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
               <li><Link to={"/Rankings"}><a href="">{tab3}</a></Link></li>
               <li><Link to={'/LogIn'}><a href="">{tab4}</a></Link></li>
@@ -31,10 +31,10 @@ class Sidebar extends React.Component {
         return (
           <div id="sidebar" className = {showMenu ? "sidebar active" : "sidebar"}>
             <ul>
-              <li><a href="">{tab1}</a></li>
+              <li><Link to={"/AboutUs"}><a href="">{tab1}</a></Link></li>
               <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
               <li><Link to={"/Rankings"}><a href="">{tab3}</a></Link></li>
-              <li><Link to={'/'}><a href="">{tab4}</a></Link></li>
+              <li><Link to={'/'}><a href="">Home</a></Link></li>
             </ul>
           </div>
         )
@@ -43,7 +43,7 @@ class Sidebar extends React.Component {
         return (
           <div id="sidebar" className = {showMenu ? "sidebar active" : "sidebar"}>
             <ul>
-              <li><a href="">{tab1}</a></li>
+              <li><Link to={"/AboutUs"}><a href="">{tab1}</a></Link></li>
               <li><Link to={"/Neighbourhoods"}><a href="">{tab2}</a></Link></li>
               <li><Link to={"/Rankings"}><a href="">{tab3}</a></Link></li>
               {
