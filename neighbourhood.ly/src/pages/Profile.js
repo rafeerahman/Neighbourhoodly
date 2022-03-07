@@ -14,7 +14,7 @@ export class Profile extends Component {
         neighbourhood: "Yonge-St Clair",
         origin: "Toronto, Ontario",
         description: "Businessman and part-time neighbourhood explorer of Toronto.",
-        reviews: this.props.reviews.filter(element => element.email === "user@user.com"),
+        reviews: this.props.reviews.filter(element => element.email === this.props.appState.userEmail),
       }
     
 
