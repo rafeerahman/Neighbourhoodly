@@ -8,19 +8,21 @@ import StarIcon from '@mui/icons-material/Star';
 
 export class Profile extends Component {
     state = {
-        user: this.props.appState.userEmail, // Take from the state later
+        user: "user@user.com", // Take from the state later
         username: "Bob Sally", // User will probably have avatar property and name, so get from there if they post a review.
         avatar: pickachuAvatar,
         neighbourhood: "Yonge-St Clair",
         origin: "Toronto, Ontario",
         description: "Businessman and part-time neighbourhood explorer of Toronto.",
-        reviews: this.props.reviews.filter(element => element.email === this.props.appState.userEmail),
+        reviews: this.props.reviews.filter(element => element.user.email === "user@user.com"),
       }
     
 
     render() {
         const {isLoggedIn, isAdmin} = this.props
         console.log("Hello from profile page") 
+        console.log(this.state.user)
+        console.log(this.props.users.userEmail)
         return (
             <div>
                 {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
@@ -52,6 +54,15 @@ export class Profile extends Component {
                                 <h4>Recent Review:</h4>  
                                 <div className="reviewContainer">
                                     <div className="reviewContent">
+                                    <div className="neighbourhoodContainer">
+                                            <p className="title">{this.state.reviews[this.state.reviews.length - 1].reviewTitle}</p>
+                                            <li class="neighbourhood">{this.state.reviews[this.state.reviews.length - 1].neighbourhoodTitle}</li>
+                                        </div>
+                                        <p>{this.state.reviews[this.state.reviews.length - 1].date}</p>
+                                        {[...Array(this.state.reviews[this.state.reviews.length - 1].starRating)].map(iterate => {
+                                            return <StarIcon/>
+                                        })}
+                                        <p className="content">{this.state.reviews[this.state.reviews.length - 1].reviewBody}</p>
                                     </div>
                                 </div>
                             </div>
