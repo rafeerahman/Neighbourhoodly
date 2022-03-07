@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import pickachuAvatar from '../images/pickachuAvatar.png'
 import EditIcon from '@mui/icons-material/Edit';
+import StarIcon from '@mui/icons-material/Star';
 
 export class Profile extends Component {
     state = {
@@ -13,8 +14,9 @@ export class Profile extends Component {
         neighbourhood: "Yonge-St Clair",
         origin: "Toronto, Ontario",
         description: "Businessman and part-time neighbourhood explorer of Toronto.",
-        reviews: this.props.reviews.filter(element => element.email === this.props.appState.userEmail),
+        reviews: this.props.reviews.filter(element => element.email === "user@user.com"),
       }
+    
 
     render() {
         const {isLoggedIn, isAdmin} = this.props
@@ -48,7 +50,19 @@ export class Profile extends Component {
                                 <h3>About me:</h3>
                                 <p className="desc">{this.state.description}</p>  
                                 <h4>Recent Review:</h4>  
-                                <div className="reviewContainer"></div>
+                                <div className="reviewContainer">
+                                    <div className="reviewContent">
+                                        <div className="neighbourhoodContainer">
+                                            <p className="title">{this.state.reviews[this.state.reviews.length - 1].reviewTitle}</p>
+                                            <li class="neighbourhood">{this.state.reviews[this.state.reviews.length - 1].neighbourhoodTitle}</li>
+                                        </div>
+                                        <p>{this.state.reviews[this.state.reviews.length - 1].date}</p>
+                                        {[...Array(this.state.reviews[this.state.reviews.length - 1].starRating)].map(iterate => {
+                                            return <StarIcon/>
+                                        })}
+                                        <p className="content">{this.state.reviews[this.state.reviews.length - 1].reviewBody}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         </ProfileStyled> 
@@ -60,7 +74,7 @@ export class Profile extends Component {
 const ProfileStyled = styled.div`
     float: left;
     position: relative;
-    margin: 5% 0 0 10%;
+    margin: 4% 0 0 10%;
     margin-left: 320px;
 
     .header-content {
@@ -161,7 +175,38 @@ const ProfileStyled = styled.div`
                 height: 150px; 
 
                 background: #C4C4C4;
-            }
+
+                .reviewContent{
+                    margin-left: 16px;
+                    margin-top: 16px;
+
+                    .neighbourhoodContainer{
+                        display: flex;
+                        text-align: center;
+                        .title{
+                            font-style: normal;
+                            font-weight: bold;
+                            font-size: 20px;
+                        }
+
+                        .neighbourhood{
+                            margin-left: 218px;
+                            text-decoration: underline;
+                            font-weight: normal;
+                            font-size: 16px;
+                        }
+                        .icon{
+                            margin-left: 8px;
+                        }
+                    }
+                    .content{
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 16px;
+                        line-height: 36px;   
+                    }
+                }
+            }  
         }
     }
 `
