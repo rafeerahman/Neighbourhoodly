@@ -21,7 +21,7 @@ export class Rankings extends Component {
             allNeighbourhoods: filteredNeighbourhoods
         })
 
-        console.log(filteredNeighbourhoods);
+        //console.log(filteredNeighbourhoods);
     }
 
     filterNeighbourhoods = (searchValue) => {
@@ -29,7 +29,7 @@ export class Rankings extends Component {
             this.setState({
               allNeighbourhoods: this.props.data // set to initial/sorted
             })
-            console.log(this.state.allNeighbourhoods)
+            //console.log(this.state.allNeighbourhoods)
           } else {
             const filter = this.props.data.filter((neighbourhood) => 
                 {

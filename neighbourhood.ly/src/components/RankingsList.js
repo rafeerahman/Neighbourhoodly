@@ -23,7 +23,7 @@ export class RankingsList extends Component {
           sort: name
         });
 
-        console.log('hi');
+        //console.log('hi');
     };
     
     setNeighbourhoods = (neighbourhoods) => { 

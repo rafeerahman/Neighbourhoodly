@@ -20,9 +20,9 @@ export class Profile extends Component {
 
     render() {
         const {isLoggedIn, isAdmin} = this.props
-        console.log("Hello from profile page") 
-        console.log(this.state.user)
-        console.log(this.props.users.userEmail)
+        //console.log("Hello from profile page") 
+        //console.log(this.state.user)
+        //console.log(this.props.users.userEmail)
         return (
             <div>
                 {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
