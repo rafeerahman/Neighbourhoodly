@@ -52,15 +52,6 @@ export class Profile extends Component {
                                 <h4>Recent Review:</h4>  
                                 <div className="reviewContainer">
                                     <div className="reviewContent">
-                                        <div className="neighbourhoodContainer">
-                                            <p className="title">{this.state.reviews[this.state.reviews.length - 1].reviewTitle}</p>
-                                            <li class="neighbourhood">{this.state.reviews[this.state.reviews.length - 1].neighbourhoodTitle}</li>
-                                        </div>
-                                        <p>{this.state.reviews[this.state.reviews.length - 1].date}</p>
-                                        {[...Array(this.state.reviews[this.state.reviews.length - 1].starRating)].map(iterate => {
-                                            return <StarIcon/>
-                                        })}
-                                        <p className="content">{this.state.reviews[this.state.reviews.length - 1].reviewBody}</p>
                                     </div>
                                 </div>
                             </div>
