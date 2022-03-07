@@ -9,9 +9,10 @@ export const submitReview = (pageState, reviewsForm, user, title) => {
       alert("Please enter all fields");
       return;
     }
+    const userCopy = Object.assign({}, user); // copy since we need the user if they log out.
     
     allReviews.unshift({
-        user: user,
+        user: userCopy,
         avatar: null, // Default avatar, add if condition once profile page is finished
         reviewTitle: reviewTitle,
         neighbourhoodTitle: title,

@@ -46,7 +46,8 @@ class App extends React.Component {
         this.setState({
         admin: false,
         loggedIn: false,
-        userEmail: ""
+        userEmail: "",
+        user: null
         })
     }
 
@@ -73,43 +74,7 @@ class App extends React.Component {
         //console.log("Admin status: ", this.state.admin);
         return this.state.admin
     }
-
-    render() {
-        // code below requires server call
-        const neighbourhoods = [
-        {
-            title: "Yonge-St Clair",
-            safetyScore: 8,
-            avgUserRating: 7,
-        },
-        {
-            title: "York University Heights",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Bay Street Corridor",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Bayview Village",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Woodbine-Lumsden",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Yonge-Eglinton",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        }
-        ]
-        // code below requires server call
-        const reviews = [
+    reviews = [
         {
             user: this.state.users[0],
             neighbourhoodTitle: "Yonge-St Clair",
@@ -128,7 +93,43 @@ class App extends React.Component {
             starRating: 4,
             reviewBody: "Great restaurants"
         }
+    ]
+    render() {
+        // code below requires server call
+        const neighbourhoods = [
+        {
+            title: "Yonge-St Clair",
+            safetyScore: 8,
+            avgUserRating: 7,
+        },
+        {
+            title: "York University Heights",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Bay Street Corridor",
+            safetyScore: 4.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Bayview Village",
+            safetyScore: 5.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Woodbine-Lumsden",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Yonge-Eglinton",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        }
         ]
+        // code below requires server call
+        console.log(this.reviews)
         
         return (
         <BrowserRouter>
@@ -191,7 +192,7 @@ class App extends React.Component {
             <Route exact path = "/AdminDashboard"
                 render={() => (<AdminDashboard
                     users={this.state.users} 
-                    reviews={reviews} 
+                    reviews={this.reviews} 
                     appState={ this.state } 
                     logInHandler={this.logInHandler}
                     isAdmin={this.isAdmin} 
@@ -203,7 +204,7 @@ class App extends React.Component {
                 render={() => (<Profile 
                     users={this.state.users} 
                     user={this.state.user}
-                    reviews={reviews} 
+                    reviews={this.reviews} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     logInHandler={this.logInHandler} 
@@ -215,7 +216,7 @@ class App extends React.Component {
                     render={() => (
                         <NeighbourhoodPage 
                         user={this.state.user}
-                        reviews={reviews}
+                        reviews={this.reviews}
                         isLoggedIn={this.isLoggedIn}
                         isAdmin={this.isAdmin}
                         name={neighbourhood.title}

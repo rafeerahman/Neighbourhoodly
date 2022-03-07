@@ -115,7 +115,7 @@ export class RankingsList extends Component {
                             <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="highestSafety">Highest Safety</button>                        
                         </li>
                         <li>
-                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="lowestSafety">Lowest Rating</button>                                                
+                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="lowestSafety">Lowest Safety</button>                                                
                         </li>
                         <li>
                             <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="alpha">Alphabetical</button>                                                
