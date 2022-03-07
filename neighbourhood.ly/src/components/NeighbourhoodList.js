@@ -23,6 +23,7 @@ export class NeighbourhoodList extends Component {
                     neighbourhoodName={neighbourhood.title} />
                 )
             })}
+        <h2>More Coming Soon!</h2>
       </ul>
     )
   }
