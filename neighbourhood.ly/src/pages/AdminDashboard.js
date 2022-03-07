@@ -10,7 +10,6 @@ import { AdminReviews } from '../components/AdminReviews';
 export class AdminDashboard extends React.Component {
 
     state = {
-        users: this.props.users,
         reviews: this.props.reviews
     }
 
@@ -21,12 +20,12 @@ export class AdminDashboard extends React.Component {
     }
 
     render(){
-        const {isAdmin} = this.props
+        const {isAdmin, users} = this.props
         return(
             <div>
                 <Sidebar className="sidebar" 
                 SignInType="MainMenu"
-                handleAdmin={isAdmin}
+                isAdmin={isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
@@ -49,7 +48,7 @@ export class AdminDashboard extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            this.state.users.map((user) => {
+                            users.map((user) => {
                                 return(
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
@@ -59,7 +58,9 @@ export class AdminDashboard extends React.Component {
                                         <AdminReviews reviews={this.state.reviews} user={user} removeReview={this.removeReview}> </AdminReviews>
                                     </Popup>
                                     {user.type === "admin" ? null :
-                                    <button onClick={() => {this.setState({users: this.state.users.filter(other => other.email !== user.email)})}}>
+                                    <button onClick={() => {
+                                        this.props.removeUser(user.email)
+                                        }}>
                                         Ban User
                                     </button>}
                                 </tr> 

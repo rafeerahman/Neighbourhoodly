@@ -17,7 +17,7 @@ export class Hamburger extends Component {
   }
 
   render() {
-    const {isLoggedIn, isAdmin} = this.props
+    const {isLoggedIn} = this.props
 
     return (
         <Menu>
@@ -34,7 +34,7 @@ export class Hamburger extends Component {
             
               <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "Register"}
-                handleAdmin={isAdmin}
+                isAdmin={this.props.isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"

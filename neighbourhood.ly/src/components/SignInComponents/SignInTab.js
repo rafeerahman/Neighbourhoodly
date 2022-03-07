@@ -17,8 +17,6 @@ class SignInTab extends React.Component {
         username: "",
         password: "",
         retypePassword: "",
-        // code below requires server call
-        users: this.props.users
     }
 
     handleInputChange = (event) => {
@@ -31,17 +29,53 @@ class SignInTab extends React.Component {
         })
     }
 
+    handleSignal = (code) => {
+        if (code === "Login") {
+            if (!this.state.showFailedLogin) {
+                this.setState({
+                    showFailedLogin: !this.state.showFailedLogin
+                })
+            }
+        }
+        else if (code === "Password") {
+            if (!this.state.showFailedPassword) {
+                this.setState({
+                    showFailedPassword: !this.state.showFailedPassword
+                })
+            }
+        }
+        else {
+            if (!this.state.showExistingUser) {
+                this.setState({
+                    showExistingUser: !this.state.showExistingUser
+                })
+            }
+        }
+    }
+
 
     render() {
         const {SignInType} = this.props
 
         if (SignInType === "Register"){
             return (
-                <RegistrationForm SignInState={this} isLoggedIn={this.props.isLoggedIn}/>
+                <RegistrationForm 
+                SignInState={this.state} 
+                users={this.props.users} 
+                handleInputChange={this.handleInputChange}
+                handleSignal={this.handleSignal} 
+                isLoggedIn={this.props.isLoggedIn} 
+                updateUsers={this.props.updateUsers}/>
             )
         } else if (SignInType === "LogIn") {
             return (
-                <LogInForm SignInState={this} isLoggedIn={this.props.isLoggedIn}/>
+                <LogInForm 
+                SignInState={this.state} 
+                users={this.props.users} 
+                handleSignal={this.handleSignal}
+                handleInputChange={this.handleInputChange} 
+                isLoggedIn={this.props.isLoggedIn} 
+                updateLogin={this.props.updateLogin}/>
             )
         }
 

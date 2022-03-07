@@ -13,8 +13,6 @@ class SignIn extends React.Component {
     }
 
     render() {
-        const {users} = this.props
-
         return (
             <div>
                 <Sidebar SignInType="LogIn"
@@ -22,8 +20,9 @@ class SignIn extends React.Component {
                             tab2="Neighbourhoods"
                             tab3="Rankings"
                             tab4="Register"
+                            isAdmin={this.props.isAdmin}
                             showMenu={true} /><InfoBar />
-                <SignInTab users={users} SignInType="LogIn" isLoggedIn={this.props.isLoggedIn} updateLogin={this.updateLogin}/>
+                <SignInTab users={this.props.appState.users} SignInType="LogIn" isLoggedIn={this.props.isLoggedIn} updateLogin={this.updateLogin}/>
           </div>
         )
     }
