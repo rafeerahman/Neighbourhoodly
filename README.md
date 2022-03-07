@@ -1,5 +1,11 @@
 # team49
 
+our web app is built using react so node_modules is not committed.
+
+external libraries used:
+	- styled-components library
+	- material-ui icons library
+
 login credentials:
 	admin:
 		username: admin@admin.com
