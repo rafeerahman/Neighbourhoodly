@@ -1,45 +1,32 @@
-export const checkRegistration = (SignInTab) => {
+export const checkRegistration = (SignInTab, users, updateUsers, handleSignal) => {
     console.log("Sign Up Check...")
-    const users = SignInTab.state.users
 
-    if (SignInTab.state.password !== SignInTab.state.retypePassword) {
-        console.log('failed')
-        if (!SignInTab.state.showFailedPassword) {
-            SignInTab.setState({
-                showFailedPassword: !SignInTab.state.showFailedPassword
-            })
-        }
+    if (SignInTab.password !== SignInTab.retypePassword) {
+        console.log("failed")
+        handleSignal("Password")
         return
     }
 
-    if (users.some(user => user.email === SignInTab.state.email)) {
-        console.log('failed')
-        if (!SignInTab.state.showExistingUser) {
-            SignInTab.setState({
-                showExistingUser: !SignInTab.state.showExistingUser
-            })
-        }
+    if (users.some(user => user.email === SignInTab.email)) {
+        console.log("failed")
+        handleSignal("Exists")
         return
     }
 
 
-    if (SignInTab.state.password === '' || SignInTab.state.email === '' || SignInTab.state.username === '') {
+    if (SignInTab.password === '' || SignInTab.email === '' || SignInTab.username === '') {
         console.log('failed')
         return 
     }
 
     const newUser = {
-        name: SignInTab.state.username,
-        password: SignInTab.state.password,
-        email: SignInTab.state.email,
-        type: SignInTab.state.type
+        name: SignInTab.username,
+        password: SignInTab.password,
+        email: SignInTab.email,
+        type: SignInTab.type
     }
 
-    users.push(newUser)
-    console.log(users)
-    SignInTab.setState({
-        users: users
-    })
+    updateUsers(newUser)
 
     console.log("Successfully Signed Up!")
     return true

@@ -9,16 +9,16 @@ class LogInForm extends Component {
     
     handleSubmit = async (e) => {
         e.preventDefault()
-        await checkLogin(this.props.SignInState)
+        await checkLogin(this.props.SignInState, this.props.users, this.props.updateLogin, this.props.handleSignal)
 
-        if (this.props.SignInState.props.isLoggedIn()) {
+        if (this.props.isLoggedIn()) {
             this.props.history.push('/')
         }
         
     }
 
   render() {
-      const {SignInState} = this.props; // Coming from SignInTab.js
+      const {SignInState, handleInputChange} = this.props; // Coming from SignInTab.js
     return (
         <div id="signInTab">
         <div className='signInTabHeader'>
@@ -27,26 +27,26 @@ class LogInForm extends Component {
         <ul>
             <li>Email</li>
             <form>
-                <input  value={ SignInState.state.email } 
-                            onChange={ SignInState.handleInputChange }
+                <input  value={ SignInState.email } 
+                            onChange={ handleInputChange }
                             name="email"
                             className="signInInput" 
                             type="text"/>
                 <li>Password</li>
-                <input  value={ SignInState.state.password } 
-                            onChange={ SignInState.handleInputChange }
+                <input  value={ SignInState.password } 
+                            onChange={ handleInputChange }
                             name="password"
                             className="signInInput" 
                             type="text"/>
                             
                 <input className="signInButton"
-                            defaultChecked={SignInState.state.showFailedLogin} 
+                            defaultChecked={SignInState.showFailedLogin} 
                             onClick={this.handleSubmit} 
                             type="button" 
                             value="Log In"/>
             </form>
             {
-                SignInState.state.showFailedLogin ? <li>Invalid email or password</li> : null
+                SignInState.showFailedLogin ? <li>Invalid email or password</li> : null
             }
         </ul>
         </div>

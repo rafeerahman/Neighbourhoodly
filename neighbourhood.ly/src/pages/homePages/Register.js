@@ -5,8 +5,12 @@ import Sidebar from '../../components/Sidebar';
 import SignInTab from '../../components/SignInComponents/SignInTab';
 
 class Register extends React.Component {
+
+    updateUsers = (user) => {
+        this.props.registerHandler(user)
+    }
+
     render() {
-        const {users} = this.props
 
         return (
             <div>
@@ -15,14 +19,14 @@ class Register extends React.Component {
                       tab1="About Us"
                       tab2="Neighbourhoods"
                       tab3="Rankings"
-                      tab4="Login" // Instead something like this? {this.state.loggedIn ? "Profile" : "Login"}
+                      tab4="Login"
+                      isAdmin={this.props.isAdmin}
                       showMenu={true}
             />
     
             <InfoBar />
     
-            {/* If this.state.loggedIn , <SignInTab SignInType="Profile"/> */}
-            <SignInTab users={users} SignInType="Register" isLoggedIn={this.props.isLoggedIn}/>
+            <SignInTab users={this.props.users} SignInType="Register" isLoggedIn={this.props.isLoggedIn} updateUsers={this.updateUsers}/>
     
           </div>
         )

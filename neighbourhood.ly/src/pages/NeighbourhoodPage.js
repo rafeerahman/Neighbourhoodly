@@ -13,7 +13,7 @@ import { uid } from 'react-uid';
 export class NeighbourhoodPage extends Component {
   render() {
 
-    const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin, reviews} = this.props
+    const {name, safetyScore, avgUserRating, isLoggedIn, reviews} = this.props
     console.log("Hello from neighb page")
 
     // Going to reorganize into components later.
@@ -22,7 +22,7 @@ export class NeighbourhoodPage extends Component {
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
          <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                handleAdmin={isAdmin}
+                isAdmin={this.props.isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"

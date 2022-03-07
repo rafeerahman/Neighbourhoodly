@@ -15,7 +15,12 @@ class App extends React.Component {
     state = {
         loggedIn: false,
         admin: false,
-        userEmail: ""
+        userEmail: "",
+        users :
+        [
+            {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
+            {name: "user", password: "user", email: "user@user.com", type: "user"}
+        ]
     }
 
     logInHandler = (updatedEmail, isAdmin) => {
@@ -36,6 +41,18 @@ class App extends React.Component {
         loggedIn: false,
         userEmail: ""
         })
+    }
+
+    registerHandler = (user) => {
+        this.state.users.push(user)
+        this.setState({
+            users: this.state.users
+        })
+    }
+
+    removeUser = (email) => {
+        this.state.users = this.state.users.filter(other => other.email !== email)
+        this.setState({users: this.state.users})
     }
 
     isLoggedIn = () => (
@@ -59,11 +76,6 @@ class App extends React.Component {
             safetyScore: 8.5,
             avgUserRating: 9,
         }
-        ]
-
-        const users = [
-        {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
-        {name: "user", password: "user", email: "user@user.com", type: "user"}
         ]
         
         const reviews = [
@@ -94,8 +106,9 @@ class App extends React.Component {
                 /> :
                 <Route exact path = "/" 
                 render={() => (<Register 
-                    users={users} 
+                    users={this.state.users} 
                     appState={ this.state } 
+                    registerHandler={this.registerHandler} 
                     isLoggedIn={this.isLoggedIn} 
                     logInHandler={this.logInHandler}/>)}
                 /> 
@@ -104,7 +117,6 @@ class App extends React.Component {
 
             <Route exact path = "/LogIn"
                 render={() => (<LogIn 
-                    users={users} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     isAdmin={this.isAdmin} 
@@ -132,17 +144,18 @@ class App extends React.Component {
 
             <Route exact path = "/AdminDashboard"
                 render={() => (<AdminDashboard
-                     users={users} 
-                     reviews={reviews} 
-                     appState={ this.state } 
-                     logInHandler={this.logInHandler} 
-                     isAdmin={this.isAdmin} 
-                     logoutHandler={this.logoutHandler}/>)}
+                    users={this.state.users} 
+                    reviews={reviews} 
+                    appState={ this.state } 
+                    logInHandler={this.logInHandler}
+                    isAdmin={this.isAdmin} 
+                    removeUser={this.removeUser} 
+                    logoutHandler={this.logoutHandler}/>)}
             />
 
             <Route exact path = "/Profile"
                 render={() => (<Profile 
-                    users={users} 
+                    users={this.state.users} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     logInHandler={this.logInHandler} 
@@ -154,6 +167,7 @@ class App extends React.Component {
                     render={() => (
                         <NeighbourhoodPage 
                         isLoggedIn={this.isLoggedIn}
+                        isAdmin={this.isAdmin}
                         name={neighbourhood.title}
                         reviews={reviews}
                         safetyScore={neighbourhood.safetyScore}

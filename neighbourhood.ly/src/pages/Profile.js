@@ -29,7 +29,7 @@ export class Profile extends Component {
                 {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
                 <Sidebar className="sidebar" 
                     SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                    handleAdmin={isAdmin}
+                    isAdmin={isAdmin}
                     tab1="About Us"
                     tab2="Neighbourhoods"
                     tab3="Rankings"

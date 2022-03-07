@@ -9,7 +9,7 @@ class UserHome extends React.Component {
         <div>
             <Sidebar  SignInType="MainMenu"
                       handleLogout={this.props.logoutHandler}  // Later on probably need to add more about removing user from state
-                      handleAdmin={this.props.isAdmin}
+                      isAdmin={this.props.isAdmin}
                       tab1="About Us"
                       tab2="Neighbourhoods"
                       tab3="Rankings"
