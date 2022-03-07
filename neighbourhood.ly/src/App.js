@@ -86,7 +86,7 @@ class App extends React.Component {
         
         const reviews = [
         {
-            user: users[0]
+            user: users[0],
             neighbourhoodTitle: "Yonge-St Clair",
             avatar: pickachuAvatar,
             reviewTitle: "Lots of things to do",
@@ -192,7 +192,6 @@ class App extends React.Component {
                         isLoggedIn={this.isLoggedIn}
                         isAdmin={this.isAdmin}
                         name={neighbourhood.title}
-                        reviews={reviews}
                         safetyScore={neighbourhood.safetyScore}
                         avgUserRating={neighbourhood.avgUserRating}
                         />)

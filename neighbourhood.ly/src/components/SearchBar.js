@@ -9,14 +9,15 @@ export default class SearchBar extends Component {
         const name = target.name
         const parent = this.props.parent;
 
-        if (parent != null) {
+        if (this.props.filter!= null) {
             parent.setState({
                 [name]: value
-            }, this.props.filterReviews(value));
+            }, this.props.filter(value));
         }
     }
+
   render() {
-      const {parent, filterReviews} = this.props; // wherever search is used, the page (state) should have a searchState in it
+      const {parent} = this.props; // wherever search is used, the page (state) should have a searchState in it
 
     return (
         <SearchBarStyled className="Search">

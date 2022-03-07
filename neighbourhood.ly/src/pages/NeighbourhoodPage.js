@@ -74,7 +74,8 @@ export class NeighbourhoodPage extends Component {
 
           <div className='bottom-content'>
             <UserReviewsStyled className="userReviews">
-              <SearchBar parent={this} filterReviews={this.filterReviews} className="searchBar"/>
+              <SearchBar parent={this} filter={this.filterReviews} className="searchBar"/>
+              
               {this.state.allDbReviews.map((review) => {
                 return (
                   <UserReview key={uid(review)}
