@@ -11,7 +11,7 @@ class AboutUs extends Component {
 
                 <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                handleAdmin={isAdmin}
+                isAdmin={isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
