@@ -19,7 +19,7 @@ export const submitReview = (pageState, reviewsForm, user) => {
         starRating: starRating
     })
 
-    console.log(allReviews[0].avatar)
+    // console.log(allReviews[0].avatar)
 
     pageState.setState({
         allDbReviews: allReviews
