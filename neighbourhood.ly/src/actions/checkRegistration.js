@@ -1,21 +1,21 @@
 export const checkRegistration = (SignInTab, users, updateUsers, handleSignal) => {
-    console.log("Sign Up Check...")
+    //console.log("Sign Up Check...")
 
     if (SignInTab.password !== SignInTab.retypePassword) {
-        console.log("failed")
+        //console.log("failed")
         handleSignal("Password")
         return
     }
 
     if (users.some(user => user.email === SignInTab.email)) {
-        console.log("failed")
+        //console.log("failed")
         handleSignal("Exists")
         return
     }
 
 
     if (SignInTab.password === '' || SignInTab.email === '' || SignInTab.username === '') {
-        console.log('failed')
+        //console.log('failed')
         return 
     }
 
@@ -28,6 +28,6 @@ export const checkRegistration = (SignInTab, users, updateUsers, handleSignal) =
 
     updateUsers(newUser)
 
-    console.log("Successfully Signed Up!")
+    //console.log("Successfully Signed Up!")
     return true
 };

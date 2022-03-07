@@ -17,6 +17,7 @@ class App extends React.Component {
         loggedIn: false,
         admin: false,
         userEmail: "",
+        // code below requires server call
         users :
         [
             {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
@@ -31,7 +32,7 @@ class App extends React.Component {
                 admin: true
             })
         }
-        console.log(user);
+        //console.log(user);
         this.setState({
             loggedIn: true,
             userEmail: user.email,
@@ -50,6 +51,7 @@ class App extends React.Component {
     }
 
     registerHandler = (user) => {
+        // code below requires server call
         this.state.users.push(user)
         this.setState({
             users: this.state.users
@@ -57,22 +59,23 @@ class App extends React.Component {
     }
 
     removeUser = (email) => {
+        // code below requires server call
         this.state.users = this.state.users.filter(other => other.email !== email)
         this.setState({users: this.state.users})
     }
 
     isLoggedIn = () => {
-        console.log("Logged in status: ", this.state.loggedIn);
+        //console.log("Logged in status: ", this.state.loggedIn);
         return this.state.loggedIn
     }
 
     isAdmin = () => {
-        console.log("Admin status: ", this.state.admin);
+        //console.log("Admin status: ", this.state.admin);
         return this.state.admin
     }
 
     render() {
-
+        // code below requires server call
         const neighbourhoods = [
         {
             title: "Yonge-St Clair",
@@ -105,7 +108,7 @@ class App extends React.Component {
             avgUserRating: 9,
         }
         ]
-        
+        // code below requires server call
         const reviews = [
         {
             user: this.state.users[0],

@@ -26,7 +26,7 @@ export class NeighbourhoodPage extends Component {
       const reviews = this.props.reviews.filter((review) => {
         const username = review.user ? review.user.name : "Guest"
         const allText = username + " " + review.reviewTitle + " " + review.date + " " + review.reviewBody
-        console.log(allText);
+        //console.log(allText);
         return allText.toLowerCase().includes(searchValue.toLowerCase())}
         )
       // console.log("yo " + searchValue);
@@ -37,7 +37,7 @@ export class NeighbourhoodPage extends Component {
   }
   render() {
     const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin, user, reviews} = this.props
-    console.log("Hello from neighb page")
+    //console.log("Hello from neighb page")
 
     // Going to reorganize into components later.
     return (
