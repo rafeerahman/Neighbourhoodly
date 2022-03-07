@@ -13,7 +13,7 @@ Our web app is built using react so node_modules is not committed.
 ## Login Credentials:
 * admin:
 	* username: admin@admin.com
-	* password: admin**
+	* password: admin
 * user:
 	* username: user@user.com
 	* password: user
