@@ -99,7 +99,7 @@ class App extends React.Component {
         {
             user: this.state.users[1],
             avatar: pickachuAvatar,
-            reviewTitle: "Lots of things to do",
+            reviewTitle: "Cool place",
             date: "2022/03/01",
             starRating: 4,
             reviewBody: "Testing"
@@ -178,6 +178,7 @@ class App extends React.Component {
             <Route exact path = "/Profile"
                 render={() => (<Profile 
                     users={this.state.users} 
+                    user={this.state.user}
                     reviews={reviews} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 

@@ -8,12 +8,11 @@ import StarIcon from '@mui/icons-material/Star';
 
 export class Profile extends Component {
     state = {
-        user: "user@user.com", // Take from the state later
-        username: "Bob Sally", // User will probably have avatar property and name, so get from there if they post a review.
+        user: this.props.user, // Take from the state later // User will probably have avatar property and name, so get from there if they post a review.
         avatar: pickachuAvatar,
         neighbourhood: "Yonge-St Clair",
         origin: "Toronto, Ontario",
-        description: "Businessman and part-time neighbourhood explorer of Toronto.",
+        description: "(We will update this when we finish profile setup) Businessman and part-time neighbourhood explorer of Toronto.",
         reviews: this.props.reviews.filter(element => element.user.email === "user@user.com"),
       }
     
@@ -44,7 +43,7 @@ export class Profile extends Component {
                                 <div className = "profile"></div> 
                                 <img src = {this.state.avatar} alt = "avatar" width = '128px' height = '128px'/>
                                 <div className="profile-info"> 
-                                    <h2>{this.state.username}</h2>
+                                    <h2>{this.state.user ? this.state.user.name : "Log in please"}</h2>
                                     <p className="location">{this.state.neighbourhood}, <br></br>{this.state.origin}</p>
                                 </div>
                             </div> 
@@ -83,10 +82,12 @@ const ProfileStyled = styled.div`
         display: flex;
         align-items: center;
         margin-left: 16px;
-        margin-bot: 16px;
+        margin-bottom: 16px;
 
-        .icon: {
-        }
+        /* .icon: {
+
+        } */
+
         h1 {
             margin-left: 8px;
             font-style: normal;
@@ -96,6 +97,7 @@ const ProfileStyled = styled.div`
     
         }
     }
+
     .profile-content {
         display: inline-block;
         background: #E5E5E5;
@@ -212,4 +214,5 @@ const ProfileStyled = styled.div`
         }
     }
 `
+
 export default Profile
