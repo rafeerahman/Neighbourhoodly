@@ -1,18 +1,18 @@
 # team49
 
-our web app is built using react so node_modules is not committed.
+Our web app is built using react so node_modules is not committed.
 
 external libraries used:
 	- styled-components library
 	- material-ui icons library
 
 login credentials:
-	admin:
+	**admin:
 		username: admin@admin.com
-		password: admin
-	user:
+		password: admin**
+	**user:
 		username: user@user.com
-		password: user
+		password: user**
 
 Open opening our web app you will find your self on our register page which new users can use to register, you can navigate to the login page using the side bar and clicking 'Login' to access user/admin features.
 	
