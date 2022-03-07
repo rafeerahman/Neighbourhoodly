@@ -1,18 +1,24 @@
+
 # team49
 
+## Instructions:
 Our web app is built using react so node_modules is not committed.
+* type **npm install** in the terminal in /team49/neighbourhood.ly 
+* type **npm start**
 
-external libraries used:
-	- styled-components library
-	- material-ui icons library
+## External libraries used:
+* styled-components 
+* material-ui icons
 
-login credentials:
-	**admin:
-		username: admin@admin.com
-		password: admin**
-	**user:
-		username: user@user.com
-		password: user**
+## Login Credentials:
+* admin:
+	* username: admin@admin.com
+	* password: admin**
+* user:
+	* username: user@user.com
+	* password: user
+
+## Description
 
 Open opening our web app you will find your self on our register page which new users can use to register, you can navigate to the login page using the side bar and clicking 'Login' to access user/admin features.
 	
