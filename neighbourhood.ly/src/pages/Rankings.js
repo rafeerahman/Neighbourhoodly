@@ -9,54 +9,50 @@ import SortBar from '../components/SortBar'
 import '../components/Rankings.css'
 import SearchIcon from '@mui/icons-material/Search';
 
-// function handleChange(event) {
-//     console.log(event.target.value);
-// }
 export class Rankings extends Component {
-    // Not currently working properly
 
-    // state = {
-    //     search: ""
-    // }
+    state = {
+        allNeighbourhoods: this.props.data,
+        search: ""
+    }
 
-    // handleChange = event => {
-    //     console.log(event.target.value);
-    // }
+    setNeighbourhoods = (filteredNeighbourhoods) => {
+        this.setState({
+            allNeighbourhoods: filteredNeighbourhoods
+        })
 
-    // handleInputChange = event => {
+        console.log(filteredNeighbourhoods);
+    }
 
-    //     const target = event.target;
-    //     const value = target.value;
-    //     const name = target.name;
-
-    //     this.setState({
-    //       search: value
-    //     })
-
-    //     this.props.data.filter(function (el) {
-    //         return el.title.toLowerCase().includes(value.toLowerCase())
-    //     })
-        
-    //     console.log(this.props.data)
-    // }
-
+    filterNeighbourhoods = (searchValue) => {
+        if (searchValue == "") {
+            this.setState({
+              allNeighbourhoods: this.props.data // set to initial/sorted
+            })
+            console.log(this.state.allNeighbourhoods)
+          } else {
+            const filter = this.props.data.filter((neighbourhood) => 
+                {
+                    // console.log(neighbourhood.title)
+                    // console.log(neighbourhood.title.includes(searchValue));
+                    return neighbourhood.title.includes(searchValue);
+                }
+            )
+            this.setState({
+              allNeighbourhoods: filter
+            })
+          }
+    }
+    
     render(){
         const {data, isLoggedIn, isAdmin} = this.props
-        
-        // handleChange = event => {
-        //     console.log(event.target.value);
-        // }
-
-        // data = data.filter(function (el) {
-        //     return el.title.toLowerCase().includes("york".toLowerCase())
-        // })
 
         return(
             <div>
 
                 <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                handleAdmin={isAdmin}
+                isAdmin={isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
@@ -65,25 +61,9 @@ export class Rankings extends Component {
 
                 <div className='RankingContainer'>
                     <ul>
-                        {/* <li>
-                            <SearchBarStyled className="Search">
-                                <SearchIcon className="searchIcon"/>
-                                <input placeholder="Search" 
-                                onChange={this.handleChange}></input>
-                            </SearchBarStyled>
-                            <RankingsList neighbourhoods={data}/>
-                        </li>  */}
-                        <li> <SearchBar/> <RankingsList neighbourhoods={data}/> </li>
-                        {/* <li> 
-                            <SearchBar 
-                                handleChange=
-                                    {{data}.filter
-                                        (function (el) 
-                                            {return el.title.toLowerCase().includes(event.target.value.toLowerCase())}
-                                        )
-                                    }
-                            />
-                            <RankingsList neighbourhoods={data}/> </li> */}
+                        
+                        <li> <SearchBar filter={this.filterNeighbourhoods} parent={this}/><RankingsList parent={this} neighbourhoods={this.state.allNeighbourhoods}/> </li>
+                        
                     </ul> 
                 </div>
             </div>

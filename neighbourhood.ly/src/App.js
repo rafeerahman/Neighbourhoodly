@@ -16,10 +16,16 @@ class App extends React.Component {
     state = {
         loggedIn: false,
         admin: false,
-        userEmail: ""
+        userEmail: "",
+        users :
+        [
+            {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
+            {name: "user", password: "user", email: "user@user.com", type: "user"}
+        ],
+        user: null
     }
 
-    logInHandler = (updatedEmail, isAdmin) => {
+    logInHandler = (user, isAdmin) => {
         if (isAdmin) {
             this.setState({
                 admin: true
@@ -27,8 +33,10 @@ class App extends React.Component {
         }
         this.setState({
             loggedIn: true,
-            userEmail: updatedEmail
+            user: user
         })
+
+        // setTimeout(() => console.log(this.state.user), 5000);
     }
 
     logoutHandler = () => {
@@ -39,13 +47,27 @@ class App extends React.Component {
         })
     }
 
-    isLoggedIn = () => (
-        this.state.loggedIn
-    )
+    registerHandler = (user) => {
+        this.state.users.push(user)
+        this.setState({
+            users: this.state.users
+        })
+    }
 
-    isAdmin = () => (
-        this.state.admin
-    )
+    removeUser = (email) => {
+        this.state.users = this.state.users.filter(other => other.email !== email)
+        this.setState({users: this.state.users})
+    }
+
+    isLoggedIn = () => {
+        console.log("Logged in status: ", this.state.loggedIn);
+        return this.state.loggedIn
+    }
+
+    isAdmin = () => {
+        console.log("Admin status: ", this.state.admin);
+        return this.state.admin
+    }
 
     render() {
 
@@ -61,22 +83,24 @@ class App extends React.Component {
             avgUserRating: 9,
         }
         ]
-
-        const users = [
-        {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
-        {name: "user", password: "user", email: "user@user.com", type: "user"}
-        ]
         
         const reviews = [
         {
-            email: "user@user.com",
-            user: "user",
+            user: this.state.users[0],
             neighbourhoodTitle: "Yonge-St Clair",
             avatar: pickachuAvatar,
             reviewTitle: "Lots of things to do",
             date: "2022/03/01",
             starRating: 4,
             reviewBody: "This neighbourhood felt very safe and I liked it."
+        }, 
+        {
+            user: this.state.users[1],
+            avatar: pickachuAvatar,
+            reviewTitle: "Lots of things to do",
+            date: "2022/03/01",
+            starRating: 4,
+            reviewBody: "Testing"
         }
         ]
         
@@ -95,8 +119,9 @@ class App extends React.Component {
                 /> :
                 <Route exact path = "/" 
                 render={() => (<Register 
-                    users={users} 
+                    users={this.state.users} 
                     appState={ this.state } 
+                    registerHandler={this.registerHandler} 
                     isLoggedIn={this.isLoggedIn} 
                     logInHandler={this.logInHandler}/>)}
                 /> 
@@ -105,7 +130,6 @@ class App extends React.Component {
 
             <Route exact path = "/LogIn"
                 render={() => (<LogIn 
-                    users={users} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     isAdmin={this.isAdmin} 
@@ -140,17 +164,18 @@ class App extends React.Component {
 
             <Route exact path = "/AdminDashboard"
                 render={() => (<AdminDashboard
-                     users={users} 
-                     reviews={reviews} 
-                     appState={ this.state } 
-                     logInHandler={this.logInHandler} 
-                     isAdmin={this.isAdmin} 
-                     logoutHandler={this.logoutHandler}/>)}
+                    users={this.state.users} 
+                    reviews={reviews} 
+                    appState={ this.state } 
+                    logInHandler={this.logInHandler}
+                    isAdmin={this.isAdmin} 
+                    removeUser={this.removeUser} 
+                    logoutHandler={this.logoutHandler}/>)}
             />
 
             <Route exact path = "/Profile"
                 render={() => (<Profile 
-                    users={users} 
+                    users={this.state.users} 
                     reviews={reviews} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
@@ -162,9 +187,11 @@ class App extends React.Component {
                     <Route exact path={`/${neighbourhood.title}`}
                     render={() => (
                         <NeighbourhoodPage 
-                        isLoggedIn={this.isLoggedIn}
-                        name={neighbourhood.title}
+                        user={this.state.user}
                         reviews={reviews}
+                        isLoggedIn={this.isLoggedIn}
+                        isAdmin={this.isAdmin}
+                        name={neighbourhood.title}
                         safetyScore={neighbourhood.safetyScore}
                         avgUserRating={neighbourhood.avgUserRating}
                         />)

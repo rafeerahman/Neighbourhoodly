@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import StarIcon from '@mui/icons-material/Star';
 import styled from 'styled-components';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default class UserReview extends Component {
   render() {
@@ -10,8 +11,11 @@ export default class UserReview extends Component {
     return (
     <UserReviewStyled className="userReview">
         <Left className="left">
-        <img src={avatar}/>
-            <p>{user}</p>
+        {(avatar != null) ? 
+          <img className="avatar" src={avatar}/> :
+          <AccountCircleIcon className="avatar"/>
+         }
+            <p>{user ? user.name : "Guest"}</p>
         </Left>
         <Right className="right-content">
           <h3>{title}</h3>
@@ -46,7 +50,7 @@ const Left = styled.div`
     text-align: center;
     
     
-    img {
+    .avatar {
         height: 100px;
         width: 100px;
         border-radius: 50%;

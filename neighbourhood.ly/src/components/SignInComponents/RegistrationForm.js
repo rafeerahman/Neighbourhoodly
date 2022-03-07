@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 class RegistrationForm extends Component {
 
   handleRegistration = () => {
-    let success = checkRegistration(this.props.SignInState)
+    let success = checkRegistration(this.props.SignInState, this.props.users, this.props.updateUsers, this.props.handleSignal)
 
     if (success) {
       this.props.history.push('/LogIn')
@@ -16,7 +16,7 @@ class RegistrationForm extends Component {
   }
 
   render() {
-      const {SignInState} = this.props
+      const {SignInState, handleInputChange} = this.props
 
     return (
         <div id="signInTab">
@@ -25,29 +25,29 @@ class RegistrationForm extends Component {
         </div>
         <ul>
             <li>Email</li>
-            <li><input  value={ SignInState.state.email } 
-                        onChange={ SignInState.handleInputChange }
+            <li><input  value={ SignInState.email } 
+                        onChange={ handleInputChange }
                         name="email"
                         className="signInInput"
                         type="text"/></li>
             
             <li>Username</li>
-            <li><input  value={ SignInState.state.username } 
-                        onChange={ SignInState.handleInputChange }
+            <li><input  value={ SignInState.username } 
+                        onChange={ handleInputChange }
                         name="username"
                         className="signInInput" 
                         type="text"/></li>
             
             <li>Password</li>
-            <li><input  value={ SignInState.state.password } 
-                        onChange={ SignInState.handleInputChange }
+            <li><input  value={ SignInState.password } 
+                        onChange={ handleInputChange }
                         name="password"
                         className="signInInput" 
                         type="text"/></li>
             
             <li>Retype Passwords</li>
-            <li><input  value={ SignInState.state.retypePassword } 
-                        onChange={ SignInState.handleInputChange }
+            <li><input  value={ SignInState.retypePassword } 
+                        onChange={ handleInputChange }
                         name="retypePassword"
                         className="signInInput" 
                         type="text"/></li>
@@ -58,10 +58,10 @@ class RegistrationForm extends Component {
                         value="Register"/></li>
 
             {
-                SignInState.state.showFailedPassword ? <li>Passwords do not match</li> : null
+                SignInState.showFailedPassword ? <li>Passwords do not match</li> : null
             }
             {
-                SignInState.state.showExistingUser ? <li>User already exists. Please log in</li> : null
+                SignInState.showExistingUser ? <li>User already exists. Please log in</li> : null
             }
         </ul>
         </div>

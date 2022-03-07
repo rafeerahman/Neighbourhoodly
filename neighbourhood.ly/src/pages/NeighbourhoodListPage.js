@@ -8,18 +8,20 @@ import Sidebar from '../components/Sidebar'
 export default class NeighbourhoodListPage extends Component {
 
   render() {
-    const {data, isLoggedIn, isAdmin} = this.props
+    const {data, isLoggedIn} = this.props
 
     return (
         <div>
             {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
             <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                handleAdmin={isAdmin}
+                isAdmin={this.props.isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
-                tab4="Home" 
+                tab4="Profile"
+                tab5="Admin Dashboard"
+                tab6="Home"
                 showMenu={true}/>
             <NeighbourhoodContainer> 
                 <h1>Select a neighbourhood</h1>
