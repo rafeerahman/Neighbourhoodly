@@ -98,6 +98,7 @@ class App extends React.Component {
         }, 
         {
             user: this.state.users[1],
+            neighbourhoodTitle: "York University Heights",
             avatar: pickachuAvatar,
             reviewTitle: "Cool place",
             date: "2022/03/01",
@@ -199,7 +200,8 @@ class App extends React.Component {
                         avgUserRating={neighbourhood.avgUserRating}
                         />)
                     }/>
-                ))}
+                ))
+            }
             </Switch>
 
         </BrowserRouter>
