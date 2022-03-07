@@ -13,8 +13,8 @@ export const checkLogin = (signInTab, users, updateLogin, handleSignal) => {
     console.log("Successfully logged in")
     if (validUser.type === "admin") {
         // user is an admin
-        updateLogin(validUser.email, true)
+        updateLogin(validUser, true)
         return
     }
-    updateLogin(validUser.email, false)
+    updateLogin(validUser, false)
 };

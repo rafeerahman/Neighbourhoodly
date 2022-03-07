@@ -24,7 +24,8 @@ export class NeighbourhoodPage extends Component {
       })
     } else {
       const reviews = this.props.reviews.filter((review) => {
-        const allText = review.user.name + " " + review.reviewTitle + " " + review.date + " " + review.reviewBody
+        const username = review.user ? review.user.name : "Guest"
+        const allText = username + " " + review.reviewTitle + " " + review.date + " " + review.reviewBody
         console.log(allText);
         return allText.toLowerCase().includes(searchValue.toLowerCase())}
         )

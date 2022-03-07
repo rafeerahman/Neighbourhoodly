@@ -31,8 +31,10 @@ class App extends React.Component {
                 admin: true
             })
         }
+        console.log(user);
         this.setState({
             loggedIn: true,
+            userEmail: user.email,
             user: user
         })
 

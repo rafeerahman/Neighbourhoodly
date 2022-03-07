@@ -8,8 +8,6 @@ class SignIn extends React.Component {
 
     updateLogin = (user, isAdmin) => {
         this.props.logInHandler(user, isAdmin)
-        
-
     }
 
     render() {
