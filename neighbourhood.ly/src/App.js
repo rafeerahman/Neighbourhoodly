@@ -86,7 +86,7 @@ class App extends React.Component {
         
         const reviews = [
         {
-            user: users[0],
+            user: this.state.users[0],
             neighbourhoodTitle: "Yonge-St Clair",
             avatar: pickachuAvatar,
             reviewTitle: "Lots of things to do",
@@ -95,7 +95,7 @@ class App extends React.Component {
             reviewBody: "This neighbourhood felt very safe and I liked it."
         }, 
         {
-            user: users[0],
+            user: this.state.users[1],
             avatar: pickachuAvatar,
             reviewTitle: "Lots of things to do",
             date: "2022/03/01",
