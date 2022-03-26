@@ -56,19 +56,16 @@
     border-radius: 50%;
 }
 
-/* th {
-	border-collapse: collapse;
-	border: 0px;
-    font-size: 30px;
-    text-align: left;
-    padding: 40px;
-    padding-bottom: 20px;
-} */
-
 td {
 	border-collapse: collapse;
 	border: 0px;
     font-size: 20px;
     text-align: left;
     padding: 20px;
+}
+
+.bio {
+    font-size: 15px;
+    padding: 20px;
+    padding-top: 0px;
 }

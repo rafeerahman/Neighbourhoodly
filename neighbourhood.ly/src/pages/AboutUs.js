@@ -30,37 +30,41 @@ class AboutUs extends Component {
                     <div className='creatorsBoxHeader'>Meet The Creators</div>
                     <tbody>
                         <tr>
-                            <td>
+                            <td rowspan="2">
                                 <div className='samplePicture'/>
                             </td>
                             <td>
-                                Rafee Rahman
+                                Rafee Rahman 
                             </td>
                         </tr>
+                        <tr><td className='bio'>insert short bio here</td></tr>
                         <tr>
-                            <td>
+                            <td rowspan="2">
                                 <div className='samplePicture'/>
                             </td>
                             <td>
                                 Syed Ahmed
                             </td>
                         </tr>
+                        <tr><td className='bio'>insert short bio here</td></tr>
                         <tr>
-                            <td>
+                            <td rowspan="2">
                                 <div className='samplePicture'/>
                             </td>
                             <td>
                                 Lama Amin
                             </td>
                         </tr>
+                        <tr><td className='bio'>4th year Commerce + Computer Science major at the University of Toronto Mississauga.</td></tr>
                         <tr>
-                            <td>
+                            <td rowspan="2">
                                 <div className='samplePicture'/>
                             </td>
                             <td>
                                 Steven Lau
                             </td>
-                        </tr>                                                              
+                        </tr>      
+                        <tr><td className='bio'>insert short bio here</td></tr>                  
                     </tbody>
                 </div>
 
