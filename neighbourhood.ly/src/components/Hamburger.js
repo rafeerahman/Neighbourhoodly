@@ -33,12 +33,12 @@ export class Hamburger extends Component {
 
             
               <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "Register"}
-                isAdmin={this.props.isAdmin}
+                SignInType={isLoggedIn ? "MainMenu" : "Register"}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
                 tab4="Home" 
+                isAdmin={this.props.isAdmin}
                 showMenu={this.state.showSidebar}/>
             
         </Menu>
@@ -55,6 +55,7 @@ const MenuBtnStyled = styled.button`
     border: none;
     z-index: 999;
     cursor: pointer;
+    left: -45px;
 
     :hover {
         

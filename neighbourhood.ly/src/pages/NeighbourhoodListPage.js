@@ -12,7 +12,6 @@ export default class NeighbourhoodListPage extends Component {
 
     return (
         <div>
-            {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
             <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
                 isAdmin={this.props.isAdmin}
@@ -23,6 +22,10 @@ export default class NeighbourhoodListPage extends Component {
                 tab5="Admin Dashboard"
                 tab6="Home"
                 showMenu={true}/>
+            {/* <Hamburger
+                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
+                isAdmin={this.props.isAdmin}
+            /> */}
             <NeighbourhoodContainer> 
                 <h1>Select a neighbourhood</h1>
                 <NeighbourhoodList neighbourhoods={data}/>
