@@ -16,5 +16,9 @@ export const checkLogin = (signInTab, users, updateLogin, handleSignal) => {
         updateLogin(validUser, true)
         return
     }
+    // updateLogin is async, probably best to send a callback function for
+    // if (this.props.isLoggedIn()) {
+    //     this.props.history.push('/')
+    // } 
     updateLogin(validUser, false)
 };
