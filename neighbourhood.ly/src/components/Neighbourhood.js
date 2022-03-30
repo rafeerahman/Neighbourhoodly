@@ -22,10 +22,10 @@ export class Neighbourhood extends Component {
 
 const NeighbourhoodStyled = styled.li`
     list-style: none;
-    margin-bottom: 25px;
+    margin-bottom: 48px;
     a {
-        font-size: 24px;
-        margin-right: 10px;
+        font-size: 36px;
+        margin-right: 20px;
     }
 `
 

@@ -104,7 +104,7 @@ export class RankingsList extends Component {
         
             <div className="sortBar">
                     <ul>
-                        <li><h3>Sort By:</h3></li>
+                        <li><h3>Sort</h3></li>
                         <li>
                             <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="highestRating">Highest Rating</button>
                         </li>

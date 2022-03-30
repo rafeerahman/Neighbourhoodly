@@ -43,7 +43,7 @@ const NeighbourhoodContainer = styled.div`
     margin-left: 320px;
     
     h1 {
-        font-size: 36px;
+        font-size: 48px;
         font-weight: 500;
         text-decoration: underline;
         margin-bottom: 25px;

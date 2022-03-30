@@ -3,6 +3,7 @@ import '../../App.css';
 import InfoBar from '../../components/InfoBar';
 import Sidebar from '../../components/Sidebar';
 import SignInTab from '../../components/SignInComponents/SignInTab';
+import toronto from '../../images/toronto2.png'
 
 class Register extends React.Component {
 
@@ -25,9 +26,12 @@ class Register extends React.Component {
             />
     
             <InfoBar />
-    
+            
+            {/* <div className="container">
+                <img className="toronto" src={toronto}/>
+            </div> */}
             <SignInTab users={this.props.users} SignInType="Register" isLoggedIn={this.props.isLoggedIn} updateUsers={this.updateUsers}/>
-    
+
           </div>
         )
     }

@@ -46,6 +46,7 @@ a {
 }
 
 #infoBar {
+    
     margin-left: 350px;
     width: 35%;
     position: absolute;
@@ -61,6 +62,14 @@ a {
     top: 10%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+
+.toronto {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  
 }
 
 .sidebar {

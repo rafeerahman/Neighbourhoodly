@@ -74,7 +74,7 @@ const ReviewFormStyled = styled.div`
         margin-bottom: 20px;
         
         input {
-            width: 420px;
+            width: 100%;
             font-size: 20px;
         }
 
@@ -116,7 +116,7 @@ const ReviewFormStyled = styled.div`
     }
 
     .reviewContent {
-        width: 420px;
+        width: 100%;
         height: 250px;
         font-size: 20px;
     }

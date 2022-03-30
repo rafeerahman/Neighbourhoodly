@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 import InfoBar from '../../components/InfoBar';
 import Sidebar from '../../components/Sidebar';
-
+import {toronto} from '../../images/toronto2.png'
 class UserHome extends React.Component {
     render() {
         return (
@@ -20,7 +20,7 @@ class UserHome extends React.Component {
             />
     
             <InfoBar />
-    
+            
           </div>
         )
     }

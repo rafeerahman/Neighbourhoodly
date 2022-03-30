@@ -110,6 +110,7 @@ const ReviewFormStyled = styled.div`
   margin-left: 10px;
   height: 700px;
   padding: 30px;
+  width: 400px;
   background-color: #EBEBEB;
   float: left;
 `
@@ -117,7 +118,7 @@ const ReviewFormStyled = styled.div`
 const UserReviewsStyled = styled.div`
   float: left;
   position: relative;
-  width: 1000px;
+  width: 900px;
   padding: 40px;
   margin-top: 20px;
   background-color: #EBEBEB;

@@ -5,7 +5,6 @@ const app = express();
 // mongoose.connect("mongodb://localhost/neighbourhoodlyAPI");
 const { mongoose } = require("./db/mongoose");
 
-const Student = require('./models/studentExample');
 const { User } = require("./models/user");
 
 // body-parser: middleware for parsing parts of the request into a usable object (onto req.body)
