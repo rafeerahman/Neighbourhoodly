@@ -1,16 +1,25 @@
 'use strict'
 const express = require("express");
 const app = express();
-// const mongoose = require('mongoose')
-// mongoose.connect("mongodb://localhost/neighbourhoodlyAPI");
+
+const log = console.log
+
+const { getAllData } = require('./requests/allNeighbourhoodsData')
+// getAllData().then(data => {console.log(data)})
+// .catch(error => {
+//     console.log(error)
+// })
+
 const { mongoose } = require("./db/mongoose");
 
+// Models
 const { User } = require("./models/user");
-
-// body-parser: middleware for parsing parts of the request into a usable object (onto req.body)
-const bodyParser = require('body-parser'); 
 const { Neighborhood } = require("./models/neighborhoods");
+
+// Body-parser: middleware for parsing parts of the request into a usable object (onto req.body)
+const bodyParser = require('body-parser'); 
 const { restart } = require("nodemon");
+
 app.use(bodyParser.json()) // parsing JSON body
 app.use(bodyParser.urlencoded({ extended: true })); // parsing URL-encoded form data (from form POST requests)
 
@@ -24,55 +33,40 @@ app.post('/api/users', async (req, res) => {
     })
 
     try {
-        // Save the user
         const newUser = await user.save()
         res.send(newUser)
     } catch (error) {
         console.log(error);
-        // if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
-        //     res.status(500).send('Internal server error')
-        // } else {
-        //     log(error)
-        //     res.status(400).send('Bad Request') // bad request for changing the student.
-        // }
     }
 })
+/***  NEIGHBOURHOODS ROUTES  ***/ 
 
-app.get('/api/neighborhoods', async(req, res) => {
-    // const neighborhoods = await Neighborhood.find({}).exec()
-    res.json([
-        {
-            title: "Yonge-St Clair",
-            safetyScore: 8,
-            avgUserRating: 7,
-        },
-        {
-            title: "York University Heights",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Bay Street Corridor",
-            safetyScore: 4.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Bayview Village",
-            safetyScore: 5.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Woodbine-Lumsden",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Yonge-Eglinton",
-            safetyScore: 8.5,
-            avgUserRating: 9,
+/*
+    This route is adding the formatted neighbourhoods data from City of Toronto API's found in requests.
+    No request params should be sent to this api.
+*/
+app.post('/api/neighbourhoods', async (req, res) => {
+    const allNeighbourhoods = await getAllData();
+    
+    for (let i = 0; i < allNeighbourhoods.length; i++) {
+        const neighborhood = new Neighborhood(allNeighbourhoods[i])
+        try {
+            await neighborhood.save()
+        } catch (e) {
+            log(e)
+            res.status(400).send('Bad Request') 
         }
-        ])
+    }
+
+    res.status(200).send(allNeighbourhoods)
 })
+
+
+
+// app.get('/api/neighborhoods', async(req, res) => {
+//     // const neighborhoods = await Neighborhood.find({}).exec()
+    
+// })
 
 // App Routes 
 app.get('/Register', async(req, res) => {
@@ -110,7 +104,7 @@ app.get('/AboutUs', async(req, res) => {
 // needs authorization check later
 app.get('/Profile', async(req, res) => {
     res.send('./pages/Profile')   
-}
+})
 
 /*************************************************/
 // Express server listening...

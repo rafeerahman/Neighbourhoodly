@@ -12,7 +12,11 @@ async function getAllData() {
     return data;
 }
 
-getAllData().then(data => {console.log(data)})
-.catch(error => {
-    log(error)
-})
+// getAllData().then(data => {console.log(data)})
+// .catch(error => {
+//     console.log(error)
+// })
+
+
+
+module.exports = { getAllData }

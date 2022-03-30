@@ -1,13 +1,15 @@
 'use strict'
 
 const log = console.log
+const path = require('path')
+
 const {addEconomics} = require("./neighEconomics")
 
 // log(addEconomics().then(data => {log(data)}));
 
 async function addSafetyData(neighbourhoodsData) {
     const XLSX = require('xlsx');
-    let table = XLSX.readFile('static_data/wellbeing-toronto-safety.xlsx')
+    let table = XLSX.readFile(path.join(__dirname, 'static_data/wellbeing-toronto-safety.xlsx'))
     let sheetNames = table.SheetNames;
     let new_range = XLSX.utils.decode_range(table.Sheets[sheetNames[2]]['!ref']);
     new_range.s.r = 1;
