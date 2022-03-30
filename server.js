@@ -75,6 +75,44 @@ app.get('/api/neighborhoods', async(req, res) => {
         ])
 })
 
+// App Routes 
+app.get('/Register', async(req, res) => {
+    res.send('./pages/homePages/Register')    
+})
+
+app.get('/Login', async(req, res) => {
+    res.send('./pages/homePages/LogIn')    
+})
+
+app.get('/Register', async(req, res) => {
+    res.send('./pages/homePages/Register')    
+})
+
+app.get('/NeighbourhoodListPage', async(req, res) => {
+    res.send('./pages/NeighbourhoodListPage')    
+})
+
+app.get('/NeighbourhoodPage', async(req, res) => {
+    res.send('./pages/NeighbourhoodPage')    
+})
+
+app.get('/UserHome', async(req, res) => {
+    res.send('./pages/homePages/UserHome')    
+})
+
+app.get('/Rankings', async(req, res) => {
+    res.send('./pages/Rankings')    
+})
+
+app.get('/AboutUs', async(req, res) => {
+    res.send('./pages/AboutUs')    
+})
+
+// needs authorization check later
+app.get('/Profile', async(req, res) => {
+    res.send('./pages/Profile')   
+}
+
 /*************************************************/
 // Express server listening...
 const port = process.env.PORT || 5000;
