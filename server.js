@@ -8,7 +8,9 @@ const { mongoose } = require("./db/mongoose");
 const { User } = require("./models/user");
 
 // body-parser: middleware for parsing parts of the request into a usable object (onto req.body)
-const bodyParser = require('body-parser') 
+const bodyParser = require('body-parser'); 
+const { Neighborhood } = require("./models/neighborhoods");
+const { restart } = require("nodemon");
 app.use(bodyParser.json()) // parsing JSON body
 app.use(bodyParser.urlencoded({ extended: true })); // parsing URL-encoded form data (from form POST requests)
 
@@ -35,6 +37,80 @@ app.post('/api/users', async (req, res) => {
         // }
     }
 })
+
+app.get('/api/neighborhoods', async(req, res) => {
+    // const neighborhoods = await Neighborhood.find({}).exec()
+    res.json([
+        {
+            title: "Yonge-St Clair",
+            safetyScore: 8,
+            avgUserRating: 7,
+        },
+        {
+            title: "York University Heights",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Bay Street Corridor",
+            safetyScore: 4.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Bayview Village",
+            safetyScore: 5.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Woodbine-Lumsden",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        },
+        {
+            title: "Yonge-Eglinton",
+            safetyScore: 8.5,
+            avgUserRating: 9,
+        }
+        ])
+})
+
+// App Routes 
+app.get('/Register', async(req, res) => {
+    res.send('./pages/homePages/Register')    
+})
+
+app.get('/Login', async(req, res) => {
+    res.send('./pages/homePages/LogIn')    
+})
+
+app.get('/Register', async(req, res) => {
+    res.send('./pages/homePages/Register')    
+})
+
+app.get('/NeighbourhoodListPage', async(req, res) => {
+    res.send('./pages/NeighbourhoodListPage')    
+})
+
+app.get('/NeighbourhoodPage', async(req, res) => {
+    res.send('./pages/NeighbourhoodPage')    
+})
+
+app.get('/UserHome', async(req, res) => {
+    res.send('./pages/homePages/UserHome')    
+})
+
+app.get('/Rankings', async(req, res) => {
+    res.send('./pages/Rankings')    
+})
+
+app.get('/AboutUs', async(req, res) => {
+    res.send('./pages/AboutUs')    
+})
+
+// needs authorization check later
+app.get('/Profile', async(req, res) => {
+    res.send('./pages/Profile')   
+}
 
 /*************************************************/
 // Express server listening...
