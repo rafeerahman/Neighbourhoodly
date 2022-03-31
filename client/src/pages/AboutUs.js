@@ -64,7 +64,7 @@ class AboutUs extends Component {
                                 Steven Lau
                             </td>
                         </tr>      
-                        <tr><td className='bio'>insert short bio here</td></tr>                  
+                        <tr><td className='bio'>3rd Year Computer Science Specialist at University of Toronto St George.</td></tr>                  
                     </tbody>
                 </div>
 
