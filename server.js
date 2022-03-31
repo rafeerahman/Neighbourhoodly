@@ -19,28 +19,12 @@ const { Neighborhood } = require("./models/neighborhoods");
 // Body-parser: middleware for parsing parts of the request into a usable object (onto req.body)
 const bodyParser = require('body-parser'); 
 const { restart } = require("nodemon");
+const { response } = require("express");
 
 app.use(bodyParser.json()) // parsing JSON body
 app.use(bodyParser.urlencoded({ extended: true })); // parsing URL-encoded form data (from form POST requests)
 
-app.post('/api/users', async (req, res) => {
-    console.log(req.body)
-
-    // Create a new user
-    const user = new User({
-        email: req.body.email,
-        password: req.body.password
-    })
-
-    try {
-        const newUser = await user.save()
-        res.send(newUser)
-    } catch (error) {
-        console.log(error);
-    }
-})
 /***  NEIGHBOURHOODS ROUTES  ***/ 
-
 /*
     This route is adding the formatted neighbourhoods data from City of Toronto API's found in requests.
     No request params should be sent to this api.
@@ -61,12 +45,41 @@ app.post('/api/neighbourhoods', async (req, res) => {
     res.status(200).send(allNeighbourhoods)
 })
 
+app.get('/api/neighbourhoods', async(req, res) => {
+    try {
+        const neighbourhoods = await Neighborhood.find({}) // -_id
+        if (neighbourhoods.length !== 0) {
+            res.status(200).send(neighbourhoods)
+        } else {
+            res.status(500).send("Server error")
+        }
+    } catch (e) {
+        log(e)
+        res.status(500).send("Server error")
+    }
+})
 
+/*** USERS API ROUTES ***/
+app.post('/api/users', async (req, res) => {
+    console.log(req.body)
 
-// app.get('/api/neighborhoods', async(req, res) => {
-//     // const neighborhoods = await Neighborhood.find({}).exec()
-    
-// })
+    // Create a new user
+    const user = new User({
+        email: req.body.email,
+        password: req.body.password
+    })
+
+    try {
+        const newUser = await user.save()
+        res.status(200).send(newUser)
+    } catch (error) {
+        log(error);
+        res.status(400).send('Bad Request')
+    }
+})
+
+/*** REVIEWS API ROUTES ***/
+
 
 // App Routes 
 app.get('/Register', async(req, res) => {
