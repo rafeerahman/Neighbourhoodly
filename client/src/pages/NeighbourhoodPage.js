@@ -45,7 +45,7 @@ export class NeighbourhoodPage extends Component {
     return (
       <div>
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
-         {user ? <UserSidebar app = {app} showMenu={true}/> : 
+         {currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
             <SidebarNonHome showMenu={true} />}
 
          <NeighbourhoodPageStyled>

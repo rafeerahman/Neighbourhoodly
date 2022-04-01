@@ -12,7 +12,7 @@ export default class NeighbourhoodListPage extends Component {
   render() {
     const {app, data, isLoggedIn} = this.props
     const neighbourhoodsData = app.state.neighbourhoodsData;
-    const user = app.state.username
+    const user = app.state.currentUser
     return (
         <div>
             {user ? <UserSidebar app = {app} showMenu={true}/> : 

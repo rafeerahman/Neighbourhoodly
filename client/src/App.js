@@ -227,19 +227,21 @@ class App extends React.Component {
             />
 
             
-            <Route exact path = "/AdminDashboard"
+            <Route exact path = {["/AdminDashboard"]}
             render={() => (
                 <div>
-                {currentUser !== null && isAdmin 
+                {currentUser !== null && isAdmin === true
                     ? 
-                <AdminDashboard
-                users={this.state.users} 
-                reviews={this.reviews} 
-                appState={ this.state } 
-                logInHandler={this.logInHandler}
-                isAdmin={this.isAdmin} 
-                removeUser={this.removeUser} 
-                logoutHandler={this.logoutHandler}/>
+                    <AdminDashboard
+                    app={this}
+                    user={this.state.currentUser}
+                    users={this.state.users} 
+                    reviews={this.reviews} 
+                    appState={ this.state } 
+                    logInHandler={this.logInHandler}
+                    isAdmin={this.isAdmin} 
+                    removeUser={this.removeUser} 
+                    logoutHandler={this.logoutHandler}/>
                     : 
                     <Redirect to="/login"/>}
                 </div>
