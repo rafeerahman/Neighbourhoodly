@@ -11,7 +11,7 @@ import Register from '../pages/homePages/Register';
 export class NeighbourhoodList extends Component {
   render() {
 
-    const {neighbourhoods, isLoggedIn} = this.props
+    const {neighbourhoods} = this.props
 
     return (
       <ul>
@@ -19,7 +19,6 @@ export class NeighbourhoodList extends Component {
                 return (
                 <Neighbourhood
                     key={uid(neighbourhood)}
-                    isLoggedIn={isLoggedIn}
                     neighbourhoodName={neighbourhood.title} />
                 )
             })}

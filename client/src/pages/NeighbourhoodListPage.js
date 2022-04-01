@@ -7,32 +7,34 @@ import Sidebar from '../components/Sidebar'
 
 export default class NeighbourhoodListPage extends Component {
 
-  render() {
-    const {data, isLoggedIn} = this.props
+    state = {
+        neighbourhoods: [] // temp
+    }
 
-    return (
-        <div>
-            <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                isAdmin={this.props.isAdmin}
-                tab1="About Us"
-                tab2="Neighbourhoods"
-                tab3="Rankings"
-                tab4="Profile"
-                tab5="Admin Dashboard"
-                tab6="Home"
-                showMenu={true}/>
-            {/* <Hamburger
-                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                isAdmin={this.props.isAdmin}
-            /> */}
-            <NeighbourhoodContainer> 
-                <h1>Select a neighbourhood</h1>
-                <NeighbourhoodList neighbourhoods={data}/>
-            </NeighbourhoodContainer> 
-        </div>
-    )
-  }
+    render() {
+        const { app } = this.props
+
+        return (
+            <div>
+                <Sidebar className="sidebar" 
+                    SignInType={ !app.state.currentUser ? "LogIn": "MainMenu" }
+                    tab1="About Us"
+                    tab2="Neighbourhoods"
+                    tab3="Rankings"
+                    tab4="Profile"
+                    tab5="Admin Dashboard"
+                    tab6="Home"
+                    showMenu={true}/>
+                {/* <Hamburger
+                    SignInType={ !app.state.currentUse ? "MainMenu" : "LogIn"}
+                /> */}
+                <NeighbourhoodContainer> 
+                    <h1>Select a neighbourhood</h1>
+                    <NeighbourhoodList neighbourhoods={this.state.neighbourhoods}/>
+                </NeighbourhoodContainer> 
+            </div>
+        )
+    }
 }
 
 

@@ -14,7 +14,7 @@ export class NeighbourhoodPage extends Component {
   state = {
     currentUser: "change later", // User will probably have avatar property and name, so get from there if they post a review.
     search: "",
-    allDbReviews: this.props.reviews
+    allDbReviews: [] // temp
   }
 
   filterReviews = (searchValue) => {
@@ -36,7 +36,7 @@ export class NeighbourhoodPage extends Component {
     }
   }
   render() {
-    const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin, user, reviews} = this.props
+    const {name, app} = this.props
     //console.log("Hello from neighb page")
 
     // Going to reorganize into components later.
@@ -44,8 +44,7 @@ export class NeighbourhoodPage extends Component {
       <div>
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
          <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                isAdmin={this.props.isAdmin}
+                SignInType={!app.state.currentUser ? "MainMenu" : "LogIn"}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
@@ -60,13 +59,13 @@ export class NeighbourhoodPage extends Component {
                 <li>
                   <StarOutlineIcon className="icon"/>
                   <p>Overall User Rating
-                  <br/> {avgUserRating}/10
+                  <br/> {0}/10
                   </p>
                 </li>
                 <li>
                   <HealthAndSafetyIcon className="icon"/>
                   <p>Safety Score
-                  <br/> {safetyScore}/10
+                  <br/> {0}/10
                   </p>
                   
                 </li>
@@ -95,7 +94,7 @@ export class NeighbourhoodPage extends Component {
             </UserReviewsStyled>
               
             <ReviewFormStyled className="reviewForm">
-                <UserReviewForm user={user} neighbourhoodTitle={name} neighbourhoodPage={this}/>
+                <UserReviewForm neighbourhoodTitle={name} user={app.state.currentUser.name} neighbourhoodPage={this}/>
             </ReviewFormStyled>
           </div>
         </NeighbourhoodPageStyled>
