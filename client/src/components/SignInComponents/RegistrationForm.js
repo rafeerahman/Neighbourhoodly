@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
-import { checkRegistration } from '../../actions/checkRegistration'
+import { addUser, checkRegistration } from '../../actions/checkRegistration'
 import { withRouter } from 'react-router-dom';
 
 class RegistrationForm extends Component {
 
   handleRegistration = () => {
-    let success = checkRegistration(this.props.SignInState, this.props.users, this.props.updateUsers, this.props.handleSignal)
-
+    let success = checkRegistration(this.props.SignInState, this.props.handleSignal)
     if (success) {
+      const newUser = {
+        name: this.props.SignInState.username,
+        password: this.props.SignInState.password,
+        email: this.props.SignInState.email,
+        type: this.props.SignInState.type
+      }
+      addUser(newUser)
       this.props.history.push('/LogIn')
-    }
-    else {
-
     }
   }
 

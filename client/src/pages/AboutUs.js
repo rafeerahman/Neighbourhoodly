@@ -5,13 +5,12 @@ import '../components/AboutUs.css'
 class AboutUs extends Component {
 
     render(){
-        const {isLoggedIn, isAdmin} = this.props
+        const { app } = this.props
         return(
             <div>
 
                 <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                isAdmin={isAdmin}
+                SignInType={!app.state.currentUser ? "MainMenu" : "LogIn"}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
@@ -46,7 +45,7 @@ class AboutUs extends Component {
                                 Syed Ahmed
                             </td>
                         </tr>
-                        <tr><td className='bio'>insert short bio here</td></tr>
+                        <tr><td className='bio'>3rd Year Computer Science Specialist at University of Toronto St George.</td></tr>
                         <tr>
                             <td rowspan="2">
                                 <div className='samplePicture'/>

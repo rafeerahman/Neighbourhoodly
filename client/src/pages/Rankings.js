@@ -12,7 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 export class Rankings extends Component {
 
     state = {
-        allNeighbourhoods: this.props.data,
+        allNeighbourhoods: [],
         search: ""
     }
 
@@ -45,14 +45,13 @@ export class Rankings extends Component {
     }
     
     render(){
-        const {data, isLoggedIn, isAdmin} = this.props
+        const { app } = this.props
 
         return(
             <div>
 
                 <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                isAdmin={isAdmin}
+                SignInType={!app.state.currentUser ? "MainMenu" : "LogIn"}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
@@ -91,3 +90,4 @@ const SearchBarStyled = styled.div`
         outline: none;
     }
 `
+

@@ -8,26 +8,25 @@ import StarIcon from '@mui/icons-material/Star';
 
 export class Profile extends Component {
     state = {
-        user: this.props.user, // Take from the state later // User will probably have avatar property and name, so get from there if they post a review.
+        user: this.props.app.currentUser, // Take from the state later // User will probably have avatar property and name, so get from there if they post a review.
         avatar: pickachuAvatar,
         neighbourhood: "Yonge-St Clair",
         origin: "Toronto, Ontario",
         description: "(We will update this when we finish profile setup) Businessman and part-time neighbourhood explorer of Toronto.",
-        reviews: this.props.reviews.filter(element => element.user.email === "user@user.com"),
+        reviews: [{}] // temp
       }
     
 
     render() {
-        const {isLoggedIn, isAdmin} = this.props
         //console.log("Hello from profile page") 
         //console.log(this.state.user)
         //console.log(this.props.users.userEmail)
+        const { app } = this.props
         return (
             <div>
                 {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
                 <Sidebar className="sidebar" 
-                    SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                    isAdmin={isAdmin}
+                    SignInType={!app.state.currentUser ? "LogIn" : "MainMenu"}
                     tab1="About Us"
                     tab2="Neighbourhoods"
                     tab3="Rankings"
