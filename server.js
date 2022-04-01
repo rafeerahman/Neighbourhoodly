@@ -178,7 +178,7 @@ app.put("/api/users/edit", multipartMiddleware, authenticateUser, async (req, re
         const oldUser = await User.findOneAndUpdate({username: sessionUser}, newData)
         oldUser.save() // Saves oldUser with new info
         console.log('Success')
-        res.status(200)
+        res.status(200).send()
     } catch (e) {
         log(e)
         res.status(500).send('Server error')

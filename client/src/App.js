@@ -147,7 +147,7 @@ class App extends React.Component {
         <BrowserRouter>
             <Switch>
             <Route 
-                exact path={["/LogIn"]}
+                exact path={["/Login"]}
                 render={() => (
                 <div>
                 {currentUser !== null ? <UserHome

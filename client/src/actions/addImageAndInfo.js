@@ -27,6 +27,7 @@ export const addImageAndInfo= (form, username, callback) => {
             if (res.status === 200) {
                 // If image was added successfully, tell the user.
                 console.log("Success")
+                alert('successully edited')
                 callback()
             } else if (res.status === 400) {
                 alert("You must enter atleast one field to edit your profile.")
