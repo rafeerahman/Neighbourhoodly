@@ -147,7 +147,8 @@ class App extends React.Component {
                 exact path={["/LogIn"]}
                 render={() => (
                 <div>
-                {currentUser ? <UserHome 
+                {currentUser ? <UserHome
+                    app={this} 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     isAdmin={this.isAdmin} 
@@ -172,7 +173,8 @@ class App extends React.Component {
                 exact path={["/"]}
                 render={() => (
                 <div>
-                {currentUser !== null ? <UserHome 
+                {currentUser !== null ? <UserHome
+                    app={this}
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     isAdmin={this.isAdmin} 
