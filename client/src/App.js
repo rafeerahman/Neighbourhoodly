@@ -11,7 +11,6 @@ import Profile from './pages/Profile';
 import ErrorPage from './pages/ErrorPage'
 import ProfileErrorPage from './pages/ProfileErrorPage'
 import AdminDashboard from './pages/AdminDashboard';
-import pickachuAvatar from './images/pickachuAvatar.png'
 import AboutUs from './pages/AboutUs';
 
 
