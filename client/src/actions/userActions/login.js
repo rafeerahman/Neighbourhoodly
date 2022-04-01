@@ -32,7 +32,11 @@ export const login = (SignInTab, app) => {
         })
         .then(json => {
             if (json.currentUser) {
-                app.setState({ currentUser: json.currentUser });
+                // console.log(json)
+                app.setState({ currentUser: json.currentUser, isAdmin: json.isAdmin }, () => {
+                    console.log('Login.js')
+                    // console.log(app.state.isAdmin)
+                });
             }
         })
         .catch(error => {

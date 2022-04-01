@@ -18,14 +18,12 @@ export const checkSession = (app) => {
             }
         })
         .then(json => {
+            console.log(json)
             if (json && json.currentUser) {
-                app.setState({ currentUser: json.currentUser }, () => {
-                    console.log(app.state.currentUser)
-                });
+                app.setState({ currentUser: json.currentUser, isAdmin: json.isAdmin});
             }
         })
         .catch(error => {
-            console.log('HIIIIIIIII')
             console.log(error);
         });
     } else {

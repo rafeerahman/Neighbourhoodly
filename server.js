@@ -95,7 +95,8 @@ app.post("/users/login", (req, res) => {
             req.session.user = user._id;
             req.session.email = user.email; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
             req.session.username = user.username;
-            res.send({ currentUser: user.email });
+            req.session.isAdmin = user.isAdmin;
+            res.send({ currentUser: user.email, isAdmin: user.isAdmin});
         })
         .catch(error => {
             res.status(400).send("Invalid credentials")
@@ -125,7 +126,7 @@ app.get("/users/check-session", (req, res) => {
 
     if (req.session.user) {
         log(req.session)
-        res.send({ currentUser: req.session.email });
+        res.send({ currentUser: req.session.email , isAdmin: req.session.isAdmin});
     } else {
         res.status(401).send();
     }
@@ -262,43 +263,23 @@ app.delete('/api/reviews/:id', authenticateUser, async (req, res) => {
 	}
 })
 
-// App Routes 
-app.get('/Register', async(req, res) => {
-    res.send('./pages/homePages/Register')    
-})
 
-app.get('/Login', async(req, res) => {
-    res.send('./pages/homePages/LogIn')    
-})
 
-app.get('/Register', async(req, res) => {
-    res.send('./pages/homePages/Register')    
-})
+app.use(express.static(path.join(__dirname, "/client/build")));
 
-app.get('/NeighbourhoodListPage', async(req, res) => {
-    res.send('./pages/NeighbourhoodListPage')    
-})
 
-app.get('/NeighbourhoodPage', async(req, res) => {
-    res.send('./pages/NeighbourhoodPage')    
-})
+// All routes other than above will go to index.html
+app.get("*", (req, res) => {
+    // check for page routes that we expect in the frontend to provide correct status code.
+    const goodPageRoutes = ["/", "/Login", "/Profile", '/AboutUs', '/Neighbourhoods', '/AdminDashboard', '/Rankings'];
+    if (!goodPageRoutes.includes(req.url)) {
+        // if url not in expected page routes, set status to 404.
+        res.status(404);
+    }
 
-app.get('/UserHome', async(req, res) => {
-    res.send('./pages/homePages/UserHome')    
-})
-
-app.get('/Rankings', async(req, res) => {
-    res.send('./pages/Rankings')    
-})
-
-app.get('/AboutUs', async(req, res) => {
-    res.send('./pages/AboutUs')    
-})
-
-// needs authorization check later
-app.get('/Profile', async(req, res) => {
-    res.send('./pages/Profile')   
-})
+    // send index.html
+    res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 
 /*************************************************/
 // Express server listening...

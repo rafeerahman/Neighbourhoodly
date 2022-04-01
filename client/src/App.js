@@ -21,6 +21,7 @@ class App extends React.Component {
 
     state = {
         currentUser: null,
+        isAdmin: false,
         loggedIn: false,
         admin: false,
         userEmail: "",
@@ -102,7 +103,7 @@ class App extends React.Component {
         }
     ]
     render() {
-        const {currentUser} = this.state;
+        const {currentUser, isAdmin} = this.state;
         // code below requires server call
         const neighbourhoods = [
         {
@@ -138,8 +139,7 @@ class App extends React.Component {
         ]
         // code below requires server call
         console.log(this.reviews)
-        console.log(currentUser)
-
+       
         return (
         <BrowserRouter>
             <Switch>
