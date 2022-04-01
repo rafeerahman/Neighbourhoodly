@@ -32,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // parsing URL-encoded form 
 const session = require("express-session")
 const MongoStore = require('connect-mongo')
 const { addEconomics } = require("./requests/neighEconomics")
+const { send } = require("express/lib/response")
 
 /*** USERS API ROUTES ***/
 app.post('/api/users', async (req, res) => {
@@ -254,42 +255,16 @@ app.delete('/api/reviews/:id', authenticateUser, async (req, res) => {
 	}
 })
 
-// App Routes 
-app.get('/Register', async(req, res) => {
-    res.send('./pages/homePages/Register')    
-})
+// Webpage Routes 
 
-app.get('/Login', async(req, res) => {
-    res.send('./pages/homePages/LogIn')    
-})
+app.get("*", (req, res) => {
+    const goodPageRoutes = ["/Register", "/Login", "/NeighbourhoodListPage", "/NeighbourhoodPage", "/UserHome", "/Rankings", "/AboutUs", "/Profile"];
+    if (!goodPageRoutes.includes(req.url)) {
+        // if url not in expected page routes, set status to 404.
+        res.status(404);
+    }
 
-app.get('/Register', async(req, res) => {
-    res.send('./pages/homePages/Register')    
-})
-
-app.get('/NeighbourhoodListPage', async(req, res) => {
-    res.send('./pages/NeighbourhoodListPage')    
-})
-
-app.get('/NeighbourhoodPage', async(req, res) => {
-    res.send('./pages/NeighbourhoodPage')    
-})
-
-app.get('/UserHome', async(req, res) => {
-    res.send('./pages/homePages/UserHome')    
-})
-
-app.get('/Rankings', async(req, res) => {
-    res.send('./pages/Rankings')    
-})
-
-app.get('/AboutUs', async(req, res) => {
-    res.send('./pages/AboutUs')    
-})
-
-// needs authorization check later
-app.get('/Profile', async(req, res) => {
-    res.send('./pages/Profile')   
+    res.sendFile(path.join(__dirname, "/client/src/pages/homePages/Userhome.js"));
 })
 
 /*************************************************/
