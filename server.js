@@ -8,8 +8,8 @@ const express = require("express");
 const path = require('path')
 const app = express();
 // enable CORS if in development, for React local development server to connect to the web server.
-const cors = require('cors')
-if (env !== 'production') { app.use(cors()) }
+// const cors = require('cors')
+// if (env !== 'production') { app.use(cors()) }
 
 const log = console.log
 const { getAllData } = require('./requests/allNeighbourhoodsData')
