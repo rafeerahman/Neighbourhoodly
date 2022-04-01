@@ -258,7 +258,7 @@ app.delete('/api/reviews/:id', authenticateUser, async (req, res) => {
 // Webpage Routes 
 
 app.get("*", (req, res) => {
-    const goodPageRoutes = ["/Register", "/Login", "/NeighbourhoodListPage", "/NeighbourhoodPage", "/UserHome", "/Rankings", "/AboutUs", "/Profile"];
+    const goodPageRoutes = ["/", "/Register", "/Login", "/NeighbourhoodListPage", "/NeighbourhoodPage", "/UserHome", "/Rankings", "/AboutUs", "/Profile"];
     if (!goodPageRoutes.includes(req.url)) {
         // if url not in expected page routes, set status to 404.
         res.status(404);
