@@ -5,6 +5,7 @@ const TEST_USER_ID = '5fb8b011b864666580b4efe3' // the id of our test user (you 
 const TEST_USER_EMAIL = 'test@user.com'
 
 const express = require("express");
+const path = require('path')
 const app = express();
 // enable CORS if in development, for React local development server to connect to the web server.
 const cors = require('cors')
