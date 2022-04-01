@@ -9,6 +9,8 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import pickachuAvatar from '../images/pickachuAvatar.png'
 import Sidebar from '../components/Sidebar';
 import { uid } from 'react-uid';
+import SidebarNonHome from '../components/SidebarNonHome';
+import UserSidebar from '../components/UserSidebar';
 
 export class NeighbourhoodPage extends Component {
   state = {
@@ -36,23 +38,16 @@ export class NeighbourhoodPage extends Component {
     }
   }
   render() {
-    const {name, safetyScore, avgUserRating, isLoggedIn, isAdmin, user, reviews} = this.props
-    //console.log("Hello from neighb page")
+    const {app, user, name, safetyScore, avgUserRating, isLoggedIn, isAdmin, reviews} = this.props
+    const currentUser = app.state.currentUser
 
     // Going to reorganize into components later.
     return (
       <div>
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
-         <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                isAdmin={this.props.isAdmin}
-                tab1="About Us"
-                tab2="Neighbourhoods"
-                tab3="Rankings"
-                tab4="Profile"
-                tab5="Admin Dashboard"
-                tab6="Home"
-                showMenu={true}/>
+         {user ? <UserSidebar app = {app} showMenu={true}/> : 
+            <SidebarNonHome showMenu={true} />}
+
          <NeighbourhoodPageStyled>
           <div className="header-content">
             <h1 className="title">{name}</h1>

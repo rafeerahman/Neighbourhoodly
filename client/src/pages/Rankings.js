@@ -8,6 +8,8 @@ import SearchBar from '../components/SearchBar'
 import SortBar from '../components/SortBar'
 import '../components/Rankings.css'
 import SearchIcon from '@mui/icons-material/Search';
+import UserSidebar from '../components/UserSidebar'
+import SidebarNonHome from '../components/SidebarNonHome'
 
 export class Rankings extends Component {
 
@@ -45,19 +47,13 @@ export class Rankings extends Component {
     }
     
     render(){
-        const {data, isLoggedIn, isAdmin} = this.props
+        const {user, app, data, isLoggedIn, isAdmin} = this.props
 
         return(
             <div>
 
-                <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                isAdmin={isAdmin}
-                tab1="About Us"
-                tab2="Neighbourhoods"
-                tab3="Rankings"
-                tab4="Home" 
-                showMenu={true}/>
+            {user ? <UserSidebar app = {app} showMenu={true}/> : 
+                    <SidebarNonHome showMenu={true} />}
 
                 <div className='RankingContainer'>
                     <ul>

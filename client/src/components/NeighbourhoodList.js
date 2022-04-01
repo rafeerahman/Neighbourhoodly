@@ -18,9 +18,9 @@ export class NeighbourhoodList extends Component {
         {neighbourhoods.map((neighbourhood) => {
                 return (
                 <Neighbourhood
-                    key={uid(neighbourhood)}
+                    key={uid(neighbourhood.neighbourhoodName)}
                     isLoggedIn={isLoggedIn}
-                    neighbourhoodName={neighbourhood.title} />
+                    neighbourhoodName={neighbourhood.neighbourhoodName} />
                 )
             })}
         <h2>More Coming Soon!</h2>

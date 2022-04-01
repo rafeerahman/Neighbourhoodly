@@ -4,6 +4,8 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
+const {imageSchema} = require('./image');
+const { text } = require('body-parser');
 
 // Making a Mongoose model a little differently: a Mongoose Schema
 // Allows us to add additional functionality.
@@ -33,7 +35,20 @@ const UserSchema = new mongoose.Schema({
 	isAdmin: {
 		type: Boolean,
 		required: false
+	},
+	image: {
+		type: imageSchema,
+		required: false
+	},
+	about: {
+		type: String,
+		required: false
+	},
+	location: {
+		type: String,
+		required: false
 	}
+
 })
 
 // An example of Mongoose middleware.

@@ -3,16 +3,21 @@ import styled from 'styled-components'
 import Hamburger from '../components/Hamburger'
 import NeighbourhoodList from '../components/NeighbourhoodList'
 import Sidebar from '../components/Sidebar'
+import SidebarNonHome from '../components/SidebarNonHome'
+import UserSidebar from '../components/UserSidebar'
 
 
 export default class NeighbourhoodListPage extends Component {
 
   render() {
-    const {data, isLoggedIn} = this.props
-
+    const {app, data, isLoggedIn} = this.props
+    const neighbourhoodsData = app.state.neighbourhoodsData;
+    const user = app.state.username
     return (
         <div>
-            <Sidebar className="sidebar" 
+            {user ? <UserSidebar app = {app} showMenu={true}/> : 
+            <SidebarNonHome showMenu={true} />}
+            {/* <Sidebar className="sidebar" 
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
                 isAdmin={this.props.isAdmin}
                 tab1="About Us"
@@ -21,14 +26,15 @@ export default class NeighbourhoodListPage extends Component {
                 tab4="Profile"
                 tab5="Admin Dashboard"
                 tab6="Home"
-                showMenu={true}/>
+                showMenu={true}/> */}
             {/* <Hamburger
                 SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
                 isAdmin={this.props.isAdmin}
             /> */}
+
             <NeighbourhoodContainer> 
                 <h1>Select a neighbourhood</h1>
-                <NeighbourhoodList neighbourhoods={data}/>
+                <NeighbourhoodList neighbourhoods={neighbourhoodsData}/>
             </NeighbourhoodContainer> 
         </div>
     )
@@ -43,7 +49,7 @@ const NeighbourhoodContainer = styled.div`
     margin-left: 320px;
     
     h1 {
-        font-size: 48px;
+        font-size: 42px;
         font-weight: 500;
         text-decoration: underline;
         margin-bottom: 25px;

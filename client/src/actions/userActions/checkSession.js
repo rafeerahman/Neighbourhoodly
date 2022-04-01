@@ -20,14 +20,19 @@ export const checkSession = (app) => {
         .then(json => {
             console.log(json)
             if (json && json.currentUser) {
-                app.setState({ currentUser: json.currentUser, isAdmin: json.isAdmin});
+                app.setState({ currentUser: {email: json.currentUser.email, username: json.currentUser.username}, isAdmin: json.isAdmin}, () => {
+                    console.log('check-session')
+                    console.log(json.currentUser)
+                    console.log('Current User ' + json.currentUser )
+                    console.log('Admin ' + json.isAdmin )
+                });
             }
         })
         .catch(error => {
             console.log(error);
         });
     } else {
-        app.setState({ currentUser: ENV.user });
+        app.setState({ currentUser: ENV.user , isAdmin: ENV.isAdmin});
     }
     
 };

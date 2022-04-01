@@ -2,21 +2,18 @@ import React, { Component } from 'react'
 import Sidebar from '../components/Sidebar'
 import '../App.css';
 import '../components/AboutUs.css'
+import UserSidebar from '../components/UserSidebar';
+import SidebarNonHome from '../components/SidebarNonHome';
 class AboutUs extends Component {
 
     render(){
-        const {isLoggedIn, isAdmin} = this.props
+        const {app, user, isLoggedIn, isAdmin} = this.props
+        
         return(
             <div>
 
-                <Sidebar className="sidebar" 
-                SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                isAdmin={isAdmin}
-                tab1="About Us"
-                tab2="Neighbourhoods"
-                tab3="Rankings"
-                tab4="Home" 
-                showMenu={true}/>
+            {user ? <UserSidebar app = {app} showMenu={true}/> : 
+                    <SidebarNonHome showMenu={true} />}
 
                 <div className='header'>
                     Learn About Neighbourhoods Before You Move In
@@ -27,45 +24,47 @@ class AboutUs extends Component {
                 </div>
 
                 <div className='creatorsBox'>
-                    <div className='creatorsBoxHeader'>Meet The Creators</div>
-                    <tbody>
-                        <tr>
-                            <td rowspan="2">
-                                <div className='samplePicture'/>
-                            </td>
-                            <td>
-                                Rafee Rahman 
-                            </td>
-                        </tr>
-                        <tr><td className='bio'>insert short bio here</td></tr>
-                        <tr>
-                            <td rowspan="2">
-                                <div className='samplePicture'/>
-                            </td>
-                            <td>
-                                Syed Ahmed
-                            </td>
-                        </tr>
-                        <tr><td className='bio'>insert short bio here</td></tr>
-                        <tr>
-                            <td rowspan="2">
-                                <div className='samplePicture'/>
-                            </td>
-                            <td>
-                                Lama Amin
-                            </td>
-                        </tr>
-                        <tr><td className='bio'>4th year Commerce + Computer Science major at the University of Toronto Mississauga.</td></tr>
-                        <tr>
-                            <td rowspan="2">
-                                <div className='samplePicture'/>
-                            </td>
-                            <td>
-                                Steven Lau
-                            </td>
-                        </tr>      
-                        <tr><td className='bio'>insert short bio here</td></tr>                  
-                    </tbody>
+                    <div className="inner">
+                        <div className='creatorsBoxHeader'>Meet The Creators</div>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">
+                                    <div className='samplePicture'/>
+                                </td>
+                                <td>
+                                    Rafee Rahman 
+                                </td>
+                            </tr>
+                            <tr><td className='bio'>Second year CS student.</td></tr>
+                            <tr>
+                                <td rowspan="2">
+                                    <div className='samplePicture'/>
+                                </td>
+                                <td>
+                                    Syed Ahmed
+                                </td>
+                            </tr>
+                            <tr><td className='bio'>insert short bio here</td></tr>
+                            <tr>
+                                <td rowspan="2">
+                                    <div className='samplePicture'/>
+                                </td>
+                                <td>
+                                    Lama Amin
+                                </td>
+                            </tr>
+                            <tr><td className='bio'>4th year Commerce + Computer Science major at the University of Toronto Mississauga.</td></tr>
+                            <tr>
+                                <td rowspan="2">
+                                    <div className='samplePicture'/>
+                                </td>
+                                <td>
+                                    Steven Lau
+                                </td>
+                            </tr>      
+                            <tr><td className='bio'>insert short bio here</td></tr>                  
+                        </tbody>
+                    </div>
                 </div>
 
             </div>

@@ -5,68 +5,73 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import pickachuAvatar from '../images/pickachuAvatar.png'
 import EditIcon from '@mui/icons-material/Edit';
 import StarIcon from '@mui/icons-material/Star';
+import UserSidebar from '../components/UserSidebar';
+import { getReviewsByUser } from '../actions/getReviewsByUser';
+import { getUser } from '../actions/getUser';
+import ProfileReview from '../components/ProfileReview';
+import { uid } from 'react-uid';
+import { withRouter } from 'react-router-dom';
+import { checkSession } from '../actions/userActions/checkSession';
 
 export class Profile extends Component {
+    componentDidMount() {
+        getUser(this)
+        getReviewsByUser(this.props.app, this)
+    }
+
     state = {
-        user: this.props.user, // Take from the state later // User will probably have avatar property and name, so get from there if they post a review.
-        avatar: pickachuAvatar,
-        neighbourhood: "Yonge-St Clair",
-        origin: "Toronto, Ontario",
-        description: "(We will update this when we finish profile setup) Businessman and part-time neighbourhood explorer of Toronto.",
-        reviews: this.props.reviews.filter(element => element.user.email === "user@user.com"),
-      }
+        username: null,
+        location: null,
+        about: null,
+        imageURL: null,
+        reviews2: null
+    }
     
 
     render() {
-        const {isLoggedIn, isAdmin} = this.props
-        //console.log("Hello from profile page") 
-        //console.log(this.state.user)
-        //console.log(this.props.users.userEmail)
+        const {app} = this.props
+        const {username, location, about, imageURL} = this.state
+        
         return (
             <div>
                 {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
-                <Sidebar className="sidebar" 
-                    SignInType={isLoggedIn() ? "MainMenu" : "LogIn"}
-                    isAdmin={isAdmin}
-                    tab1="About Us"
-                    tab2="Neighbourhoods"
-                    tab3="Rankings"
-                    tab4="Home" 
-                    showMenu={true}/>  
-                        <ProfileStyled>
-                        <div className="header-content"> 
-                            <AccountCircleIcon className="icon" sx={{ fontSize: 64}}/>
-                            <h1>My Profile</h1>
+                <UserSidebar app = {app} showMenu={true}/> 
+                <ProfileStyled>
+                <div className="header-content"> 
+                    <AccountCircleIcon className="icon" sx={{ fontSize: 64}}/>
+                    <h1>My Profile</h1>
+                </div>
+                <div className="profile-strip">
+                    <div className="left-content">
+                        {imageURL !== null ? 
+                        <img src = {imageURL} alt = "avatar" width = '128px' height = '128px'/>
+                        : 
+                        <AccountCircleIcon  className="default-avatar" alt = "avatar"/>}
+
+                        <div className="profile-info"> 
+                            <h2>{username}</h2>
+                            <p className="location">{location ? `Location: ${location}` : null}</p>
                         </div>
-                        <div className="profile-content" >
-                            <div className="profile-strip">
-                                <div className = "profile"></div> 
-                                <img src = {this.state.avatar} alt = "avatar" width = '128px' height = '128px'/>
-                                <div className="profile-info"> 
-                                    <h2>{this.state.user ? this.state.user.name : "Log in please"}</h2>
-                                    <p className="location">{this.state.neighbourhood}, <br></br>{this.state.origin}</p>
-                                </div>
-                            </div> 
-                            <div className="bottom-section">
-                                <h3>About me:</h3>
-                                <p className="desc">{this.state.description}</p>  
-                                <h4>Recent Review:</h4>  
-                                <div className="reviewContainer">
-                                    <div className="reviewContent">
-                                    <div className="neighbourhoodContainer">
-                                            <p className="title">{this.state.reviews[this.state.reviews.length - 1].reviewTitle}</p>
-                                            <li class="neighbourhood">{this.state.reviews[this.state.reviews.length - 1].neighbourhoodTitle}</li>
-                                        </div>
-                                        <p>{this.state.reviews[this.state.reviews.length - 1].date}</p>
-                                        {[...Array(this.state.reviews[this.state.reviews.length - 1].starRating)].map(iterate => {
-                                            return <StarIcon/>
-                                        })}
-                                        <p className="content">{this.state.reviews[this.state.reviews.length - 1].reviewBody}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </ProfileStyled> 
+                    </div>
+                    <EditIcon className="editIcon" onClick={() => {this.props.history.push('/edit')}}/>
+                </div> 
+                <div className="profile-content" >
+                    <div className="bottom-section">
+                        <h3>Bio</h3>
+                        <p className="desc">{about === null ? `Edit your profile to set a bio` : about}</p>  
+                        <h4>Reviews</h4>  
+                        {this.state.reviews2 ? this.state.reviews2.map(review => {
+                            return <ProfileReview key={uid}
+                                neighbourhood={review.neighbourhoodId}
+                                title={review.review.reviewTitle}
+                                body={review.review.reviewBody}
+                                rating={review.review.userRating}
+                                date={review.review.date}
+                            />
+                        }) : <p className="desc">No reviews yet</p>}
+                    </div>
+                </div>
+                </ProfileStyled> 
                         
             </div>      
         )
@@ -76,11 +81,18 @@ const ProfileStyled = styled.div`
     float: left;
     position: relative;
     margin: 4% 0 0 10%;
+    width: 90%;
     margin-left: 320px;
+
+    .default-avatar {
+        font-size: 128px;
+        margin-left: 20px;
+    }
 
     .header-content {
         display: flex;
         align-items: center;
+        
         margin-left: 16px;
         margin-bottom: 16px;
 
@@ -98,116 +110,132 @@ const ProfileStyled = styled.div`
         }
     }
 
-    .profile-content {
-        display: inline-block;
-        background: #E5E5E5;
-        width: 1000px;
-        height: 700px;
-
-        .profile-strip{
+    .profile-strip{
             display: flex;
+            justify-content: space-between ;
+            align-items: center;
             margin-top: 64px;
-            width: 1000px;
+            width: 90%;
             height: 200px;
-
-            background: rgba(146, 135, 135, 0.5);
-            
-            .profile-info{
-
-                display: inline-block;
-                vertical-align: middle;
-
-                h2 {
-                    margin-top: 8px;
-                    margin-left: 32px;
-                    font-style: normal;
-                    font-size: 32px;
-                    font-weight: 500;
-                    line-height: 84px;        
-                }
-                
-                .location {
-                    margin-top: 24px;
-                    margin-left: 32px;
-                    font-style: normal;
-                    font-size: 16px;
-                    font-weight: 500;
-                }
-            }
-            img {
-                margin-top: 32px;
-                margin-left: 32px;
-                border: 2px solid;
+            background-color: rgba(125, 150, 150, 0.65);
+            .editIcon {
+                color: black;
+                font-size: 36px;
+                border: 2px solid black;
                 border-radius: 50%;
+                cursor: pointer;
+                margin: 32px;
+            }
+
+            .left-content {
+                display: flex;
+                .profile-info{
+                    display: inline-block;
+
+                    h2 {
+                        margin-top: 8px;
+                        margin-left: 32px;
+                        font-style: normal;
+                        font-size: 32px;
+                        font-weight: 500;
+                        line-height: 84px;        
+                    }
+                    
+                    .location {
+                        margin-top: 24px;
+                        margin-left: 32px;
+                        font-style: normal;
+                        font-size: 16px;
+                        font-weight: 500;
+                    }
+                }
+                img {
+                    margin-left: 32px;
+                    border: 2px solid;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
             }
         }
 
+    .profile-content {
+        display: block;
+        position: relative;
+        background: #E5E5E5;
+        width: 90%;
+        height: 100%;
+        margin-top: 25px;
+
         .bottom-section{
-            display: inline-block;
-            margin-top: 16px;
+            display: block;
+            padding-top: 32px;
+            padding-bottom: 32px;
             margin-left: 32px;
-            width: 1000px;
-            height: 200px; 
 
             h3{
                 font-style: normal;
                 font-weight: normal;
-                font-size: 16px;
-                line-height: 16px;   
+                text-decoration: underline;
+                font-size: 32px;  
                 color: #928787;
             }
             .desc {
                 margin-top: 16px;
                 font-style: normal;
-                font-size: 16px;
+                font-size: 24px;
             }
 
             h4{
                 margin-top: 64px;
                 font-style: normal;
-                font-weight: bold;
-                font-size: 16px;
-                line-height: 16px;   
+                font-size: 32px;
+                font-weight: 500; 
+                text-decoration: underline;
             }
 
             .reviewContainer{
-                display: inline-block;
-                border-radius: 25px;
-                margin-top: 16px;
-                
-                width: 600px;
+                display: block;
+                border-radius: 1.25rem;
+                margin-top: 25px;
+                width: 80%;
                 height: 150px; 
-
                 background: #C4C4C4;
 
                 .reviewContent{
+                    display: flex;
                     margin-left: 16px;
                     margin-top: 16px;
+                    .infoContainer{
+                        margin-top: 20px;
+                        margin-right: 20px;
+                        font-weight: normal;
+                        font-size: 16px;
+                        text-align: left;
 
-                    .neighbourhoodContainer{
-                        display: flex;
-                        text-align: center;
+                        .neighb {
+                            text-decoration: underline;
+                        }
+                            
+                    }
+                    .left {
                         .title{
                             font-style: normal;
                             font-weight: bold;
                             font-size: 20px;
+                            margin-top: 16px;
+                            margin-left: 16px;
                         }
-
-                        .neighbourhood{
-                            margin-left: 218px;
-                            text-decoration: underline;
+                        .icons {
+                        margin-left: 16px;
+                        }
+                        
+                        .content{
+                            font-style: normal;
                             font-weight: normal;
                             font-size: 16px;
+                            line-height: 36px;   
+                            margin-left: 16px;
                         }
-                        .icon{
-                            margin-left: 8px;
-                        }
-                    }
-                    .content{
-                        font-style: normal;
-                        font-weight: normal;
-                        font-size: 16px;
-                        line-height: 36px;   
                     }
                 }
             }  
@@ -215,4 +243,4 @@ const ProfileStyled = styled.div`
     }
 `
 
-export default Profile
+export default withRouter(Profile)
