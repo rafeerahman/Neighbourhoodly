@@ -12,6 +12,7 @@ class Register extends React.Component {
     }
 
     render() {
+        const { app } = this.props
 
         return (
             <div>
@@ -30,7 +31,7 @@ class Register extends React.Component {
             {/* <div className="container">
                 <img className="toronto" src={toronto}/>
             </div> */}
-            <SignInTab users={this.props.users} SignInType="Register" isLoggedIn={this.props.isLoggedIn} updateUsers={this.updateUsers}/>
+            <SignInTab app={app} users={this.props.users} SignInType="Register" isLoggedIn={this.props.isLoggedIn} updateUsers={this.updateUsers}/>
 
           </div>
         )

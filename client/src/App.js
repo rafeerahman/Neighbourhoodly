@@ -12,8 +12,15 @@ import AdminDashboard from './pages/AdminDashboard';
 import pickachuAvatar from './images/pickachuAvatar.png'
 import AboutUs from './pages/AboutUs';
 
+import { checkSession } from './actions/userActions/checkSession'
 class App extends React.Component {
+
+    componentDidMount() {
+        checkSession(this)
+    }
+
     state = {
+        currentUser: null,
         loggedIn: false,
         admin: false,
         userEmail: "",
@@ -95,6 +102,7 @@ class App extends React.Component {
         }
     ]
     render() {
+        const {currentUser} = this.state;
         // code below requires server call
         const neighbourhoods = [
         {
@@ -130,39 +138,60 @@ class App extends React.Component {
         ]
         // code below requires server call
         console.log(this.reviews)
-        
+        console.log(currentUser)
+
         return (
         <BrowserRouter>
-        
             <Switch>
-            { this.state.loggedIn ? 
-                <Route exact path = "/" 
-                    render={() => (<UserHome 
+            <Route 
+                exact path={["/LogIn"]}
+                render={() => (
+                <div>
+                {currentUser ? <UserHome 
                     appState={ this.state } 
                     isLoggedIn={this.isLoggedIn} 
                     isAdmin={this.isAdmin} 
                     logInHandler={this.logInHandler} 
-                    logoutHandler={this.logoutHandler}/>)}
-                /> :
-                <Route exact path = "/" 
-                render={() => (<Register 
+                    logoutHandler={this.logoutHandler}
+                    />
+                :
+                <LogIn 
+                    app={this}
+                    appState={ this.state } 
+                    isLoggedIn={this.isLoggedIn} 
+                    isAdmin={this.isAdmin} 
+                    logInHandler={this.logInHandler} 
+                    logoutHandler={this.logoutHandler}
+                    />
+                
+                } 
+                </div>
+                )}
+            />
+            <Route
+                exact path={["/"]}
+                render={() => (
+                <div>
+                {currentUser !== null ? <UserHome 
+                    appState={ this.state } 
+                    isLoggedIn={this.isLoggedIn} 
+                    isAdmin={this.isAdmin} 
+                    logInHandler={this.logInHandler} 
+                    logoutHandler={this.logoutHandler}
+                    />
+                :
+                    <Register 
+                    app={this}
                     users={this.state.users} 
                     appState={ this.state } 
                     registerHandler={this.registerHandler} 
                     isLoggedIn={this.isLoggedIn} 
-                    logInHandler={this.logInHandler}/>)}
-                /> 
-                
-            }
-
-            <Route exact path = "/LogIn"
-                render={() => (<LogIn 
-                    appState={ this.state } 
-                    isLoggedIn={this.isLoggedIn} 
-                    isAdmin={this.isAdmin} 
-                    logInHandler={this.logInHandler} 
-                    logoutHandler={this.logoutHandler}/>)}
-            />
+                    logInHandler={this.logInHandler}
+                    />
+                }
+                </div>
+                )}
+            />  
 
             <Route exact path = "/Neighbourhoods"
                 render={() => (<NeighbourhoodListPage 

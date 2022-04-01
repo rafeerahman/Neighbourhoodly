@@ -6,6 +6,9 @@ const TEST_USER_EMAIL = 'test@user.com'
 
 const express = require("express");
 const app = express();
+// enable CORS if in development, for React local development server to connect to the web server.
+const cors = require('cors')
+if (env !== 'production') { app.use(cors()) }
 
 const log = console.log
 const { getAllData } = require('./requests/allNeighbourhoodsData')
@@ -50,7 +53,12 @@ app.post('/api/users', async (req, res) => {
         const newUser = await user.save()
         res.status(200).send(newUser)
     } catch (error) {
-        log(error);
+        // Existing user
+        //log(error.name)
+        if (error.name === 'MongoServerError' && error.code === 11000) {
+            return res.status(422).send({success: false})
+        }
+        //log(error);
         res.status(400).send('Bad Request')
     }
 })
@@ -90,7 +98,7 @@ app.post("/users/login", (req, res) => {
             res.send({ currentUser: user.email });
         })
         .catch(error => {
-            res.status(400).send()
+            res.status(400).send("Invalid credentials")
         });
 });
 

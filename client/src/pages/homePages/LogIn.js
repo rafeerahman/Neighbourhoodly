@@ -20,7 +20,7 @@ class SignIn extends React.Component {
                             tab4="Register"
                             isAdmin={this.props.isAdmin}
                             showMenu={true} /><InfoBar />
-                <SignInTab users={this.props.appState.users} SignInType="LogIn" isLoggedIn={this.props.isLoggedIn} updateLogin={this.updateLogin}/>
+                <SignInTab app={this.props.app} users={this.props.appState.users} SignInType="LogIn" isLoggedIn={this.props.isLoggedIn} updateLogin={this.updateLogin}/>
           </div>
         )
     }

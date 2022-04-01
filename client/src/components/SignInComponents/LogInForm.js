@@ -1,6 +1,7 @@
 import React, { useEffect, Component } from 'react'
 import { checkLogin } from '../../actions/checkLogin';
 import { withRouter } from 'react-router-dom';
+import {login} from './../../actions/userActions/login'
 
 class LogInForm extends Component {
     constructor (props) {
@@ -19,7 +20,9 @@ class LogInForm extends Component {
     }
 
   render() {
-      const {SignInState, handleInputChange} = this.props; // Coming from SignInTab.js
+      const {app, SignInTab, handleInputChange} = this.props; // Coming from SignInTab.js
+      let [email, password] =  [SignInTab.state.email, SignInTab.state.password]
+
     return (
         <div id="signInTab">
         <div className='signInTabHeader'>
@@ -28,27 +31,24 @@ class LogInForm extends Component {
         <ul>
             <li>Email</li>
             <form>
-                <input  value={ SignInState.email } 
+                <input  value={ email } 
                             onChange={ handleInputChange }
                             name="email"
                             className="signInInput" 
                             type="text"/>
                 <li>Password</li>
-                <input  value={ SignInState.password } 
+                <input  value={ password } 
                             onChange={ handleInputChange }
                             name="password"
                             className="signInInput" 
                             type="text"/>
                             
                 <input className="signInButton"
-                            defaultChecked={SignInState.showFailedLogin} 
-                            onClick={this.handleSubmit} 
+                            onClick={() => {login(SignInTab, app)}} 
                             type="button" 
                             value="Log In"/>
             </form>
-            {
-                SignInState.showFailedLogin ? <li>Invalid email or password</li> : null
-            }
+            <li>{SignInTab.state.errorMessage}</li>
         </ul>
         </div>
     )
