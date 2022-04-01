@@ -15,7 +15,7 @@ import AboutUs from './pages/AboutUs';
 class App extends React.Component {
 
     state = {
-        currentUser: null,
+        currentUser: true,
         neighbourhoods: [] // temp
     }
 
@@ -32,7 +32,7 @@ class App extends React.Component {
             <Route exact path = "/Neighbourhoods" render={(props) => (<NeighbourhoodListPage {...props} app ={ this }/>)}/>
             <Route exact path = "/AboutUs" render={(props) => (<AboutUs {...props} app = { this }/>)}/>
             <Route exact path = "/Rankings" render={(props) => (<Rankings {...props} app={ this }/>)}/>
-            <Route exact path = "/AdminDashboard" render={(props) => (<AdminDashboard app={ this }/>)}/>
+            <Route exact path = "/AdminDashboard" render={(props) => (<AdminDashboard {...props} app={ this }/>)}/>
             <Route exact path = "/Profile" render={(props) => (<Profile {...props} app={ this }/>)}/>
             { this.state.neighbourhoods.map((neighbourhood) => (
                 <Route exact path={`/${neighbourhood.title}`} 

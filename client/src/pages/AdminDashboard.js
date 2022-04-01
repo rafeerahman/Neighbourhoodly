@@ -9,8 +9,9 @@ import { AdminReviews } from '../components/AdminReviews';
 
 export class AdminDashboard extends React.Component {
 
-    state = {
-        reviews: this.props.reviews
+    state = { 
+        reviews: [], //temp
+        users: [] //temp
     }
 
     removeReview = (review) => {
@@ -20,12 +21,11 @@ export class AdminDashboard extends React.Component {
     }
 
     render(){
-        const {isAdmin, users} = this.props
+        const { app } = this.props
         return(
             <div>
                 <Sidebar className="sidebar" 
                 SignInType="MainMenu"
-                isAdmin={isAdmin}
                 tab1="About Us"
                 tab2="Neighbourhoods"
                 tab3="Rankings"
@@ -48,18 +48,18 @@ export class AdminDashboard extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            users.map((user) => {
+                            this.state.users.map((user) => {
                                 return(
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
                                     <td>{user.name}</td>
                                     <td>{this.state.reviews.filter(review => review.email === user.email).length}</td>
                                     <Popup trigger={<button className="button">View Reviews</button>} modal>
-                                        <AdminReviews reviews={this.state.reviews} user={user} removeReview={this.removeReview}> </AdminReviews>
+                                        <AdminReviews reviews={this.state.reviews} app={app} removeReview={this.removeReview}> </AdminReviews>
                                     </Popup>
                                     {user.type === "admin" ? null :
                                     <button onClick={() => {
-                                        this.props.removeUser(user.email)
+    
                                         }}>
                                         Ban User
                                     </button>}

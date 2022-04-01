@@ -49,7 +49,7 @@ class Sidebar extends React.Component {
                     tab4 !== "Profile" ? <li><Link to={"/"}><a href="">{tab4}</a></Link></li> : <li><Link to={"/Profile"}><a href="">{tab4}</a></Link></li>
                 }
                 {
-                    false ? <li><Link to={'/AdminDashboard'}><a href="">{tab5}</a></Link></li> : null // temp
+                    true ? <li><Link to={'/AdminDashboard'}><a href="">{tab5}</a></Link></li> : null // temp
                 }
                 <li><Link onClick={() => {}} to={'/'}>{tab6}</Link></li>
                 </ul>
