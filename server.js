@@ -99,9 +99,9 @@ app.use(
             httpOnly: true
         },
         // store the sessions on the database in production
-        store: env === 'production' ? MongoStore.create(
+        store: MongoStore.create(
             {mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/neighbourhoodlyAPI'
-            }) : null
+            })
     })
 )
 
