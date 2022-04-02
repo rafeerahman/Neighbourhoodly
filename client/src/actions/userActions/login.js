@@ -10,6 +10,7 @@ export const login = (SignInTab, app) => {
     // Create our request constructor with all the parameters we need
     const request = new Request(`${API_HOST}/users/login`, {
         method: "post",
+        credentials: "include", // includes cookies to the request
         body: JSON.stringify({
             email: email,
             password: password

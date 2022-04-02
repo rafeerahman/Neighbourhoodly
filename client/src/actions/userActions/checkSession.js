@@ -8,7 +8,11 @@ export const checkSession = (app) => {
     const url = `${API_HOST}/users/check-session`;
 
     if (!ENV.use_frontend_test_user) {
-        fetch(url)
+        fetch(url,
+            {
+                credentials: "include", // include cookies
+            }
+            )
         .then(res => {
             if (res.status === 401) {
                 console.log("401 Not Found")

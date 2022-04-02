@@ -16,7 +16,8 @@ export const addImageAndInfo= (form, username, callback) => {
     // req.body will give text fields, and req.files will give image file (in server.js)
     const request = new Request(url, {
         method: "put",
-        body: formData
+        body: formData,
+        credentials: "include", // includes cookies to the request
     });
 
     // Send the request with fetch()
