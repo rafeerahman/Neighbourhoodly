@@ -9,7 +9,10 @@ const path = require('path')
 const app = express();
 // enable CORS if in development, for React local development server to connect to the web server.
 const cors = require('cors')
-if (env !== 'production') { app.use(cors()) }
+if (env !== 'production') { app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+})) }
 
 
 
