@@ -20,7 +20,6 @@ export class NeighbourhoodList extends Component {
                 <Neighbourhood
                     key={uid(neighbourhood.neighbourhoodName)}
                     
-                    isLoggedIn={isLoggedIn}
                     neighbourhoodName={neighbourhood.neighbourhoodName} />
                 )
             })}
