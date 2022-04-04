@@ -34,6 +34,7 @@ export const login = (SignInTab, app) => {
         .then(json => {
             if (json.currentUser) {
                 console.log(json.currentUser)
+                console.log(app)
                 app.setState({ currentUser: {email: json.currentUser.email, username: json.currentUser.username}, isAdmin: json.isAdmin });
             }
         })

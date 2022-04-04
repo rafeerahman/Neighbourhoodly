@@ -8,14 +8,17 @@ class SignIn extends React.Component {
     render() {
         return (
             <div>
+                <div>
                 <Sidebar SignInType="LogIn"
                             tab1="About Us"
                             tab2="Neighbourhoods"
                             tab3="Rankings"
                             tab4="Register"
+                            isAdmin={this.props.isAdmin}
                             showMenu={true} />
                 <InfoBar />
-                <SignInTab SignInType="LogIn"/>
+                <SignInTab app={this.props.app} SignInType="LogIn" />
+          </div>
           </div>
         )
     }
