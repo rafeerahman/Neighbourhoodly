@@ -25,12 +25,8 @@ class App extends React.Component {
 
     state = {
         currentUser: null,
-<<<<<<< HEAD
         isAdmin: false,
         neighbourhoodsData: null,
-=======
-        neighbourhoodsData: null // temp
->>>>>>> c17e610391f83d7df7e153a160f9320107b1c091
     }
 
     render() {
@@ -54,10 +50,7 @@ class App extends React.Component {
                     render={() => (
                         <NeighbourhoodPage 
                         app={this}
-<<<<<<< HEAD
                         neighbourhood={neighbourhood}
-
-
 
                         user={this.state.user}
                         reviews={this.reviews}
@@ -65,9 +58,6 @@ class App extends React.Component {
                         isAdmin={this.isAdmin}
                         safetyScore={5}
                         avgUserRating={4}
-=======
-                        name={neighbourhood.neighbourhoodName}
->>>>>>> c17e610391f83d7df7e153a160f9320107b1c091
                         />)
                     }/>
                 )) : null}
