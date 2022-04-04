@@ -2,9 +2,11 @@ import React, { Component, useState} from 'react'
 import StarIcon from '@mui/icons-material/Star';
 import styled from 'styled-components';
 import { submitReview } from '../actions/submitReview';
+import { reviewSubmission } from '../actions/reviewSubmission';
+import { withRouter } from 'react-router-dom';
+import { getReviewsByNeighbourhood } from '../actions/getReviewsByNeighbourhood';
 
-
-export default class extends Component {
+export class UserReviewForm extends Component {
     state = {
         reviewTitle: "",
         reviewContent: "",
@@ -29,12 +31,19 @@ export default class extends Component {
 
 
   render() {
-    const {neighbourhoodPage, neighbourhoodTitle, user} = this.props 
+    const {router, page, currUser, neighbId} = this.props 
 
     return (
       <ReviewFormStyled>
           <h2>Submit a review</h2>
-            <form action="">
+            <form action="" onSubmit={(e) => {
+                e.preventDefault()
+                if (!currUser) { return alert("You must be logged in to post a review.") }
+                reviewSubmission(this, neighbId, () => {
+                    getReviewsByNeighbourhood(this.props.page)
+                })
+            }}>
+
               <label className="input-header" htmlFor="reviewTitle">Title</label>
               <input name="reviewTitle" 
                     onChange={this.handleInputChange} 
@@ -62,7 +71,7 @@ export default class extends Component {
                   )
               })}
             
-              <button type="button" onClick={() => submitReview(neighbourhoodPage, this, user, neighbourhoodTitle)} className="submitReview">Post</button>
+              <button type="submit" className="submitReview">Post</button>
             </form>
       </ReviewFormStyled>
     )
@@ -95,7 +104,7 @@ const ReviewFormStyled = styled.div`
 
         .icon {
             font-size: 48px;
-            margin-right: 15px;
+            margin-right: 20px;
             fill: none;
             cursor: pointer;
             stroke: black;
@@ -105,13 +114,22 @@ const ReviewFormStyled = styled.div`
 
         .submitReview {
             margin-top: 20px;
-            width: 250px;
+            width: 100%;
             height: 75px;
             background-color: black;
             outline: none;
             border: none;
             color: white;
             font-size: 20px;
+        }
+
+        .submitReview:hover {
+            background-color: #4D3D3D;
+        }
+        .submitReview:active {
+            background-color: #4D3D3D;
+            box-shadow: 0 2px #666;
+            transform: translateY(1px);
         }
     }
 
@@ -126,3 +144,4 @@ const ReviewFormStyled = styled.div`
     }
     
 `
+export default withRouter(UserReviewForm)

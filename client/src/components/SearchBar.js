@@ -9,7 +9,7 @@ export default class SearchBar extends Component {
         const name = target.name
         const parent = this.props.parent;
 
-        if (this.props.filter!= null) {
+        if (this.props.filter != null) {
             parent.setState({
                 [name]: value
             }, this.props.filter(value));
