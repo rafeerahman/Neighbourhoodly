@@ -1,5 +1,4 @@
-import React from '';
-
+import React from 'react';
 import { Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
 import './App.css';
 import Register from './pages/homePages/Register';
@@ -15,7 +14,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AboutUs from './pages/AboutUs';
 import { checkSession } from './actions/userActions/checkSession'
 import EditProfile from './pages/EditProfile';
-import { ghoods } from './actions/getNeighbourhoods';
+import { getAllNeighbourhoods } from './actions/getNeighbourhoods';
 
 class App extends React.Component {
   

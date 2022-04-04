@@ -40,13 +40,13 @@ class SignInTab extends React.Component {
         if (SignInType === "Register"){
             return (
                 <RegistrationForm 
-                SignInState={this}  
+                SignInTab={this}  
                 handleInputChange={this.handleInputChange}/>
             )
         } else if (SignInType === "LogIn") {
             return (
                 <LogInForm 
-                SignInState={this} 
+                SignInTab={this} 
                 handleInputChange={this.handleInputChange}/>
             )
         }
