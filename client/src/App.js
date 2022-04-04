@@ -1,5 +1,6 @@
-import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import React from '';
+
+import { Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
 import './App.css';
 import Register from './pages/homePages/Register';
 import LogIn from './pages/homePages/LogIn';
@@ -12,38 +13,47 @@ import ErrorPage from './pages/ErrorPage'
 import ProfileErrorPage from './pages/ProfileErrorPage'
 import AdminDashboard from './pages/AdminDashboard';
 import AboutUs from './pages/AboutUs';
-
+import { checkSession } from './actions/userActions/checkSession'
+import EditProfile from './pages/EditProfile';
+import { ghoods } from './actions/getNeighbourhoods';
 
 class App extends React.Component {
+  
+    componentDidMount() {
+        checkSession(this)
+        getAllNeighbourhoods(this)
+    }
 
     state = {
         currentUser: null,
-        neighbourhoods: [] // temp
+        neighbourhoodsData: null // temp
     }
 
     render() {
-        const { currentUser } = this.state;
+
+        const { currentUser, neighbourhoodsData } = this.state;
         
         return (
         <BrowserRouter>
             <Switch>
-            { !currentUser ? <Route exact path = "/" render={(props) => (<Register {...props} app={ this }/>)}/>:
-                <Route exact path = "/" render={(props) => (<UserHome {...props} app={ this }/>)}/>
-            }
-            { !currentUser ? <Route exact path = "/Profile" render = {(props) => (<ProfileErrorPage {...props} app={ this }/>)}/>:
-                <Route exact path = "/Profile" render={(props) => (<Profile {...props} app={ this }/>)}/>
-            }
-
-            <Route exact path = "/AdminDashboard" render={(props) => (<AdminDashboard {...props} app={ this }/>)}/>
-            <Route exact path = "/LogIn" render={(props) => (<LogIn {...props} app={ this }/>)}/>
-            <Route exact path = "/Neighbourhoods" render={(props) => (<NeighbourhoodListPage {...props} app ={ this }/>)}/>
-            <Route exact path = "/AboutUs" render={(props) => (<AboutUs {...props} app = { this }/>)}/>
-            <Route exact path = "/Rankings" render={(props) => (<Rankings {...props} app={ this }/>)}/>
-            { this.state.neighbourhoods.map((neighbourhood) => (
-                <Route exact path={`/${neighbourhood.title}`} 
-                    render={(props) => (<NeighbourhoodPage {...props} name={neighbourhood.name} app={ this }/>)}/>))
-            }
-            <Route render = {(props) => (<ErrorPage {...props} app={ this }/>)}/>
+            <Route exact path={["/Login"]} render={() => (<div>{currentUser !== null ? <UserHome app={this}/> : <LogIn app={this}/>}</div>)}/>
+            <Route exact path={["/"]} render={() => (<div>{currentUser !== null ? <UserHome app={this}/> : <Register app={this}/>}</div>)}/>  
+            <Route exact path = "/Neighbourhoods" render={() => (<NeighbourhoodListPage data={neighbourhoodsData} app= {this}/>)}/>
+            <Route exact path = "/AboutUs" render={() => (<AboutUs app={this}/>)}/>
+            <Route exact path = "/Rankings" render={() => (<Rankings app={this}/>)}/>
+            <Route exact path = {["/AdminDashboard"]} render={() => (<div>{currentUser !== null && currentUser.isAdmin ? <AdminDashboard app={this}/> : <Redirect to="/login"/>}</div>)}/>
+            <Route exact path = "/Profile" render={() => (<div> {currentUser !== null ? <Profile app={this}/> : <Redirect to="/login"/>}</div>)}/>        
+            <Route exact path = "/edit" render={() => (<div> {currentUser !== null ? <EditProfile app={this}/> : <Redirect to="/login"/>}</div>)}/>
+            {neighbourhoodsData ? 
+                neighbourhoodsData.map((neighbourhood) => (
+                    <Route exact path={`/${neighbourhood.neighbourhoodName}`}
+                    render={() => (
+                        <NeighbourhoodPage 
+                        app={this}
+                        name={neighbourhood.neighbourhoodName}
+                        />)
+                    }/>
+                )) : null}
             </Switch>
         </BrowserRouter>
         )

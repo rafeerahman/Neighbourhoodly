@@ -1,71 +1,57 @@
 import React, { Component } from 'react'
 import { addUser, checkRegistration } from '../../actions/checkRegistration'
 import { withRouter } from 'react-router-dom';
+import {register} from '../../actions/userActions/registration'
 
 class RegistrationForm extends Component {
 
-  handleRegistration = () => {
-    let success = checkRegistration(this.props.SignInState, this.props.handleSignal)
-    if (success) {
-      const newUser = {
-        name: this.props.SignInState.username,
-        password: this.props.SignInState.password,
-        email: this.props.SignInState.email,
-        type: this.props.SignInState.type
-      }
-      addUser(newUser)
-      this.props.history.push('/LogIn')
-    }
-  }
-
   render() {
-      const {SignInState, handleInputChange} = this.props
-
-    return (
+      // Coming from SignInTab.js (SignInTab is its state)
+      const {app, SignInTab, handleInputChange} = this.props
+      let [email, username, password, retypedPassword] =  [SignInTab.state.email,
+        SignInTab.state.username, SignInTab.state.password, SignInTab.state.retypePassword]
+      
+      return (
         <div id="signInTab">
         <div className='signInTabHeader'>
             Register
         </div>
         <ul>
             <li>Email</li>
-            <li><input  value={ SignInState.email } 
+            <li><input  value={ email } 
                         onChange={ handleInputChange }
                         name="email"
                         className="signInInput"
                         type="text"/></li>
             
             <li>Username</li>
-            <li><input  value={ SignInState.username } 
+            <li><input  value={ username } 
                         onChange={ handleInputChange }
                         name="username"
                         className="signInInput" 
                         type="text"/></li>
             
             <li>Password</li>
-            <li><input  value={ SignInState.password } 
+            <li><input  value={ password } 
                         onChange={ handleInputChange }
                         name="password"
                         className="signInInput" 
                         type="text"/></li>
             
             <li>Retype Passwords</li>
-            <li><input  value={ SignInState.retypePassword } 
+            <li><input  value={ retypedPassword } 
                         onChange={ handleInputChange }
                         name="retypePassword"
                         className="signInInput" 
                         type="text"/></li>
             
             <li><input  className="signInButton"
-                        onClick={this.handleRegistration} 
+                        onClick={() => {register(SignInTab, app, () => {this.props.history.push('/LogIn')})}} 
                         type="submit" 
                         value="Register"/></li>
 
-            {
-                SignInState.showFailedPassword ? <li>Passwords do not match</li> : null
-            }
-            {
-                SignInState.showExistingUser ? <li>User already exists. Please log in</li> : null
-            }
+            {/* ERROR STATE MESSAGE BELOW. */}
+            <li>{SignInTab.state.errorMessage}</li>
         </ul>
         </div>
     )

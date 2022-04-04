@@ -10,9 +10,7 @@ class SignInTab extends React.Component {
     }
 
     state = {
-        showFailedLogin: false,
-        showFailedPassword: false,
-        showExistingUser: false,
+        errorMessage: null,
         email: "",
         username: "",
         password: "",
@@ -29,46 +27,26 @@ class SignInTab extends React.Component {
         })
     }
 
-    handleSignal = (code) => {
-        if (code === "Login") {
-            if (!this.state.showFailedLogin) {
-                this.setState({
-                    showFailedLogin: !this.state.showFailedLogin
-                })
-            }
-        }
-        else if (code === "Password") {
-            if (!this.state.showFailedPassword) {
-                this.setState({
-                    showFailedPassword: !this.state.showFailedPassword
-                })
-            }
-        }
-        else {
-            if (!this.state.showExistingUser) {
-                this.setState({
-                    showExistingUser: !this.state.showExistingUser
-                })
-            }
-        }
+    handleErrorMessage = (message) => {
+        this.setState({
+            errorMessage: message
+        })
     }
 
 
     render() {
-        const {SignInType} = this.props
+        const {app, SignInType} = this.props
 
         if (SignInType === "Register"){
             return (
                 <RegistrationForm 
-                SignInState={this.state} 
-                handleInputChange={this.handleInputChange}
-                handleSignal={this.handleSignal} />
+                SignInState={this}  
+                handleInputChange={this.handleInputChange}/>
             )
         } else if (SignInType === "LogIn") {
             return (
                 <LogInForm 
-                SignInState={this.state}  
-                handleSignal={this.handleSignal}
+                SignInState={this} 
                 handleInputChange={this.handleInputChange}/>
             )
         }

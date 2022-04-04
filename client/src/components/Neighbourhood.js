@@ -24,7 +24,7 @@ const NeighbourhoodStyled = styled.li`
     list-style: none;
     margin-bottom: 48px;
     a {
-        font-size: 36px;
+        font-size: 28px;
         margin-right: 20px;
     }
 `

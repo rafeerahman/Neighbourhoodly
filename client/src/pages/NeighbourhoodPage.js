@@ -9,10 +9,11 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import pickachuAvatar from '../images/pickachuAvatar.png'
 import Sidebar from '../components/Sidebar';
 import { uid } from 'react-uid';
+import SidebarNonHome from '../components/SidebarNonHome';
+import UserSidebar from '../components/UserSidebar';
 
 export class NeighbourhoodPage extends Component {
   state = {
-    currentUser: "change later", // User will probably have avatar property and name, so get from there if they post a review.
     search: "",
     allDbReviews: [] // temp
   }
@@ -36,6 +37,7 @@ export class NeighbourhoodPage extends Component {
     }
   }
   render() {
+
     const {name, app} = this.props
     //console.log("Hello from neighb page")
 
@@ -43,15 +45,10 @@ export class NeighbourhoodPage extends Component {
     return (
       <div>
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
-         <Sidebar className="sidebar" 
-                SignInType={!app.state.currentUser ? "MainMenu" : "LogIn"}
-                tab1="About Us"
-                tab2="Neighbourhoods"
-                tab3="Rankings"
-                tab4="Profile"
-                tab5="Admin Dashboard"
-                tab6="Home"
-                showMenu={true}/>
+         {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
+            <SidebarNonHome showMenu={true} />}
+
+
          <NeighbourhoodPageStyled>
           <div className="header-content">
             <h1 className="title">{name}</h1>

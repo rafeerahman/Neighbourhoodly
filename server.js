@@ -5,7 +5,31 @@ const TEST_USER_ID = '5fb8b011b864666580b4efe3' // the id of our test user (you 
 const TEST_USER_EMAIL = 'test@user.com'
 
 const express = require("express");
+const path = require('path')
 const app = express();
+// enable CORS if in development, for React local development server to connect to the web server.
+const cors = require('cors')
+if (env !== 'production') { app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+})) }
+
+
+
+// cloudinary: configure using credentials found on your Cloudinary Dashboard
+// sign up for a free account here: https://cloudinary.com/users/register/free
+const cloudinary = require('cloudinary');
+cloudinary.config({ 
+    cloud_name: 'duzagwls0', 
+    api_key: '956617131427852', 
+    api_secret: 'f74CJIBdU3jK7ejn86uTtmezkOQ' 
+});
+
+// multipart middleware: allows you to access uploaded file from req.file
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart();
+
+
 
 const log = console.log
 const { getAllData } = require('./requests/allNeighbourhoodsData')
@@ -34,6 +58,10 @@ const MongoStore = require('connect-mongo')
 const { addEconomics } = require("./requests/neighEconomics")
 const { send } = require("express/lib/response")
 
+/*** Image API Routes below ************************************/
+const { Image } = require("./models/image");
+// a POST route to *create* an image
+
 /*** USERS API ROUTES ***/
 app.post('/api/users', async (req, res) => {
     console.log(req.body)
@@ -51,7 +79,12 @@ app.post('/api/users', async (req, res) => {
         const newUser = await user.save()
         res.status(200).send(newUser)
     } catch (error) {
-        log(error);
+        // Existing user
+        //log(error.name)
+        if (error.name === 'MongoServerError' && error.code === 11000) {
+            return res.status(422).send({success: false})
+        }
+        //log(error);
         res.status(400).send('Bad Request')
     }
 })
@@ -67,9 +100,9 @@ app.use(
             httpOnly: true
         },
         // store the sessions on the database in production
-        store: env === 'production' ? MongoStore.create(
+        store: MongoStore.create(
             {mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/neighbourhoodlyAPI'
-            }) : null
+            })
     })
 )
 
@@ -88,12 +121,74 @@ app.post("/users/login", (req, res) => {
             req.session.user = user._id;
             req.session.email = user.email; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
             req.session.username = user.username;
-            res.send({ currentUser: user.email });
+            req.session.isAdmin = user.isAdmin;
+            res.send({ currentUser:{email: req.session.email, username: req.session.username}, isAdmin: user.isAdmin});
         })
         .catch(error => {
-            res.status(400).send()
+            res.status(400).send("Invalid credentials")
         });
 });
+
+// Add authenticate later
+app.get('/api/users/current', authenticateUser, async (req, res) => {
+    const sessionUser = req.user.username // coming from authenticate middleware
+
+    try {
+        const user = await User.findOne({username: sessionUser}, '-_id, -password -__v')
+        console.log(user)
+        res.status(200).send(user)
+    } catch (e) {
+        res.status(400).send("Bad request")
+    }
+})
+
+// Add authenticateUser later
+app.put("/api/users/edit", multipartMiddleware, authenticateUser, async (req, res) => {
+    // req.files gives us files,
+    // req.body gives us the text with property "name" from the form
+
+    // Use uploader.upload API to upload image to cloudinary server.
+    const newData = {}
+    const sessionUser = req.user.username // Coming from auth middleware
+
+    if (req.files.image.originalFilename.trim().length !== 0 ) {
+        const result = await cloudinary.uploader.upload(req.files.image.path)  // req.files contains uploaded files
+        newData.image = {
+            image_id: result.public_id, // image id on cloudinary server
+            image_url: result.url, // image url on cloudinary server
+            created_at: new Date(),
+        }
+    }
+    // If a user updated their username
+    if (req.body.username) {
+        newData.username = req.body.username;
+    }
+    
+    if (req.body.about) {
+        newData.about = req.body.about
+    }
+
+    if (req.body.location) {
+        newData.location = req.body.location
+    }
+    console.log(newData)
+    
+    // If no data was added, send a bad request message
+    if (Object.keys(newData).length === 0) {
+        return res.status(400).send('Bad Request')
+    }
+
+    try {
+        await User.findOneAndUpdate({username: sessionUser}, {$set: newData})
+        console.log('Success')
+        // const oldUser = await User.findOneAndUpdate({username: sessionUser}, newData)
+        // oldUser.save() // Saves oldUser with new info
+        res.status(200).send()
+    } catch (e) {
+        log(e)
+        res.status(500).send('Server error')
+    }
+})
 
 // A route to logout a user
 app.get("/users/logout", (req, res) => {
@@ -118,7 +213,7 @@ app.get("/users/check-session", (req, res) => {
 
     if (req.session.user) {
         log(req.session)
-        res.send({ currentUser: req.session.email });
+        res.send({ currentUser: {email: req.session.email, username: req.session.username}, isAdmin: req.session.isAdmin});
     } else {
         res.status(401).send();
     }
@@ -183,10 +278,10 @@ app.post('/api/reviews', authenticateUser, async (req, res) => {
     }
 })
 
-// get reviews by a username
+// get reviews by a username removed authenticateUser for now
 app.get('/api/reviews/user=:username', async (req, res) => {
     const user = req.params.username
-    log(user)
+
     try {
         const usersReviews = await Review.find({username: user}, '-_id -userId')
 
@@ -255,17 +350,24 @@ app.delete('/api/reviews/:id', authenticateUser, async (req, res) => {
 	}
 })
 
-// Webpage Routes 
 
+
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+
+// All routes other than above will go to index.html
 app.get("*", (req, res) => {
-    const goodPageRoutes = ["/", "/Register", "/Login", "/NeighbourhoodListPage", "/NeighbourhoodPage", "/UserHome", "/Rankings", "/AboutUs", "/Profile"];
+    // check for page routes that we expect in the frontend to provide correct status code.
+    const goodPageRoutes = ["/", "/Login", "/Profile", '/edit', '/AboutUs', '/Neighbourhoods', '/AdminDashboard', '/Rankings'];
     if (!goodPageRoutes.includes(req.url)) {
         // if url not in expected page routes, set status to 404.
-        res.status(404);
+        res.status(404).sendFile(path.join(__dirname, "404.html"))
     }
 
-    res.sendFile(path.join(__dirname, "/client/src/pages/homePages/Userhome.js"));
-})
+    // send index.html
+    res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
+
 
 /*************************************************/
 // Express server listening...

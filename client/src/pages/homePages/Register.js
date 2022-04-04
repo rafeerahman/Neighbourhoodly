@@ -7,6 +7,8 @@ import toronto from '../../images/toronto2.png'
 
 class Register extends React.Component {
     render() {
+
+
         return (
             <div>
                 <Sidebar  SignInType="Register"

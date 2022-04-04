@@ -6,6 +6,8 @@ import { uid } from 'react-uid'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { AdminReviews } from '../components/AdminReviews';
+import SidebarNonHome from '../components/SidebarNonHome';
+import UserSidebar from '../components/UserSidebar';
 
 export class AdminDashboard extends React.Component {
 
@@ -21,17 +23,11 @@ export class AdminDashboard extends React.Component {
     }
 
     render(){
-        const { app } = this.props
+        const {app} = this.props
         return(
             <div>
-                <Sidebar className="sidebar" 
-                SignInType="MainMenu"
-                tab1="About Us"
-                tab2="Neighbourhoods"
-                tab3="Rankings"
-                tab4="Home" 
-                showMenu={true}/>
-
+                {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
+                <SidebarNonHome showMenu={true} />}
                 <div id="admin">
                     <div className="title">
                         Administrator Dashboard

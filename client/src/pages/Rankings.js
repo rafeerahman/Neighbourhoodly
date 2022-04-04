@@ -8,6 +8,8 @@ import SearchBar from '../components/SearchBar'
 import SortBar from '../components/SortBar'
 import '../components/Rankings.css'
 import SearchIcon from '@mui/icons-material/Search';
+import UserSidebar from '../components/UserSidebar'
+import SidebarNonHome from '../components/SidebarNonHome'
 
 export class Rankings extends Component {
 
@@ -50,13 +52,9 @@ export class Rankings extends Component {
         return(
             <div>
 
-                <Sidebar className="sidebar" 
-                SignInType={!app.state.currentUser ? "MainMenu" : "LogIn"}
-                tab1="About Us"
-                tab2="Neighbourhoods"
-                tab3="Rankings"
-                tab4="Home" 
-                showMenu={true}/>
+            {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
+                    <SidebarNonHome showMenu={true} />}
+
 
                 <div className='RankingContainer'>
                     <ul>

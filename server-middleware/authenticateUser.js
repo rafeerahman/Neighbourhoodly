@@ -9,7 +9,7 @@ const { User } = require("../models/user");
 const authenticateUser = (req, res, next) => {
     if (env !== 'production' && USE_TEST_USER)
         req.session.user = TEST_USER_ID // test user on development. (remember to run `TEST_USER_ON=true node server.js` if you want to use this user.)
-
+    console.log(req.session)
     if (req.session.user) {
         User.findById(req.session.user).then((user) => {
             if (!user) {
