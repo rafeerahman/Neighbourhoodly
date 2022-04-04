@@ -141,6 +141,19 @@ app.get('/api/users/current', authenticateUser, async (req, res) => {
     }
 })
 
+// Add authenticate later
+app.get('/api/users/:id', async (req, res) => {
+    const id = req.params.id
+
+    try {
+        const user = await User.findById(id, '-_id, -password -__v')
+        console.log(user)
+        res.status(200).send(user)
+    } catch (e) {
+        res.status(400).send("Bad request")
+    }
+})
+
 // Add authenticateUser later
 app.put("/api/users/edit", multipartMiddleware, authenticateUser, async (req, res) => {
     // req.files gives us files,
