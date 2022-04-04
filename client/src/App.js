@@ -1,4 +1,5 @@
-import React from 'react';
+import React from '';
+
 import { Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
 import './App.css';
 import Register from './pages/homePages/Register';
@@ -8,15 +9,16 @@ import NeighbourhoodPage from './pages/NeighbourhoodPage';
 import UserHome from './pages/homePages/UserHome';
 import Rankings from './pages/Rankings';
 import Profile from './pages/Profile';
+import ErrorPage from './pages/ErrorPage'
+import ProfileErrorPage from './pages/ProfileErrorPage'
 import AdminDashboard from './pages/AdminDashboard';
-import pickachuAvatar from './images/pickachuAvatar.png'
 import AboutUs from './pages/AboutUs';
-
 import { checkSession } from './actions/userActions/checkSession'
 import EditProfile from './pages/EditProfile';
-import { getAllNeighbourhoods } from './actions/getNeighbourhoods';
-class App extends React.Component {
+import { ghoods } from './actions/getNeighbourhoods';
 
+class App extends React.Component {
+  
     componentDidMount() {
         checkSession(this)
         getAllNeighbourhoods(this)
@@ -24,181 +26,36 @@ class App extends React.Component {
 
     state = {
         currentUser: null,
+<<<<<<< HEAD
         isAdmin: false,
         neighbourhoodsData: null,
+=======
+        neighbourhoodsData: null // temp
+>>>>>>> c17e610391f83d7df7e153a160f9320107b1c091
     }
 
     render() {
-        const {currentUser, isAdmin, neighbourhoodsData} = this.state;
-        // code below requires server call
-        const neighbourhoods = [
-        {
-            title: "Yonge-St Clair",
-            safetyScore: 8,
-            avgUserRating: 7,
-        },
-        {
-            title: "York University Heights",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Bay Street Corridor",
-            safetyScore: 4.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Bayview Village",
-            safetyScore: 5.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Woodbine-Lumsden",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Yonge-Eglinton",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        }
-        ]
+
+        const { currentUser, neighbourhoodsData } = this.state;
         
         return (
         <BrowserRouter>
             <Switch>
-            <Route 
-                exact path={["/Login"]}
-                render={() => (
-                <div>
-                {currentUser !== null ? <UserHome
-                    app={this} 
-                    appState={ this.state } 
-                    isLoggedIn={this.isLoggedIn} 
-                    isAdmin={this.isAdmin} 
-                    logInHandler={this.logInHandler} 
-                    logoutHandler={this.logoutHandler}
-                    />
-                :
-                <LogIn 
-                    app={this}
-                    appState={ this.state } 
-                    isLoggedIn={this.isLoggedIn} 
-                    isAdmin={this.isAdmin} 
-                    logInHandler={this.logInHandler} 
-                    logoutHandler={this.logoutHandler}
-                    />
-                } 
-                </div>
-                )}
-            />
-            <Route
-                exact path={["/"]}
-                render={() => (
-                <div>
-                {currentUser !== null ? <UserHome
-                    app={this}
-                    appState={ this.state } 
-                    isLoggedIn={this.isLoggedIn} 
-                    isAdmin={this.isAdmin} 
-                    logInHandler={this.logInHandler} 
-                    logoutHandler={this.logoutHandler}
-                    />
-                :
-                    <Register 
-                    app={this}
-                    users={this.state.users} 
-                    appState={ this.state } 
-                    registerHandler={this.registerHandler} 
-                    isLoggedIn={this.isLoggedIn} 
-                    logInHandler={this.logInHandler}
-                    />
-                }
-                </div>
-                )}
-            />  
-
-            <Route exact path = "/Neighbourhoods"
-                render={() => (<NeighbourhoodListPage 
-                    data={neighbourhoodsData} 
-                    app= {this} 
-                    isLoggedIn={this.isLoggedIn} 
-                    isAdmin={this.isAdmin} 
-                    logInHandler={this.logInHandler}/>)}
-            />
-
-            <Route exact path = "/AboutUs"
-                render={() => (<AboutUs
-                    app={this}
-                    user={this.state.currentUser}
-                    isLoggedIn={this.isLoggedIn}
-                    isAdmin={this.isAdmin} 
-                />)}
-            />
-
-            <Route exact path = "/Rankings"
-                render={() => (<Rankings 
-                    user={this.state.currentUser}
-                    app={this}
-                    data={neighbourhoods} 
-                    appState={ this.state } 
-                    isLoggedIn={this.isLoggedIn} 
-                    logInHandler={this.logInHandler} 
-                    isAdmin={this.isAdmin}/>)}
-            />
-
-            
-            <Route exact path = {["/AdminDashboard"]}
-            render={() => (
-                <div>
-                {currentUser !== null && isAdmin === true
-                    ? 
-                    <AdminDashboard
-                    app={this}
-                    user={this.state.currentUser}
-                    users={this.state.users} 
-                    reviews={this.reviews} 
-                    appState={ this.state } 
-                    logInHandler={this.logInHandler}
-                    isAdmin={this.isAdmin} 
-                    removeUser={this.removeUser} 
-                    logoutHandler={this.logoutHandler}/>
-                    : 
-                    <Redirect to="/login"/>}
-                </div>
-            )}
-            />
-
-            
-            <Route exact path = "/Profile"
-            render={() => (
-                <div>
-                {currentUser !== null 
-                    ? 
-                    <Profile app={this}/>
-                    : 
-                    <Redirect to="/login"/>}
-                </div>)
-            }/>
-
-           
-            <Route exact path = "/edit"
-            render={() => (
-                <div>
-                {currentUser !== null 
-                    ? 
-                    <EditProfile app={this}/>
-                    : 
-                    <Redirect to="/login"/>}
-                </div>)}
-            />
-
+            <Route exact path={["/Login"]} render={() => (<div>{currentUser !== null ? <UserHome app={this}/> : <LogIn app={this}/>}</div>)}/>
+            <Route exact path={["/"]} render={() => (<div>{currentUser !== null ? <UserHome app={this}/> : <Register app={this}/>}</div>)}/>  
+            <Route exact path = "/Neighbourhoods" render={() => (<NeighbourhoodListPage data={neighbourhoodsData} app= {this}/>)}/>
+            <Route exact path = "/AboutUs" render={() => (<AboutUs app={this}/>)}/>
+            <Route exact path = "/Rankings" render={() => (<Rankings app={this}/>)}/>
+            <Route exact path = {["/AdminDashboard"]} render={() => (<div>{currentUser !== null && currentUser.isAdmin ? <AdminDashboard app={this}/> : <Redirect to="/login"/>}</div>)}/>
+            <Route exact path = "/Profile" render={() => (<div> {currentUser !== null ? <Profile app={this}/> : <Redirect to="/login"/>}</div>)}/>        
+            <Route exact path = "/edit" render={() => (<div> {currentUser !== null ? <EditProfile app={this}/> : <Redirect to="/login"/>}</div>)}/>
             {neighbourhoodsData ? 
                 neighbourhoodsData.map((neighbourhood) => (
                     <Route exact path={`/${neighbourhood.neighbourhoodName}`}
                     render={() => (
                         <NeighbourhoodPage 
                         app={this}
+<<<<<<< HEAD
                         neighbourhood={neighbourhood}
 
 
@@ -209,16 +66,16 @@ class App extends React.Component {
                         isAdmin={this.isAdmin}
                         safetyScore={5}
                         avgUserRating={4}
+=======
+                        name={neighbourhood.neighbourhoodName}
+>>>>>>> c17e610391f83d7df7e153a160f9320107b1c091
                         />)
                     }/>
                 )) : null}
             </Switch>
-
         </BrowserRouter>
         )
-        
     }
-
 }
 
 export default App;

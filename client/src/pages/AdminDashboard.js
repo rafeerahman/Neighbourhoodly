@@ -11,8 +11,9 @@ import UserSidebar from '../components/UserSidebar';
 
 export class AdminDashboard extends React.Component {
 
-    state = {
-        reviews: this.props.reviews
+    state = { 
+        reviews: [], //temp
+        users: [] //temp
     }
 
     removeReview = (review) => {
@@ -22,12 +23,11 @@ export class AdminDashboard extends React.Component {
     }
 
     render(){
-        const {user, app, isAdmin, users} = this.props
+        const {app} = this.props
         return(
             <div>
-                {user ? <UserSidebar app = {app} showMenu={true}/> : 
+                {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
                 <SidebarNonHome showMenu={true} />}
-
                 <div id="admin">
                     <div className="title">
                         Administrator Dashboard
@@ -44,18 +44,18 @@ export class AdminDashboard extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            users.map((user) => {
+                            this.state.users.map((user) => {
                                 return(
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
                                     <td>{user.name}</td>
                                     <td>{this.state.reviews.filter(review => review.email === user.email).length}</td>
                                     <Popup trigger={<button className="button">View Reviews</button>} modal>
-                                        <AdminReviews reviews={this.state.reviews} user={user} removeReview={this.removeReview}> </AdminReviews>
+                                        <AdminReviews reviews={this.state.reviews} app={app} removeReview={this.removeReview}> </AdminReviews>
                                     </Popup>
                                     {user.type === "admin" ? null :
                                     <button onClick={() => {
-                                        this.props.removeUser(user.email)
+    
                                         }}>
                                         Ban User
                                     </button>}

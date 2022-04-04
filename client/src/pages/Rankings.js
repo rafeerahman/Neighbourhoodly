@@ -14,7 +14,7 @@ import SidebarNonHome from '../components/SidebarNonHome'
 export class Rankings extends Component {
 
     state = {
-        allNeighbourhoods: this.props.data,
+        allNeighbourhoods: [],
         search: ""
     }
 
@@ -47,13 +47,14 @@ export class Rankings extends Component {
     }
     
     render(){
-        const {user, app, data, isLoggedIn, isAdmin} = this.props
+        const { app } = this.props
 
         return(
             <div>
 
-            {user ? <UserSidebar app = {app} showMenu={true}/> : 
+            {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
                     <SidebarNonHome showMenu={true} />}
+
 
                 <div className='RankingContainer'>
                     <ul>
@@ -87,3 +88,4 @@ const SearchBarStyled = styled.div`
         outline: none;
     }
 `
+

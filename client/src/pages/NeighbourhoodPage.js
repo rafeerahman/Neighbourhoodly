@@ -62,8 +62,9 @@ export class NeighbourhoodPage extends Component {
     return (
       <div>
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
-         {currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
+         {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
             <SidebarNonHome showMenu={true} />}
+
 
          <NeighbourhoodPageStyled>
           <div className="header-content">
@@ -72,13 +73,13 @@ export class NeighbourhoodPage extends Component {
                 <li>
                   <StarOutlineIcon className="icon"/>
                   <p>Overall User Rating
-                  <br/> {avgUserRating}/10
+                  <br/> {0}/10
                   </p>
                 </li>
                 <li>
                   <HealthAndSafetyIcon className="icon"/>
                   <p>Safety Score
-                  <br/> {safetyScore}/10
+                  <br/> {0}/10
                   </p>
                   
                 </li>

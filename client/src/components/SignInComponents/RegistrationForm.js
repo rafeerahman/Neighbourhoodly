@@ -1,20 +1,9 @@
 import React, { Component } from 'react'
-import { checkRegistration } from '../../actions/checkRegistration'
+import { addUser, checkRegistration } from '../../actions/checkRegistration'
 import { withRouter } from 'react-router-dom';
 import {register} from '../../actions/userActions/registration'
 
 class RegistrationForm extends Component {
-
-  handleRegistration = () => {
-    let success = checkRegistration(this.props.SignInTab, this.props.users, this.props.updateUsers, this.props.handleSignal)
-
-    if (success) {
-      this.props.history.push('/LogIn')
-    }
-    else {
-
-    }
-  }
 
   render() {
       // Coming from SignInTab.js (SignInTab is its state)
