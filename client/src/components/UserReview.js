@@ -2,29 +2,39 @@ import React, { Component } from 'react'
 import StarIcon from '@mui/icons-material/Star';
 import styled from 'styled-components';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { getUserImageById } from '../actions/getUserImageById';
 
 export default class UserReview extends Component {
+  componentDidMount() {
+    getUserImageById(this)
+  }
+
+  state = {
+    avatar_url: null
+  }
+
   render() {
 
-    const {user, avatar, title, body, date, rating} = this.props
+    const {username, review,  user, avatar, title, body, date, rating} = this.props
+    const {avatar_url} = this.state
 
     return (
     <UserReviewStyled className="userReview">
         <Left className="left">
-        {(avatar != null) ? 
-          <img className="avatar" src={avatar}/> :
+        {(avatar_url !== null) ? 
+          <img className="avatar" src={avatar_url}/> :
           <AccountCircleIcon className="avatar"/>
          }
-            <p>{user ? user.name : "Guest"}</p>
+        <p>{username}</p>
         </Left>
         <Right className="right-content">
-          <h3>{title}</h3>
-          <p>{date}</p>
-          {[...Array(rating)].map(iterate => {
+          <h3>{review.reviewTitle}</h3>
+          <p>{review.date}</p>
+          {[...Array(review.userRating)].map(iterate => {
             return <StarIcon/>
           })}
           <div className="review-content">
-            <p>{body}</p>
+            <p>{review.reviewBody}</p>
           </div>
         </Right>
     </UserReviewStyled>
@@ -55,6 +65,7 @@ const Left = styled.div`
         width: 100px;
         border-radius: 50%;
         border: 1px solid black;
+        object-fit: cover;
         
     }
 `

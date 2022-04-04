@@ -1,7 +1,7 @@
 import ENV from '../config.js'
 const API_HOST = ENV.api_host
-console.log('Current environment:', ENV.env)
 
+// getsCurrentUser
 export const getUser = (profileComp) => {
     const url = `${API_HOST}/api/users/current`;
 

@@ -26,87 +26,8 @@ class App extends React.Component {
         currentUser: null,
         isAdmin: false,
         neighbourhoodsData: null,
-
-        loggedIn: false,
-        admin: false,
-        userEmail: "",
-        // code below requires server call
-        users :
-        [
-            {name: "admin", password: "admin", email: "admin@admin.com", type: "admin"},
-            {name: "user", password: "user", email: "user@user.com", type: "user"}
-        ],
-        user: null
     }
 
-    logInHandler = (user, isAdmin) => {
-        if (isAdmin) {
-            this.setState({
-                admin: true
-            })
-        }
-        //console.log(user);
-        this.setState({
-            loggedIn: true,
-            userEmail: user.email,
-            user: user
-        })
-
-        // setTimeout(() => console.log(this.state.user), 5000);
-    }
-
-    logoutHandler = () => {
-        this.setState({
-        admin: false,
-        loggedIn: false,
-        userEmail: "",
-        user: null
-        })
-    }
-
-    registerHandler = (user) => {
-        // code below requires server call
-        this.state.users.push(user)
-        this.setState({
-            users: this.state.users
-        })
-    }
-
-    removeUser = (email) => {
-        // code below requires server call
-        this.state.users = this.state.users.filter(other => other.email !== email)
-        this.setState({users: this.state.users})
-    }
-
-    isLoggedIn = () => {
-        //console.log("Logged in status: ", this.state.loggedIn);
-        return this.state.loggedIn
-    }
-
-    isAdmin = () => {
-        //console.log("Admin status: ", this.state.admin);
-        return this.state.admin
-    }
-    reviews = [
-        {
-            user: this.state.users[0],
-            neighbourhoodTitle: "Yonge-St Clair",
-            avatar: pickachuAvatar,
-            reviewTitle: "Lots of things to do at Yonge-St Claire",
-            date: "2022/03/01",
-            starRating: 4,
-            reviewBody: "This neighbourhood felt very safe and I liked it."
-        }, 
-        {
-            user: this.state.users[1],
-            neighbourhoodTitle: "York University Heights",
-            avatar: pickachuAvatar,
-            reviewTitle: "York University is great!",
-            date: "2022/03/01",
-            starRating: 4,
-            reviewBody: "Great restaurants"
-        }
-    ]
     render() {
         const {currentUser, isAdmin, neighbourhoodsData} = this.state;
         // code below requires server call
@@ -278,11 +199,14 @@ class App extends React.Component {
                     render={() => (
                         <NeighbourhoodPage 
                         app={this}
+                        neighbourhood={neighbourhood}
+
+
+
                         user={this.state.user}
                         reviews={this.reviews}
                         isLoggedIn={this.isLoggedIn}
                         isAdmin={this.isAdmin}
-                        name={neighbourhood.neighbourhoodName}
                         safetyScore={5}
                         avgUserRating={4}
                         />)

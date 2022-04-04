@@ -11,37 +11,54 @@ import Sidebar from '../components/Sidebar';
 import { uid } from 'react-uid';
 import SidebarNonHome from '../components/SidebarNonHome';
 import UserSidebar from '../components/UserSidebar';
+import GroupsIcon from '@mui/icons-material/Groups';
+import { getReviewsByNeighbourhood } from '../actions/getReviewsByNeighbourhood';
 
 export class NeighbourhoodPage extends Component {
+  componentDidMount() {
+    getReviewsByNeighbourhood(this)
+  }
+
   state = {
-    currentUser: "change later", // User will probably have avatar property and name, so get from there if they post a review.
     search: "",
+    allReviews: null,
+    searchedReviews: null,
+
     allDbReviews: this.props.reviews
   }
 
   filterReviews = (searchValue) => {
-    if (searchValue == "") {
+    if (searchValue == "" || !this.state.allReviews) {
       this.setState({
-        allDbReviews: this.props.reviews
+        searchedReviews: null
       })
     } else {
-      const reviews = this.props.reviews.filter((review) => {
-        const username = review.user ? review.user.name : "Guest"
-        const allText = username + " " + review.reviewTitle + " " + review.date + " " + review.reviewBody
-        //console.log(allText);
+      const reviews = this.state.allReviews.filter((review) => {
+        const username = review.username
+        const rev = review.review
+        const allText = username + " " + rev.reviewTitle + " " + rev.date + " " + rev.reviewBody
         return allText.toLowerCase().includes(searchValue.toLowerCase())}
         )
-      // console.log("yo " + searchValue);
+      
       this.setState({
-        allDbReviews: reviews
+        searchedReviews: reviews
       })
     }
   }
-  render() {
-    const {app, user, name, safetyScore, avgUserRating, isLoggedIn, isAdmin, reviews} = this.props
-    const currentUser = app.state.currentUser
 
-    // Going to reorganize into components later.
+  render() {
+    // make a func to calculate avg rating 
+
+    const {app, neighbourhood,   safetyScore, avgUserRating} = this.props
+    const {searchedReviews, allReviews} = this.state
+
+    const currentUser = app.state.currentUser
+    const name = neighbourhood.neighbourhoodName;
+    const population2011 = neighbourhood.data.population
+
+    // Other stats
+
+
     return (
       <div>
          {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
@@ -65,32 +82,41 @@ export class NeighbourhoodPage extends Component {
                   </p>
                   
                 </li>
+                <li>
+                  <GroupsIcon className="icon"/>
+                  <p>Population (2011)
+                  <br/> {population2011}
+                  </p>
+                  
+                </li>
               </ul>
           </div>
 
           <div className='bottom-content'>
             <UserReviewsStyled className="userReviews">
               <SearchBar parent={this} filter={this.filterReviews} className="searchBar"/>
-              
-              {this.state.allDbReviews.map((review) => {
-                // console.log(review.neighbourhoodTitle)
-                // console.log(name)
-                if (review.neighbourhoodTitle == name) {
-                  return (
+              {searchedReviews ? searchedReviews.map((review) => {
+                return (
+                  <UserReview key={uid(review)}
+                  userId={review.userId}
+                  username={review.username}
+                  review={review.review} />
+                )
+              })
+              : allReviews ? allReviews.map((review) => {
+                return (
                     <UserReview key={uid(review)}
-                      user={review.user} 
-                      avatar={review.avatar} 
-                      title={review.reviewTitle}
-                      body = {review.reviewBody}
-                      date = {review.date}
-                      rating = {review.starRating} />
+                    userId={review.userId}
+                    username={review.username}
+                    review={review.review} />
                   )
-                }
-              })}
+                })
+              : null
+              }
             </UserReviewsStyled>
               
             <ReviewFormStyled className="reviewForm">
-                <UserReviewForm user={user} neighbourhoodTitle={name} neighbourhoodPage={this}/>
+                <UserReviewForm page={this} currUser={currentUser} neighbId={name} />
             </ReviewFormStyled>
           </div>
         </NeighbourhoodPageStyled>
@@ -114,6 +140,8 @@ const UserReviewsStyled = styled.div`
   float: left;
   position: relative;
   width: 900px;
+  max-height: 900px;
+  overflow-y: auto;
   padding: 40px;
   margin-top: 20px;
   background-color: #EBEBEB;
