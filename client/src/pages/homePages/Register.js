@@ -6,34 +6,21 @@ import SignInTab from '../../components/SignInComponents/SignInTab';
 import toronto from '../../images/toronto2.png'
 
 class Register extends React.Component {
-
-    updateUsers = (user) => {
-        this.props.registerHandler(user)
-    }
-
     render() {
-        const { app } = this.props
+
 
         return (
             <div>
-
-            <Sidebar  SignInType="Register"
-                      tab1="About Us"
-                      tab2="Neighbourhoods"
-                      tab3="Rankings"
-                      tab4="Login"
-                      isAdmin={this.props.isAdmin}
-                      showMenu={true}
-            />
-    
-            <InfoBar />
-            
-            {/* <div className="container">
-                <img className="toronto" src={toronto}/>
-            </div> */}
-            <SignInTab app={app} users={this.props.users} SignInType="Register" isLoggedIn={this.props.isLoggedIn} updateUsers={this.updateUsers}/>
-
-          </div>
+                <Sidebar  SignInType="Register"
+                        tab1="About Us"
+                        tab2="Neighbourhoods"
+                        tab3="Rankings"
+                        tab4="Login"
+                        showMenu={true}
+                />
+                <InfoBar />
+                <SignInTab SignInType="Register"/>
+            </div>
         )
     }
 }

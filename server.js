@@ -56,6 +56,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // parsing URL-encoded form 
 const session = require("express-session")
 const MongoStore = require('connect-mongo')
 const { addEconomics } = require("./requests/neighEconomics")
+const { send } = require("express/lib/response")
 
 /*** Image API Routes below ************************************/
 const { Image } = require("./models/image");
@@ -366,6 +367,7 @@ app.get("*", (req, res) => {
     // send index.html
     res.sendFile(path.join(__dirname, "/client/build/index.html"));
 });
+
 
 /*************************************************/
 // Express server listening...

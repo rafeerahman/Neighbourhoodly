@@ -7,12 +7,11 @@ import SidebarNonHome from '../components/SidebarNonHome';
 class AboutUs extends Component {
 
     render(){
-        const {app, user, isLoggedIn, isAdmin} = this.props
+        const {app} = this.props
         
         return(
             <div>
-
-            {user ? <UserSidebar app = {app} showMenu={true}/> : 
+            {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
                     <SidebarNonHome showMenu={true} />}
 
                 <div className='header'>

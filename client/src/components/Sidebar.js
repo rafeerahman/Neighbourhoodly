@@ -4,8 +4,7 @@ import '../App.css';
 
 class Sidebar extends React.Component {
     render() {
-      const {   SignInType,
-                handleLogout, // From userhome.js
+        const { SignInType,
                 tab1,
                 tab2,
                 tab3,

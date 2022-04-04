@@ -40,27 +40,16 @@ class SignInTab extends React.Component {
         if (SignInType === "Register"){
             return (
                 <RegistrationForm 
-                app={app}
-                SignInTab={this} 
-                users={this.props.users} 
-                handleInputChange={this.handleInputChange}
-                handleSignal={this.handleSignal} 
-                isLoggedIn={this.props.isLoggedIn} 
-                updateUsers={this.props.updateUsers}/>
+                SignInState={this}  
+                handleInputChange={this.handleInputChange}/>
             )
         } else if (SignInType === "LogIn") {
             return (
                 <LogInForm 
-                app={app}
-                SignInTab={this} 
-                users={this.props.users} 
-                handleSignal={this.handleSignal}
-                handleInputChange={this.handleInputChange} 
-                isLoggedIn={this.props.isLoggedIn} 
-                updateLogin={this.props.updateLogin}/>
+                SignInState={this} 
+                handleInputChange={this.handleInputChange}/>
             )
         }
-
     }
 }
 

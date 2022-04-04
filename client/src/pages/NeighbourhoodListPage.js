@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import styled from 'styled-components'
 import Hamburger from '../components/Hamburger'
 import NeighbourhoodList from '../components/NeighbourhoodList'
@@ -8,9 +9,9 @@ import UserSidebar from '../components/UserSidebar'
 
 
 export default class NeighbourhoodListPage extends Component {
-
+  
   render() {
-    const {app, data, isLoggedIn} = this.props
+    const {app} = this.props
     const neighbourhoodsData = app.state.neighbourhoodsData;
     const user = app.state.currentUser
     return (
@@ -39,6 +40,7 @@ export default class NeighbourhoodListPage extends Component {
         </div>
     )
   }
+
 }
 
 

@@ -11,16 +11,15 @@ import Register from '../pages/homePages/Register';
 export class NeighbourhoodList extends Component {
   render() {
 
-    const {neighbourhoods, isLoggedIn} = this.props
+    const {neighbourhoods} = this.props
 
     return (
       <ul>
         {neighbourhoods.map((neighbourhood) => {
                 return (
                 <Neighbourhood
-                    key={uid(neighbourhood.neighbourhoodName)}
-                    isLoggedIn={isLoggedIn}
-                    neighbourhoodName={neighbourhood.neighbourhoodName} />
+                    key={uid(neighbourhood)}
+                    neighbourhoodName={neighbourhood.title} />
                 )
             })}
         <h2>More Coming Soon!</h2>
