@@ -35,7 +35,7 @@ export class EditProfile extends Component {
 
   render() {
       const {app} = this.props
-      const {username, location, about} = this.state
+      const {username} = this.state
 
     return (
       <div>

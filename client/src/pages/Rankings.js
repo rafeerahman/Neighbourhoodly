@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import RankingsList from '../components/RankingsList'
 import '../components/Rankings.css'
 import UserSidebar from '../components/UserSidebar'
