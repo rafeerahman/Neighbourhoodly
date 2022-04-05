@@ -33,18 +33,24 @@ Our web app is built using react so node_modules is not committed.
 
 Open opening our web app you will find your self on our register page which new users can use to register. Upon registering, you can navigate to the login page using the side bar and clicking 'Login' to access user features.
 
+### Profile
 On the Profile page, which logged in users have access to, users can edit their profile image, username, and bio. They can also view and choose to delete any reviews they have made in the past. 
 
+### Admin
 On the Admin page, which only admin users can see (can only be set through the database), users can view all users and reviews that have been made. They can also choose to delete reviews if they wish.
 
+### Neighbourhoods
 On the Neighbourhoods page, users can view a list of all the neighborhoods in Toronto, and choose to click on any of them. Upon clicking a neighbourhood, they are sent to the specific neighbourhood's page.
 
 On the **specific** Neighbourhood's page that is clicked via the Neighbourhood's page, you can view and search through all the available user reviews, as well as see overall user ratings and safety score for this neighborhood. Logged in users have the ability to post reviews to neighbourhoods here. If a user is not logged in, they will not be able to post a review.  You can also search for a specific review using the search bar. 
 
+### Neighbourhood Rankings
 On the Rankings page via the side bar to view a list of Torontos neighborhoods. This shows a table of data that includes the average user rating, safety score, and neighbourhood name. You can adjust how the list is sorted by using the filters below the search bar and you can use the search bar to filter through the neighborhoods.
 
+### About
 On the About page, a description of what our app is and the who the app creators is shown.
 
+### Logout
 Upon clicking "log out" via the side bar the users session is destroyed.
 
 ## Overview of routes
