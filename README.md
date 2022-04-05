@@ -1,10 +1,14 @@
-
 # team49
 
-## Instructions:
+## Heroku Link:
+* https://csc309neighbourhoodly.herokuapp.com/
+
+## Instructions on running:
 Our web app is built using react so node_modules is not committed.
-* type **npm install** in the terminal in /team49/neighbourhood.ly 
-* type **npm start**
+* type **npm install** in the terminal in /team49/client
+* type **npm install** in the parent directory /team49
+* type **node run build-run** in the parent directory /team49
+* Navigate to localhost:5000 on your browser once the server is running to view our app.
 
 ## External libraries used:
 * styled-components 
@@ -20,23 +24,21 @@ Our web app is built using react so node_modules is not committed.
 
 ## Description
 
-Open opening our web app you will find your self on our register page which new users can use to register, you can navigate to the login page using the side bar and clicking 'Login' to access user/admin features.
-	
-At the login page you can use the login credentials specified above to log in as either a user or as admin.
+Open opening our web app you will find your self on our register page which new users can use to register. Upon registering, you can navigate to the login page using the side bar and clicking 'Login' to access user features.
 
-Navigate to the "About Us" page via the side bar to meet the app creators and read an overview of what the web app is.
-	
-Navigate to the "Neighborhood" page via the side bar to view a list of the neighborhoods in Toronto, where you can click on the neighborhood names to go to that specific neighborhood's page.
+On the Profile page, which logged in users have access to, users can edit their profile image, username, and bio. They can also view and choose to delete any reviews they have made in the past. 
 
-On specific neighborhood pages you can view and search through all the available user reviews, as well as see overall user ratings and safety score for this neighborhood. As a logged in user you can also submit your own review of this neighborhood and it will be linked to your user profile. If submitting a review without being logged in, the review appears as a "guest" review.
+On the Admin page, which only admin users can see (can only be set through the database), users can view all users and reviews that have been made. They can also choose to delete reviews if they wish.
 
-Navigate to the "Rankings" page via the side bar to view a list of Torontos neighborhoods. You can adjust how the list is sorted by using the "sort by" side bar and you can use the search bar to filter through the neighborhoods.
+On the Neighbourhoods page, users can view a list of all the neighborhoods in Toronto, and choose to click on any of them. Upon clicking a neighbourhood, they are sent to the specific neighbourhood's page.
 
-If logged in as a user, you may navigate to the "Profile" page via the side bar to view your user profile and all of your user reviews.
+On the **specific** Neighbourhood's page that is clicked via the Neighbourhood's page, you can view and search through all the available user reviews, as well as see overall user ratings and safety score for this neighborhood. Logged in users have the ability to post reviews to neighbourhoods here. If a user is not logged in, they will not be able to post a review.  You can also search for a specific review using the search bar. 
 
-If logged in as admin, you are able to navigate the web app as a user would, with the additional feature of being able to access the "Admin Dashboard" via the sidebar where you see a list of the users and you can see all the reviews for each user and you can ban a user from the web app.
+On the Rankings page via the side bar to view a list of Torontos neighborhoods. This shows a table of data that includes the average user rating, safety score, and neighbourhood name. You can adjust how the list is sorted by using the filters below the search bar and you can use the search bar to filter through the neighborhoods.
 
-Navigate to the "Log Out" page via the side bar to log out from the user or admin account.
+On the About page, a description of what our app is and the who the app creators is shown.
+
+Upon clicking "log out" via the side bar the users session is destroyed.
 
 ## Overview of routes
 
@@ -73,7 +75,7 @@ This route is used to populate our neighborhoods collection in our database. It 
 
 This route expects a review in the request body. The review properties are userId, username, neighbourhoodId, neighbourhoodName, and review. The review property has inner properties called reviewTitle, userRating, reviewBody, date. The userId and neighbourhoodId are the id’s from MongoDB of the user who made the post request, and the neighborhood of the review. An example request would be 
 
-{ “userId”: <id from mongo>, “neighbourhoodId”: <id from mongo>, “username”: “foo”, “review”: {“reviewTitle”: “foo”, “userRating”: 3, reviewBody: “foo”, “date”: “2022/04/04”}}.
+{ “userId”: "<id from mongo>", “neighbourhoodId”: "<id from mongo>", “username”: “foo”, “review”: {“reviewTitle”: “foo”, “userRating”: 3, reviewBody: “foo”, “date”: “2022/04/04”}}.
 
 The expected response is a 200 status code with the newly posted review. This route is used in our NeighbourhoodPage’s review form which allows a user to post their review.
 
