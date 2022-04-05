@@ -1,4 +1,4 @@
-import React, { Component, useState} from 'react'
+import React, { Component } from 'react'
 import StarIcon from '@mui/icons-material/Star';
 import styled from 'styled-components';
 import { reviewSubmission } from '../actions/reviewSubmission';

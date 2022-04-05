@@ -9,14 +9,10 @@ import UserHome from './pages/homePages/UserHome';
 import Rankings from './pages/Rankings';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
-import pickachuAvatar from './images/pickachuAvatar.png'
 import AboutUs from './pages/AboutUs';
-
 import { checkSession } from './actions/userActions/checkSession'
 import EditProfile from './pages/EditProfile';
 import { getAllNeighbourhoods } from './actions/getNeighbourhoods';
-import { setSafetyScore } from './actions/setSafetyScore';
-import { setNeighbourhoodRating } from './actions/setNeighbourhoodRating';
 class App extends React.Component {
 
     componentDidMount() {
@@ -54,41 +50,7 @@ class App extends React.Component {
         if (neighbourhoodsData) {
             max = this.maximumSafetyData(neighbourhoodsData)
         }
-
-        // code below requires server call
-        const neighbourhoods = [
-        {
-            title: "Yonge-St Clair",
-            safetyScore: 8,
-            avgUserRating: 7,
-        },
-        {
-            title: "York University Heights",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Bay Street Corridor",
-            safetyScore: 4.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Bayview Village",
-            safetyScore: 5.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Woodbine-Lumsden",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        },
-        {
-            title: "Yonge-Eglinton",
-            safetyScore: 8.5,
-            avgUserRating: 9,
-        }
-        ]
-        // yo
+        
         return (
         <BrowserRouter>
             <Switch>
@@ -96,7 +58,7 @@ class App extends React.Component {
                 exact path={["/Login"]}
                 render={() => (
                 <div>
-                {currentUser !== null ? <UserHome app={this}  isAdmin={this.isAdmin}  />
+                {currentUser !== null ? <UserHome app={this}/>
                 :
                 <LogIn app={this} />
                 } 
@@ -107,7 +69,7 @@ class App extends React.Component {
                 exact path={["/"]}
                 render={() => (
                 <div>
-                {currentUser !== null ? <UserHome app={this}  isAdmin={this.isAdmin} />
+                {currentUser !== null ? <UserHome app={this}/>
                 :
                     <Register  app={this} />
                 }

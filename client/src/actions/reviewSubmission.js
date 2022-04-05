@@ -32,7 +32,6 @@ export const reviewSubmission = (userReviewForm, neighbName, neighbId, callback)
     fetch(request)
     .then((res) => {
         if (res.status === 200) {
-            console.log("Success")
             callback()
         } else {
             console.log("Error " + res.status)

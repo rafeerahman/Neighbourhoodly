@@ -1,4 +1,4 @@
-// Setting the rating in the neighbourhood data (not doing server side for now)
+// Setting the rating in the neighbourhood data
 export const setSafetyScore = (neighbourhood, max) => {
     const safetyData = neighbourhood.data.safetyData;
     let total = 0;

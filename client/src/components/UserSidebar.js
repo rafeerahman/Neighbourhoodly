@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { logout } from '../actions/userActions/logout';
 import '../App.css';
-import Hamburger from './Hamburger';
 
 class UserSidebar extends React.Component {
     render() {

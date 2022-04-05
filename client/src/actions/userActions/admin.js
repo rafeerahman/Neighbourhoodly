@@ -1,10 +1,8 @@
 import ENV from './../../config.js'
 const API_HOST = ENV.api_host
-console.log('Current environment:', ENV.env)
-
 
 export const getUsers = (app) => {
-    const url =  `${API_HOST}/api/users`
+    const url = `${API_HOST}/api/users`
 
     fetch(url)
         .then(res => {
@@ -32,7 +30,6 @@ export const removeUser = (app, id) => {
     fetch(request)
         .then(res => {
             if (res.status === 200) {
-                console.log('successful deletion')
                 return res.json();
             } else {
                 alert("Could not delete user");

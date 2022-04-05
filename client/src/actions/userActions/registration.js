@@ -1,7 +1,5 @@
 import ENV from './../../config.js'
 const API_HOST = ENV.api_host
-console.log('Current environment:', ENV.env)
-
 
 export const register = (SignInTab, app, loginCb) => {
     let [email, username, password, retypedPassword] =  [SignInTab.state.email,
@@ -9,13 +7,11 @@ export const register = (SignInTab, app, loginCb) => {
     
     // Checking input fields
     if (password !== retypedPassword) {
-        console.log("failed password")
         SignInTab.handleErrorMessage("Passwords must match, try again.")
         return
     }
 
     if (password === '' || email  === '' || username === '') {
-        console.log("failed")
         SignInTab.handleErrorMessage("All fields are required.")
         return 
     }
@@ -41,7 +37,6 @@ export const register = (SignInTab, app, loginCb) => {
             loginCb()
             return true; // Success
         } else if (res.status === 422) {
-            console.log("existing user")
             SignInTab.handleErrorMessage("User already exists in our database.")
 
         }

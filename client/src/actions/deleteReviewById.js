@@ -11,7 +11,6 @@ export const deleteReviewById = (reviewId) => {
     fetch(request)
     .then(res => {
         if (res.status === 200) {
-            console.log('successful deletion')
             return res.json()
         } else {
             console.log(res.status + " Error")

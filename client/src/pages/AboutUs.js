@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Sidebar from '../components/Sidebar'
 import '../App.css';
 import '../components/AboutUs.css'
 import UserSidebar from '../components/UserSidebar';

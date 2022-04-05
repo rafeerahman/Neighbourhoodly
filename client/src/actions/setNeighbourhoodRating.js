@@ -1,14 +1,9 @@
 import ENV from '../config.js'
-import { getReviewsByNeighbourhood } from './getReviewsByNeighbourhood.js'
 const API_HOST = ENV.api_host
 
 
-// Setting the rating in the neighbourhood data (not doing server side for now)
+// Setting the rating in the neighbourhood data
 export const setNeighbourhoodRating = async (neighbourhood, cb) => {
-    // if (neighbourhood.neighbourhoodName === "Agincourt North"){ 
-    //     const reviews = await getReviewsByNeighb(neighbourhood.neighbourhoodName)
-    //     console.log(reviews)
-    // }
     try {
         const reviews = await getReviewsByNeighb(neighbourhood._id)
         
@@ -41,7 +36,6 @@ async function getReviewsByNeighb(neighbourhoodId) {
             resolve(json);
         })
         .catch(e => {
-            // console.log(e)
             reject(e)
         })
     })

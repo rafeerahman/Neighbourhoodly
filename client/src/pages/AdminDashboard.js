@@ -1,6 +1,5 @@
 import React from 'react';
 import '../App.css';
-import Sidebar from '../components/Sidebar';
 import styled from 'styled-components'
 import { uid } from 'react-uid'
 import Popup from 'reactjs-popup';

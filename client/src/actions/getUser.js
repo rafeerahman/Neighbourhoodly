@@ -15,7 +15,6 @@ export const getUser = (profileComp) => {
             }
         })
         .then(json => {
-            console.log(json)
             if (json.image) {
                 profileComp.setState({imageURL: json.image.image_url})
             }

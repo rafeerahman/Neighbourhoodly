@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
-import NeighbourhoodList from '../components/NeighbourhoodList'
-import Sidebar from '../components/Sidebar'
 import styled from 'styled-components'
 import RankingsList from '../components/RankingsList'
-// import '../components/Rankings.css'
-import SearchBar from '../components/SearchBar'
-import SortBar from '../components/SortBar'
 import '../components/Rankings.css'
-import SearchIcon from '@mui/icons-material/Search';
 import UserSidebar from '../components/UserSidebar'
 import SidebarNonHome from '../components/SidebarNonHome'
 import { setSafetyScore } from '../actions/setSafetyScore'

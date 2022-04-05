@@ -3,12 +3,8 @@ import { withRouter } from 'react-router-dom';
 import {login} from './../../actions/userActions/login'
 
 class LogInForm extends Component {
-    constructor (props) {
-        super(props)
-    }
-
   render() {
-      const {app, SignInTab, handleInputChange} = this.props; // Coming from SignInTab.js
+      const {app, SignInTab, handleInputChange} = this.props;
       let [email, password] =  [SignInTab.state.email, SignInTab.state.password]
 
     return (

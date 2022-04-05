@@ -3,7 +3,6 @@ import '../../App.css';
 import InfoBar from '../../components/InfoBar';
 import Sidebar from '../../components/Sidebar';
 import SignInTab from '../../components/SignInComponents/SignInTab';
-import toronto from '../../images/toronto2.png'
 
 class Register extends React.Component {
 

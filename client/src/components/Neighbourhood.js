@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import LaunchIcon from '@mui/icons-material/Launch';
-import { Link, Route } from 'react-router-dom';
-import NeighbourhoodPage from '../pages/NeighbourhoodPage';
+import { Link } from 'react-router-dom';
 
 /* This component is for the links to a neighbourhood, found in /Neighbourhoods */
 export class Neighbourhood extends Component {

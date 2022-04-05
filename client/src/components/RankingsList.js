@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
-import Neighbourhood from './Neighbourhood'
-import { uid } from "react-uid";
-import styled from 'styled-components';
-import NeighbourhoodPage from '../pages/NeighbourhoodPage';
-import LogIn from '../pages/homePages/LogIn'
-import {Link, BrowserRouter, Route, Switch } from 'react-router-dom';
-import Register from '../pages/homePages/Register';
+import {Link} from 'react-router-dom';
 import '../components/Rankings.css'
 import SearchBar from './SearchBar';
 

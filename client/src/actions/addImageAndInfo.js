@@ -1,6 +1,5 @@
 import ENV from '../config.js'
 const API_HOST = ENV.api_host
-console.log('Current environment:', ENV.env)
 
 export const addImageAndInfo= (form, username, app, sessionCheck, callback) => {
     // the URL for the request
@@ -27,7 +26,6 @@ export const addImageAndInfo= (form, username, app, sessionCheck, callback) => {
             // Usually check the error codes to see what happened.
             if (res.status === 200) {
                 // If image was added successfully, tell the user.
-                console.log("Success")
                 app.setState(prevState => {
                     let newUser = Object.assign({}, prevState.currentUser);  // creating copy of state variable jasper
                     newUser.username = username;                     // update the name property, assign a new value                 

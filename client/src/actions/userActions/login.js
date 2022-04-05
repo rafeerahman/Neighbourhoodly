@@ -1,6 +1,5 @@
 import ENV from './../../config.js'
 const API_HOST = ENV.api_host
-console.log('Current environment:', ENV.env)
 
 
 export const login = (SignInTab, app) => {
@@ -33,8 +32,6 @@ export const login = (SignInTab, app) => {
         })
         .then(json => {
             if (json.currentUser) {
-                console.log(json.currentUser)
-                console.log(app)
                 app.setState({ currentUser: {email: json.currentUser.email, username: json.currentUser.username}, isAdmin: json.isAdmin });
             }
         })

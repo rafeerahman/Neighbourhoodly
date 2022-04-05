@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import Sidebar from '../components/Sidebar'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import pickachuAvatar from '../images/pickachuAvatar.png'
 import EditIcon from '@mui/icons-material/Edit';
-import StarIcon from '@mui/icons-material/Star';
 import UserSidebar from '../components/UserSidebar';
 import { getReviewsByUserId } from '../actions/getReviewsByUser';
 import { getUser } from '../actions/getUser';
 import ProfileReview from '../components/ProfileReview';
 import { uid } from 'react-uid';
 import { withRouter } from 'react-router-dom';
-import { checkSession } from '../actions/userActions/checkSession';
 
 export class Profile extends Component {
     componentDidMount() {
@@ -37,7 +33,6 @@ export class Profile extends Component {
         
         return (
             <div>
-                {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
                 <UserSidebar app = {app} showMenu={true}/> 
                 <ProfileStyled>
                 <div className="header-content"> 

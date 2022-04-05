@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import Hamburger from '../components/Hamburger'
 import SearchBar from '../components/SearchBar';
 import UserReview from '../components/UserReview';
 import UserReviewForm from '../components/UserReviewForm';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
-import pickachuAvatar from '../images/pickachuAvatar.png'
-import Sidebar from '../components/Sidebar';
-import { uid } from 'react-uid';
 import SidebarNonHome from '../components/SidebarNonHome';
 import UserSidebar from '../components/UserSidebar';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { getReviewsByNeighbourhoodId } from '../actions/getReviewsByNeighbourhood';
+import { uid } from 'react-uid';
 
 export class NeighbourhoodPage extends Component {
   componentDidMount() {
@@ -82,7 +79,6 @@ export class NeighbourhoodPage extends Component {
 
     return (
       <div>
-         {/* <Hamburger isLoggedIn={isLoggedIn}/> */}
          {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
             <SidebarNonHome showMenu={true} />}
 
