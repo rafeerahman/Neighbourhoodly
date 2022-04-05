@@ -8,7 +8,7 @@ Our web app is built using react so node_modules is not committed.
 * type **npm install** in the terminal in /team49/client
 * type **npm install** in the parent directory /team49
 * type **mongod --dbpath mongo-data** in the parent directory /team49 (assumes you have Mongo installed)
-* type **node run build-run** in the parent directory /team49
+* type **npm run build-run** in the parent directory /team49
 * Navigate to localhost:5000 on your browser once the server is running to view our app.
 
 ## External libraries used:
