@@ -50,15 +50,40 @@ const UserReviewStyled = styled.div`
     /* border: 1px solid black; */
 `
 const Left = styled.div`
-    font-size: 28px;
+    font-size: 150%;
     font-weight: 600;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 125px;
-    overflow-wrap: break-word;
     text-align: center;
+
+    p {
+      text-align: center;
+      max-width: 100px;
+      white-space: nowrap;
+      overflow-x: auto;
+      word-wrap: break-word;
+
+      ::-webkit-scrollbar-track
+      {
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+      }
+
+      ::-webkit-scrollbar
+      {
+        width: 10px;
+        height: 5px;
+        background-color: #F5F5F5;
+      }
+
+      ::-webkit-scrollbar-thumb
+      {
+        background-color: #000000;
+        border: 1px solid #555555;
+      }
+    }
     
     
     .avatar {
@@ -67,6 +92,7 @@ const Left = styled.div`
         border-radius: 50%;
         border: 1px solid black;
         object-fit: cover;
+        flex: 0 0 auto;
         
     }
 `
