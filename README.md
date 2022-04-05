@@ -31,7 +31,7 @@ Our web app is built using react so node_modules is not committed.
 
 ## Description
 
-Open opening our web app you will find your self on our register page which new users can use to register. Upon registering, you can navigate to the login page using the side bar and clicking 'Login' to access user features.
+By opening our web app you will find your self on our register page which new users can use to register. Upon registering, you can navigate to the login page using the side bar and clicking 'Login' to access user features.
 
 ### Profile
 On the Profile page, which logged in users have access to, users can edit their profile image, username, and bio. They can also view and choose to delete any reviews they have made in the past. 
