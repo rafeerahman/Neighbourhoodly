@@ -31,7 +31,7 @@ Our web app is built using react so node_modules is not committed.
 
 ## Description
 
-Open opening our web app you will find your self on our register page which new users can use to register. Upon registering, you can navigate to the login page using the side bar and clicking 'Login' to access user features.
+By opening our web app you will find your self on our register page which new users can use to register. Upon registering, you can navigate to the login page using the side bar and clicking 'Login' to access user features.
 
 ### Profile
 On the Profile page, which logged in users have access to, users can edit their profile image, username, and bio. They can also view and choose to delete any reviews they have made in the past. 
@@ -106,4 +106,6 @@ This route expects a neighborhood id in the request parameters. It finds all the
 
 The route expects an id of a review in the request parameters. If the user is the one who made that review, or if the user is an admin, then they have access to this route. Otherwise a 401 error is sent. Upon success, it finds the review by the id, and removes it from the database. This route is used in the Profile page, where a user has the option to delete any of their reviews by clicking the trash icon next to their review.
 
+### DELETE /api/users/:id
 
+The route expects an id of a user in the request parameter. If the user is an admin, then they have access to this route. Otherwise a 401 error is sent. Upon success, it finds the user by the id, removes it from the database, and returns the new list of users. This route is used in the AdminDashboard page, where an admin, has the option to delete any user by clicking on the Ban User button next to the username.
