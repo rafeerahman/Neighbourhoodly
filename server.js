@@ -101,7 +101,7 @@ app.use(
         },
         // store the sessions on the database in production
         store: MongoStore.create(
-            {mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/neighbourhoodlyAPI'
+            {mongoUrl: process.env.MONGODB_URI || 'mongodb+srv://team49:mymongo@cluster0.iot8u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
             })
     })
 )
@@ -128,6 +128,21 @@ app.post("/users/login", (req, res) => {
             res.status(400).send("Invalid credentials")
         });
 });
+
+app.get('/api/users', authenticateUser, async (req, res) => {
+
+    try {
+        if (!req.user.isAdmin) {
+            log("Access Denied")
+            return res.status(401).send("Unauthorized")
+        }
+        const users = await User.find({}, 'email username isAdmin -_id')
+        res.send(users)
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
+})
 
 // Add authenticate later
 app.get('/api/users/current', authenticateUser, async (req, res) => {
