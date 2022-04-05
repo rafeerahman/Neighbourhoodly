@@ -1,8 +1,9 @@
 import ENV from './../config.js'
 const API_HOST = ENV.api_host
 
-export const getReviewsByNeighbourhood = (neighbourhoodPage) => {
-    const url = `${API_HOST}/api/reviews/neighbourhood=${neighbourhoodPage.props.neighbourhood.neighbourhoodName}`
+export const getReviewsByNeighbourhoodId = (neighbourhoodPage) => {
+    console.log(neighbourhoodPage.props.neighbId)
+    const url = `${API_HOST}/api/reviews/neighbourhood=${neighbourhoodPage.props.neighbourhood._id}`
 
     fetch(url)
     .then(res => {

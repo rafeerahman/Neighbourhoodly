@@ -8,22 +8,21 @@ import 'reactjs-popup/dist/index.css';
 import { AdminReviews } from '../components/AdminReviews';
 import SidebarNonHome from '../components/SidebarNonHome';
 import UserSidebar from '../components/UserSidebar';
+import { getUsers } from '../actions/userActions/admin'
+import { getReviewsByUser } from '../actions/getReviewsByUser';
 
 export class AdminDashboard extends React.Component {
 
     state = { 
-        reviews: [], //temp
-        users: [] //temp
-    }
-
-    removeReview = (review) => {
-        this.setState({
-            reviews: this.state.reviews.filter(other => other !== review)
-        })
+        reviews: [],
+        users: [] 
     }
 
     render(){
         const {app} = this.props
+        if (this.state.users.length === 0) {
+            getUsers(this)
+        }
         return(
             <div>
                 {app.state.currentUser ? <UserSidebar app = {app} showMenu={true}/> : 
@@ -48,10 +47,10 @@ export class AdminDashboard extends React.Component {
                                 return(
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
-                                    <td>{user.name}</td>
-                                    <td>{this.state.reviews.filter(review => review.email === user.email).length}</td>
+                                    <td>{user.username}</td>
+                                    <td>{getReviewsByUser(this, user.username)}</td>
                                     <Popup trigger={<button className="button">View Reviews</button>} modal>
-                                        <AdminReviews reviews={this.state.reviews} app={app} removeReview={this.removeReview}> </AdminReviews>
+                                        <AdminReviews reviews={this.state.reviews} user={user._id}> </AdminReviews>
                                     </Popup>
                                     {user.type === "admin" ? null :
                                     <button onClick={() => {

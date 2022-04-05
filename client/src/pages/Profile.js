@@ -16,7 +16,7 @@ import { checkSession } from '../actions/userActions/checkSession';
 export class Profile extends Component {
     componentDidMount() {
         getUser(this)
-        getReviewsByUser(this.props.app, this)
+        getReviewsByUser(this, this.props.app.state.currentUser.username)
     }
 
     state = {
@@ -24,7 +24,7 @@ export class Profile extends Component {
         location: null,
         about: null,
         imageURL: null,
-        reviews2: null
+        reviews: null
     }
     
 
@@ -60,9 +60,9 @@ export class Profile extends Component {
                         <h3>Bio</h3>
                         <p className="desc">{about === null ? `Edit your profile to set a bio` : about}</p>  
                         <h4>Reviews</h4>  
-                        {this.state.reviews2 ? this.state.reviews2.map(review => {
+                        {this.state.reviews ? this.state.reviews.map(review => {
                             return <ProfileReview key={uid}
-                                neighbourhood={review.neighbourhoodId}
+                                neighbourhood={review.neighbourhoodName}
                                 title={review.review.reviewTitle}
                                 body={review.review.reviewBody}
                                 rating={review.review.userRating}

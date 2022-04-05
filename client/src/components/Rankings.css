@@ -54,24 +54,19 @@ button {
 }
 
 .sortBar {
-    position: absolute;
-    left: 110%;
-    top: 15%;
-    width: 400px;
-    height: 80%;
-    background: #EBEBEB;
-}
-
-.sortBar ul {
-    margin-top: 25px;
-    vertical-align: middle;    
+    display: inline-flex;
+    margin-top: 20px;
+   
 }
 
 .sortBar ul li {
-    margin: 30px;
-    display: block;
+    margin: 10px;
+    
 }
 
+ul li button {
+    padding: 20px;
+}
 ul li h3 { 
     font-size: 32px;
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { addUser, checkRegistration } from '../../actions/checkRegistration'
 import { withRouter } from 'react-router-dom';
 import {register} from '../../actions/userActions/registration'
 

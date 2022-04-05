@@ -15,6 +15,8 @@ import AboutUs from './pages/AboutUs';
 import { checkSession } from './actions/userActions/checkSession'
 import EditProfile from './pages/EditProfile';
 import { getAllNeighbourhoods } from './actions/getNeighbourhoods';
+import { setSafetyScore } from './actions/setSafetyScore';
+import { setNeighbourhoodRating } from './actions/setNeighbourhoodRating';
 class App extends React.Component {
 
     componentDidMount() {
@@ -28,8 +30,31 @@ class App extends React.Component {
         neighbourhoodsData: null,
     }
 
+    maximumSafetyData = (neighbourhoods) => {
+        let max = 0;
+        neighbourhoods.map((neighbourhood) => {
+            const safetyData = neighbourhood.data.safetyData;
+            let total = 0;
+            for (let key in safetyData) {
+                total += safetyData[key]
+            }
+            if (total > max) {
+                max = total;
+            }
+        })
+        
+        return max;
+    }
+
     render() {
         const {currentUser, isAdmin, neighbourhoodsData} = this.state;
+        let max = 0;
+
+        // Initializing
+        if (neighbourhoodsData) {
+            max = this.maximumSafetyData(neighbourhoodsData)
+        }
+
         // code below requires server call
         const neighbourhoods = [
         {
@@ -99,7 +124,7 @@ class App extends React.Component {
             />
 
             <Route exact path = "/Rankings"
-                render={() => (<Rankings  app={this} data={neighbourhoods} />)}
+                render={() => (<Rankings  app={this} max={max} neighbourhoodsData={neighbourhoodsData} />)}
             />
 
             
@@ -110,7 +135,7 @@ class App extends React.Component {
                     ? 
                     <AdminDashboard app={this}/>
                     : 
-                    <Redirect to="/login"/>}
+                    <Redirect to="/"/>}
                 </div>
             )} />
 
@@ -140,14 +165,13 @@ class App extends React.Component {
 
             {neighbourhoodsData ? 
                 neighbourhoodsData.map((neighbourhood) => (
-                    <Route exact path={`/${neighbourhood.neighbourhoodName}`}
+                    <Route exact path={`/${neighbourhood.neighbourhoodName.replaceAll(' ', '').replaceAll('(', '').replaceAll(')', '')}`}
                     render={() => (
                         <NeighbourhoodPage 
                         app={this}
                         neighbourhood={neighbourhood}
-
+                        maxSafetyData={max}
                         safetyScore={5}
-                        avgUserRating={4}
                         />)
                     }/>
                 )) : null}

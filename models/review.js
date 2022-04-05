@@ -34,6 +34,10 @@ const ReviewSchema = new mongoose.Schema({
         type: String,
         required: true
     }, 
+    neighbourhoodName: {
+        type: String,
+        required: true
+    },
     review: {
         type: ReviewData,
         required: true

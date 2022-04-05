@@ -101,7 +101,7 @@ app.use(
         },
         // store the sessions on the database in production
         store: MongoStore.create(
-            {mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/neighbourhoodlyAPI'
+            {mongoUrl: process.env.MONGODB_URI || 'mongodb+srv://team49:mymongo@cluster0.iot8u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
             })
     })
 )
@@ -128,6 +128,21 @@ app.post("/users/login", (req, res) => {
             res.status(400).send("Invalid credentials")
         });
 });
+
+app.get('/api/users', authenticateUser, async (req, res) => {
+
+    try {
+        if (!req.user.isAdmin) {
+            log("Access Denied")
+            return res.status(401).send("Unauthorized")
+        }
+        const users = await User.find({}, 'email username isAdmin -_id')
+        res.send(users)
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
+})
 
 // Add authenticate later
 app.get('/api/users/current', authenticateUser, async (req, res) => {
@@ -273,7 +288,8 @@ app.post('/api/reviews', authenticateUser, async (req, res) => {
     const review = new Review({
         userId: req.user._id, // username from authenticate middleware
         username: req.user.username,
-        neighbourhoodId: req.body.neighbourhoodId,
+        neighbourhoodId: req.body.neighbId,
+        neighbourhoodName: req.body.neighbourhoodName,
         review: {
             reviewTitle: req.body.review.reviewTitle,
             userRating: req.body.review.userRating,
@@ -309,16 +325,16 @@ app.get('/api/reviews/user=:username', async (req, res) => {
     }
 })
 
-// get reviews by a neighbourhood name.
-app.get('/api/reviews/neighbourhood=:neighbourhoodName', async (req, res) => {
-    const neighbourhood = req.params.neighbourhoodName
-    
+// get reviews by a neighbourhood ID.
+app.get('/api/reviews/neighbourhood=:id', async (req, res) => {
+    const id = req.params.id
+
     try {
-        const neighborhoodReviews = await Review.find({neighbourhoodId: neighbourhood}, '-_id')
+        const neighborhoodReviews = await Review.find({neighbourhoodId: id}, '-_id')
 
         if (neighborhoodReviews.length === 0) {
-            log("No reviews found")
-            res.status(404).send("Not found")
+            // log("No reviews found")
+            res.status(204).send("Not found")
         } else {
             res.status(200).send(neighborhoodReviews)
         }

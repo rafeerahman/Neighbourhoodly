@@ -1,10 +1,10 @@
 import React from 'react';
 import { uid } from 'react-uid'
+import { removeReview } from '../actions/userActions/admin';
 
 export class AdminReviews extends React.Component {
     render() {
         const {reviews, user} = this.props
-        const userReviews = reviews.filter(review => review.email === user.email)
         return (
             <table className="userTable">
                     <thead>
@@ -17,14 +17,14 @@ export class AdminReviews extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            userReviews.map((review ) => {
+                            reviews.map((review ) => {
                                 return(
                                 <tr key={uid(review)}>
                                     <td>{review.neighbourhoodTitle}</td>
                                     <td>{review.reviewTitle}</td>
                                     <td>{review.reviewBody}</td>
                                     <td>{review.date}</td>
-                                    <button onClick={() => {this.props.removeReview(review)}}>Remove Review</button>
+                                    <button onClick={() => {removeReview(user)}}>Remove Review</button>
                                 </tr> 
                                 )
                             })

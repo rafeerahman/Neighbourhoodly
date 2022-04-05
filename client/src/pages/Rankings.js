@@ -10,45 +10,26 @@ import '../components/Rankings.css'
 import SearchIcon from '@mui/icons-material/Search';
 import UserSidebar from '../components/UserSidebar'
 import SidebarNonHome from '../components/SidebarNonHome'
+import { setSafetyScore } from '../actions/setSafetyScore'
+import { setNeighbourhoodRating } from '../actions/setNeighbourhoodRating'
 
 export class Rankings extends Component {
+    componentDidMount() {
+        // Setting safety and rating's
+        this.props.neighbourhoodsData.map((neighbourhood) => {
+            setSafetyScore(neighbourhood, this.props.max)
+            setNeighbourhoodRating(neighbourhood, () => {this.setState({loaded: true})})
+        })
+    }
 
     state = {
-        allNeighbourhoods: [],
+        loaded: false,
         search: ""
-    }
-
-    setNeighbourhoods = (filteredNeighbourhoods) => {
-        this.setState({
-            allNeighbourhoods: filteredNeighbourhoods
-        })
-
-        //console.log(filteredNeighbourhoods);
-    }
-
-    filterNeighbourhoods = (searchValue) => {
-        if (searchValue == "") {
-            this.setState({
-              allNeighbourhoods: this.props.data // set to initial/sorted
-            })
-            //console.log(this.state.allNeighbourhoods)
-          } else {
-            const filter = this.props.data.filter((neighbourhood) => 
-                {
-                    // console.log(neighbourhood.title)
-                    // console.log(neighbourhood.title.includes(searchValue));
-                    return neighbourhood.title.includes(searchValue);
-                }
-            )
-            this.setState({
-              allNeighbourhoods: filter
-            })
-          }
     }
     
     render(){
-        const { app } = this.props
-
+        const { app, neighbourhoodsData } = this.props
+        
         return(
             <div>
 
@@ -58,9 +39,9 @@ export class Rankings extends Component {
 
                 <div className='RankingContainer'>
                     <ul>
-                        
-                        <li> <SearchBar filter={this.filterNeighbourhoods} parent={this}/><RankingsList parent={this} neighbourhoods={this.state.allNeighbourhoods}/> </li>
-                        
+                        <li>
+                        {this.state.loaded ? <RankingsList parent={this} neighbourhoods={neighbourhoodsData}/> : null }
+                        </li>
                     </ul> 
                 </div>
             </div>
