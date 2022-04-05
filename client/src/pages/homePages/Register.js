@@ -18,7 +18,7 @@ class Register extends React.Component {
             <div>
 
             <Sidebar  SignInType="Register"
-                      tab1="About Us"
+                      tab1="About"
                       tab2="Neighbourhoods"
                       tab3="Rankings"
                       tab4="Login"

@@ -32,10 +32,11 @@ a {
 #sidebar ul {
   	/* margin-top: 100%;
     padding: 0px; */
-    position: relative;
-    top: 25%;
-    
-    
+    margin-left: 25px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 #sidebar ul li {
@@ -47,9 +48,8 @@ a {
 }
 
 #infoBar {
-    
     margin-left: 350px;
-    width: 35%;
+    width: 45%;
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
@@ -84,14 +84,14 @@ a {
 
 .title {
     color: #252627;
-    font-size:xx-large;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-size: 52px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .description {
     color: #252627;
-    font-size: x-large;
+    font-size: 36px;
 
 }
 

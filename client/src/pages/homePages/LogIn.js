@@ -10,7 +10,7 @@ class SignIn extends React.Component {
             <div>
                 <div>
                 <Sidebar SignInType="LogIn"
-                            tab1="About Us"
+                            tab1="About"
                             tab2="Neighbourhoods"
                             tab3="Rankings"
                             tab4="Register"
