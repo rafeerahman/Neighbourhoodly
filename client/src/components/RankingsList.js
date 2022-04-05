@@ -14,7 +14,6 @@ export class RankingsList extends Component {
 
     handleInputChange = event => {
         const target = event.target;
-        const value = target.value;
         const name = target.name;
 
         this.setState({
@@ -28,7 +27,7 @@ export class RankingsList extends Component {
     }
 
     filterNeighbourhoods = (searchValue) => {
-        if (searchValue == "") {
+        if (searchValue === "") {
             this.setState({
                 searchedList: null 
             })
@@ -52,12 +51,7 @@ export class RankingsList extends Component {
     const {filtered, searchedList} = this.state
     let rank = 0
 
-    if (this.state.sort === "highestRating") {
-        let sorted = []
-
-        let min = Math.min(...filtered.map(neighb => {if (neighb.data.userRating !== undefined) { return parseFloat(neighb.data.userRating)}}))
-        
-        
+    if (this.state.sort === "highestRating") {  
         filtered.sort((a, b) => {
             if (a.data.userRating === "") return 1; // can be DRY'd using *dir where dir is -1 or 1
             if (b.data.userRating === "") return -1;

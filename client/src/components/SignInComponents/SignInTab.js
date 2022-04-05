@@ -5,10 +5,6 @@ import LogInForm from './LogInForm';
 
 
 class SignInTab extends React.Component {
-    constructor (props) {
-        super(props)
-    }
-
     state = {
         errorMessage: null,
         email: "",

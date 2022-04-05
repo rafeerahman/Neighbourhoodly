@@ -30,7 +30,7 @@ export class UserReviewForm extends Component {
 
 
   render() {
-    const {router, page, currUser, neighbName, neighbId} = this.props 
+    const {currUser, neighbName, neighbId} = this.props 
 
     return (
       <ReviewFormStyled>

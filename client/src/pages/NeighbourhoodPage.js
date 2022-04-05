@@ -24,7 +24,7 @@ export class NeighbourhoodPage extends Component {
   }
 
   filterReviews = (searchValue) => {
-    if (searchValue == "" || !this.state.allReviews) {
+    if (searchValue === "" || !this.state.allReviews) {
       this.setState({
         searchedReviews: null
       })
@@ -67,7 +67,7 @@ export class NeighbourhoodPage extends Component {
   }
 
   render() {
-    const {app, neighbourhood,  max, safetyScore, } = this.props
+    const {app, neighbourhood} = this.props
     const {searchedReviews, allReviews} = this.state
 
     const currentUser = app.state.currentUser

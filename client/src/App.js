@@ -28,7 +28,7 @@ class App extends React.Component {
 
     maximumSafetyData = (neighbourhoods) => {
         let max = 0;
-        neighbourhoods.map((neighbourhood) => {
+        neighbourhoods.forEach((neighbourhood) => {
             const safetyData = neighbourhood.data.safetyData;
             let total = 0;
             for (let key in safetyData) {
@@ -50,7 +50,7 @@ class App extends React.Component {
         if (neighbourhoodsData) {
             max = this.maximumSafetyData(neighbourhoodsData)
         }
-        
+
         return (
         <BrowserRouter>
             <Switch>

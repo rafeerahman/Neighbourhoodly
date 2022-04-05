@@ -6,7 +6,7 @@ export const reviewSubmission = (userReviewForm, neighbName, neighbId, callback)
     const reviewTitle = userReviewForm.state.reviewTitle 
     const reviewBody = userReviewForm.state.reviewContent
 
-    if (reviewBody == "" || reviewTitle == "" || rating == null) {
+    if (reviewBody === "" || reviewTitle === "" || rating === null) {
         alert("Please enter all fields");
         return;
     }

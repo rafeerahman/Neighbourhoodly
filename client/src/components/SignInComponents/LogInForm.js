@@ -1,4 +1,4 @@
-import React, { useEffect, Component } from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import {login} from './../../actions/userActions/login'
 

@@ -10,10 +10,9 @@ import { setNeighbourhoodRating } from '../actions/setNeighbourhoodRating'
 export class Rankings extends Component {
     componentDidMount() {
         // Setting safety and rating's
-        this.props.neighbourhoodsData.map((neighbourhood) => {
+        this.props.neighbourhoodsData.forEach((neighbourhood) => {
             setSafetyScore(neighbourhood, this.props.max)
-            setNeighbourhoodRating(neighbourhood, () => {this.setState({loaded: true})})
-        })
+            setNeighbourhoodRating(neighbourhood, () => {this.setState({loaded: true})})})
     }
 
     state = {
@@ -45,22 +44,4 @@ export class Rankings extends Component {
 
 export default Rankings
 
-
-const SearchBarStyled = styled.div`
-    display: inline-flex;
-    align-items: center;
-    border-bottom: 1px solid black;
-    
-    .searchIcon {
-        color: grey;
-        margin-right: 20px;
-    }
-    input {
-        background-color: transparent;
-        width: 420px;
-        height: 35px;
-        border: none;
-        outline: none;
-    }
-`
 

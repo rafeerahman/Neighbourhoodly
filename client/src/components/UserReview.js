@@ -16,14 +16,14 @@ export default class UserReview extends Component {
 
   render() {
 
-    const {review, userId} = this.props
+    const {review} = this.props
     const {avatar_url, username} = this.state
 
     return (
     <UserReviewStyled className="userReview">
         <Left className="left">
         {(avatar_url !== null) ? 
-          <img className="avatar" src={avatar_url}/> :
+          <img className="avatar" src={avatar_url} alt="avatar"/> :
           <AccountCircleIcon className="avatar"/>
          }
         <p>{username !== null ? username : null}</p>
