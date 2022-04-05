@@ -31,7 +31,10 @@ export class AdminReviews extends React.Component {
                                     <td>{review.review.reviewTitle}</td>
                                     <td>{review.review.reviewBody}</td>
                                     <td>{review.review.date}</td>
-                                    <button onClick={() => {deleteReviewById(review._id)}}>Remove Review</button>
+                                    <button onClick={() => {
+                                        deleteReviewById(review._id)
+                                        this.setState({reviews: this.state.reviews.filter(rev => rev._id === review._id)})
+                                    }}>Remove Review</button>
                                 </tr> 
                                 )
                             })

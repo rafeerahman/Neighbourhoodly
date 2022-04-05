@@ -19,7 +19,7 @@ class AboutUs extends Component {
                 </div>
 
                 <div className='disc'>
-                    The housing market in Toronto is as expensive as ever and the last thing someone wants is to sign a lease or a mortgage only to move and be disappointed by their new neighbourhood! That’s where Neighborly.to comes in - a comprehensive one stop destination for all things Toronto neighbourhoods.
+                    The housing market in Toronto is as expensive as ever and the last thing someone wants is to sign a lease or a mortgage only to move and be disappointed by their new neighbourhood! That`s where Neighbourhood.ly comes in - a comprehensive one stop destination for all things Toronto neighbourhoods.
                 </div>
 
                 <div className='creatorsBox'>
@@ -43,7 +43,7 @@ class AboutUs extends Component {
                                     Syed Ahmed
                                 </td>
                             </tr>
-                            <tr><td className='bio'>insert short bio here</td></tr>
+                            <tr><td className='bio'>3rd year Computer Science specialist at University of Toronto St George.</td></tr>
                             <tr>
                                 <td rowspan="2">
                                     <div className='samplePicture'/>

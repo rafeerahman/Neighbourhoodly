@@ -31,7 +31,7 @@ export class ProfileReview extends Component {
             </div>
             <DeleteIcon className="iconDelete" sx={{ fontSize: 52}} 
             onClick={() => {
-                deleteReviewById(this, reviewId)
+                deleteReviewById(reviewId)
                 const newReviews = profile.state.reviews.filter((review, i) => {
                     return review._id !== reviewId 
                 })
