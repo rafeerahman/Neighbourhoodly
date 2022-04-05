@@ -109,3 +109,15 @@ The route expects an id of a review in the request parameters. If the user is th
 ### DELETE /api/users/:id
 
 The route expects an id of a user in the request parameter. If the user is an admin, then they have access to this route. Otherwise a 401 error is sent. Upon success, it finds the user by the id, removes it from the database, and returns the new list of users. This route is used in the AdminDashboard page, where an admin, has the option to delete any user by clicking on the Ban User button next to the username.
+
+## Changes (In no particular order)
+
+* In phase 1, the profile page was only a template. In phase 2, it has been fully implemented and can be edited. 
+* In phase 1, the sort functionality in rankings was to the side. In phase 2, it is at the top and is larger for visibility.
+* The site now uses sessions to keep track of logged in users
+* The site uses cloudinary to facilitate user profile pictures
+* The site uses crypto for passwords
+* All data, including neighbourhood data and user data, is now in a database, instead of being statically allocated in the client
+* The About Us page has been updated since phase 1 with more details
+* Admin used to display the number the number of reviews per user. This has been removed in phase 2.
+* Search functionality has been added to rankings
