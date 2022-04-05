@@ -40,6 +40,12 @@ export class UserReviewForm extends Component {
                 if (!currUser) { return alert("You must be logged in to post a review.") }
                 reviewSubmission(this, neighbName, neighbId, () => {
                     getReviewsByNeighbourhoodId(this.props.page)
+                    // Clearing
+                    this.setState({
+                        reviewTitle: "",
+                        reviewContent: "",
+                        starRating: null
+                    })
                 })
             }}>
 

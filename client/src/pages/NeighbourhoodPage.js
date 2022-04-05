@@ -16,7 +16,6 @@ import { getReviewsByNeighbourhoodId } from '../actions/getReviewsByNeighbourhoo
 
 export class NeighbourhoodPage extends Component {
   componentDidMount() {
-    console.log(this.props.neighbourhood)
     getReviewsByNeighbourhoodId(this)
   }
 
@@ -67,7 +66,6 @@ export class NeighbourhoodPage extends Component {
     }
 
     const score = (max - total) / max
-    console.log(score)
     return (score * 100).toFixed(2);
   }
 
@@ -96,7 +94,6 @@ export class NeighbourhoodPage extends Component {
                 <li>
                   <StarOutlineIcon className="icon"/>
                   <p>Overall User Rating
-                  {allReviews ? console.log(this.avgUserRating(allReviews)) : null}
                   <br/> {allReviews ? this.avgUserRating(allReviews) : 0}/5
                   </p>
                 </li>

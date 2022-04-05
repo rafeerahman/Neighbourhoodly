@@ -2,7 +2,7 @@ import ENV from '../config.js'
 const API_HOST = ENV.api_host
 console.log('Current environment:', ENV.env)
 
-export const addImageAndInfo= (form, username, callback) => {
+export const addImageAndInfo= (form, username, app, sessionCheck, callback) => {
     // the URL for the request
     const url = `${API_HOST}/api/users/edit`;
 
@@ -28,7 +28,13 @@ export const addImageAndInfo= (form, username, callback) => {
             if (res.status === 200) {
                 // If image was added successfully, tell the user.
                 console.log("Success")
+                app.setState(prevState => {
+                    let newUser = Object.assign({}, prevState.currentUser);  // creating copy of state variable jasper
+                    newUser.username = username;                     // update the name property, assign a new value                 
+                    return { currentUser: newUser };                 // return new object jasper object
+                })
                 alert('successully edited')
+                sessionCheck(app)
                 callback()
             } else if (res.status === 400) {
                 alert("You must enter atleast one field to edit your profile.")

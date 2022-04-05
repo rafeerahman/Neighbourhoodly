@@ -2,21 +2,22 @@ import React, { Component } from 'react'
 import StarIcon from '@mui/icons-material/Star';
 import styled from 'styled-components';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { getUserImageById } from '../actions/getUserImageById';
+import { getUserImageAndName } from '../actions/getUserImageById';
 
 export default class UserReview extends Component {
   componentDidMount() {
-    getUserImageById(this)
+    getUserImageAndName(this) // sets avatar_url and username by the user id in the review.
   }
 
   state = {
-    avatar_url: null
+    avatar_url: null,
+    username: null
   }
 
   render() {
 
-    const {username, review,  user, avatar, title, body, date, rating} = this.props
-    const {avatar_url} = this.state
+    const {review, userId} = this.props
+    const {avatar_url, username} = this.state
 
     return (
     <UserReviewStyled className="userReview">
@@ -25,7 +26,7 @@ export default class UserReview extends Component {
           <img className="avatar" src={avatar_url}/> :
           <AccountCircleIcon className="avatar"/>
          }
-        <p>{username}</p>
+        <p>{username !== null ? username : null}</p>
         </Left>
         <Right className="right-content">
           <h3>{review.reviewTitle}</h3>

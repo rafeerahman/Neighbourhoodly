@@ -28,8 +28,8 @@ class LogInForm extends Component {
                 <input  value={ password } 
                             onChange={ handleInputChange }
                             name="password"
-                            className="signInInput" 
-                            type="text"/>
+                            className="signInInput password" 
+                            type="password"/>
                             
                 <input className="signInButton"
                             onClick={() => {login(SignInTab, app)}} 

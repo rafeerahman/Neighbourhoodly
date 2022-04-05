@@ -18,7 +18,7 @@ class UserSidebar extends React.Component {
                 <li><Link to={"/Rankings"}><a href="">Rankings</a></Link></li>
                 
                 {/* Check if user is admin with check-sessions */}
-                <li><Link to={'/AdminDashboard'}><a href="">Admin</a></Link></li>
+                {app.state.isAdmin ? <li><Link to={'/AdminDashboard'}><a href="">Admin</a></Link></li> : null}
                 
                 <li><Link onClick={() => {logout(app)}} to={'/'}>Logout</Link></li>
             </ul>

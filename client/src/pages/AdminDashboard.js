@@ -9,7 +9,7 @@ import { AdminReviews } from '../components/AdminReviews';
 import SidebarNonHome from '../components/SidebarNonHome';
 import UserSidebar from '../components/UserSidebar';
 import { getUsers } from '../actions/userActions/admin'
-import { getReviewsByUser } from '../actions/getReviewsByUser';
+import { getReviewsByUserId } from '../actions/getReviewsByUser';
 
 export class AdminDashboard extends React.Component {
 
@@ -48,7 +48,7 @@ export class AdminDashboard extends React.Component {
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
                                     <td>{user.username}</td>
-                                    <td>{getReviewsByUser(this, user.username)}</td>
+                                    <td>{getReviewsByUserId(this, user._id)}</td>
                                     <Popup trigger={<button className="button">View Reviews</button>} modal>
                                         <AdminReviews reviews={this.state.reviews} user={user._id}> </AdminReviews>
                                     </Popup>

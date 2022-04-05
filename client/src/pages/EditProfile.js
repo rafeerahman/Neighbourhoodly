@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import UserSidebar from '../components/UserSidebar'
 import { withRouter } from 'react-router-dom';
 import { addImageAndInfo } from '../actions/addImageAndInfo';
+import { checkSession } from '../actions/userActions/checkSession';
+import { TextField } from '@mui/material';
 
 export class EditProfile extends Component {
 
@@ -13,6 +15,7 @@ export class EditProfile extends Component {
         about: null,
         image: null,
     }
+
     handleInputChange = (e) => {
         const target = e.target
         const value = target.value 
@@ -45,35 +48,32 @@ export class EditProfile extends Component {
 
             <form className="editProfile" onSubmit={(e) => {
                     e.preventDefault()
-                    addImageAndInfo(e.target, username, () => {this.props.history.push('/Profile')})
+                    addImageAndInfo(e.target, username, app, checkSession, () => {this.props.history.push('/Profile')})
                 }}>
                 <div className="set-image">
                     
-                    <img className="image"src={this.state.image}/>
-                    
-                    <label>Set a profile image</label>
-                    <input name="image" type="file" onChange={this.handleFileChange}/>
+                    <img className="image" src={this.state.image}/>
+                   
+                    <label className="upload" for="upload-photo">Change avatar</label>
+                    <input name="image" id="upload-photo" type="file" onChange={this.handleFileChange}/>
                 </div>
 
                 <div className="set-username">
-                    <p>Edit username</p>
-                    <input name="username" type="text" onChange={this.handleInputChange}/>
+                    <TextField className="textfield" name="username" type="text" onChange={this.handleInputChange} id="username" label="Username" variant="outlined"/>
                 </div>
 
                 <div className="set-location">
-                    <p>Set your location</p>
-                    <input name="location" type="text" onChange={this.handleInputChange}/>
+                    <TextField className="textfield" name="location" type="text" onChange={this.handleInputChange} id="location" label="Location" variant="outlined"/>
                 </div>
 
                 
                 <div className="set-status">
-                    <p>Set your status</p>
-                    <textarea onChange={this.handleInputChange} name="about"></textarea>
+                    <TextField className="textfield" type="text" onChange={this.handleInputChange} name="about" id="about" label="Bio" variant="outlined"/>
                 </div>
 
-                <input value="Submit" type="submit"/>
+                <input value="Save" type="submit"/>
             </form>
-            <button onClick={() => {this.props.history.push('/profile')}}>back</button>
+            <button  className="buttonBack" onClick={() => {this.props.history.push('/profile')}}>Back</button>
           </EditProfileStyled>
       </div>
       
@@ -85,6 +85,7 @@ const EditProfileStyled = styled.div`
     float: left;
     margin: 4% 0 0 10%;
     margin-left: 320px;
+    
     .header-content {
         display: flex;
         align-items: center;
@@ -98,7 +99,27 @@ const EditProfileStyled = styled.div`
     
         }
     }
+    .textfield {
+        margin-bottom: 36px;
+        width: 100%;
+    }
+    
+    .upload {
+        cursor: pointer;
+        border: 2px solid blue; 
+        font-weight: 600;
+        padding: 10px;
+    }
+
+    #upload-photo {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
     .image {
+        display: block;
+        margin-bottom: 20px;
         border: 1px solid black;
         width: 100px;
         height: 100px;
@@ -111,18 +132,30 @@ const EditProfileStyled = styled.div`
     }
     form { 
         .set-image {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 36px;
+            
         }
 
         input[type=submit] {
-            padding: 10px;
+            cursor: pointer;
+            padding: 16px;
+            font-size: 16px;
             width: 100%;
-            margin-bottom: 10px;
+            background-color: #252627;
+            color: white;
+            margin-bottom: 20px;
             margin-top: 10px;
+            height: 60px;
         }
-    }
-    
-    
-
+    }   
+    .buttonBack {
+        font-size: 16px;
+        padding: 16px;
+        height: 60px;
+    } 
 `
+
 export default withRouter(EditProfile)

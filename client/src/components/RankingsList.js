@@ -62,7 +62,7 @@ export class RankingsList extends Component {
         let sorted = []
 
         let min = Math.min(...filtered.map(neighb => {if (neighb.data.userRating !== undefined) { return parseFloat(neighb.data.userRating)}}))
-        console.log(min)
+        
         
         filtered.sort((a, b) => {
             if (a.data.userRating === "") return 1; // can be DRY'd using *dir where dir is -1 or 1

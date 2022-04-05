@@ -6,7 +6,7 @@ import pickachuAvatar from '../images/pickachuAvatar.png'
 import EditIcon from '@mui/icons-material/Edit';
 import StarIcon from '@mui/icons-material/Star';
 import UserSidebar from '../components/UserSidebar';
-import { getReviewsByUser } from '../actions/getReviewsByUser';
+import { getReviewsByUserId } from '../actions/getReviewsByUser';
 import { getUser } from '../actions/getUser';
 import ProfileReview from '../components/ProfileReview';
 import { uid } from 'react-uid';
@@ -15,10 +15,13 @@ import { checkSession } from '../actions/userActions/checkSession';
 
 export class Profile extends Component {
     componentDidMount() {
-        getUser(this)
-        getReviewsByUser(this, this.props.app.state.currentUser.username)
+        getUser(this).then(user => {
+            getReviewsByUserId(this, user._id.toString())
+        }).catch(e => {
+            console.log(e)
+        })
     }
-
+   
     state = {
         username: null,
         location: null,
@@ -62,6 +65,8 @@ export class Profile extends Component {
                         <h4>Reviews</h4>  
                         {this.state.reviews ? this.state.reviews.map(review => {
                             return <ProfileReview key={uid}
+                                profile={this}
+                                reviewId={review._id.toString()}
                                 neighbourhood={review.neighbourhoodName}
                                 title={review.review.reviewTitle}
                                 body={review.review.reviewBody}
@@ -157,7 +162,14 @@ const ProfileStyled = styled.div`
                 }
             }
         }
-
+    .iconDelete {
+        cursor: pointer;
+        margin-left: 20px;
+    }
+    .withDeleteContainer {
+        display: flex;
+        align-items: center;
+    }
     .profile-content {
         display: block;
         position: relative;

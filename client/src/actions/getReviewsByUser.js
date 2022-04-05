@@ -2,8 +2,8 @@ import ENV from './../config.js'
 const API_HOST = ENV.api_host
 console.log('Current environment:', ENV.env)
 
-export const getReviewsByUser = (profile, user) => {
-    const url = `${API_HOST}/api/reviews/user=${user}`
+export const getReviewsByUserId = (profile, userId) => {
+    const url = `${API_HOST}/api/reviews/user=${userId}`
 
     fetch(url)
     .then(res => {
@@ -12,7 +12,6 @@ export const getReviewsByUser = (profile, user) => {
         }
     })
     .then(json => {
-        console.log(json)
         profile.setState({reviews: json})
     })
     .catch(e => {

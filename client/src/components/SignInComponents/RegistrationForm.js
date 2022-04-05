@@ -35,14 +35,14 @@ class RegistrationForm extends Component {
                         onChange={ handleInputChange }
                         name="password"
                         className="signInInput" 
-                        type="text"/></li>
+                        type="password"/></li>
             
             <li>Retype Passwords</li>
             <li><input  value={ retypedPassword } 
                         onChange={ handleInputChange }
                         name="retypePassword"
                         className="signInInput" 
-                        type="text"/></li>
+                        type="password"/></li>
             
             <li><input  className="signInButton"
                         onClick={() => {register(SignInTab, app, () => {this.props.history.push('/LogIn')})}} 

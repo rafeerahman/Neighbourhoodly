@@ -178,7 +178,7 @@ app.put("/api/users/edit", multipartMiddleware, authenticateUser, async (req, re
     // Use uploader.upload API to upload image to cloudinary server.
     const newData = {}
     const sessionUser = req.user.username // Coming from auth middleware
-
+    
     if (req.files.image.originalFilename.trim().length !== 0 ) {
         const result = await cloudinary.uploader.upload(req.files.image.path)  // req.files contains uploaded files
         newData.image = {
@@ -207,10 +207,14 @@ app.put("/api/users/edit", multipartMiddleware, authenticateUser, async (req, re
     }
 
     try {
+        console.log(sessionUser)
         await User.findOneAndUpdate({username: sessionUser}, {$set: newData})
+
+        // Updating session username
+        if (newData.username) {
+            req.session.username = newData.username
+        }
         console.log('Success')
-        // const oldUser = await User.findOneAndUpdate({username: sessionUser}, newData)
-        // oldUser.save() // Saves oldUser with new info
         res.status(200).send()
     } catch (e) {
         log(e)
@@ -308,11 +312,11 @@ app.post('/api/reviews', authenticateUser, async (req, res) => {
 })
 
 // get reviews by a username removed authenticateUser for now
-app.get('/api/reviews/user=:username', async (req, res) => {
-    const user = req.params.username
+app.get('/api/reviews/user=:userId', async (req, res) => {
+    const userId = req.params.userId
 
     try {
-        const usersReviews = await Review.find({username: user}, '-_id -userId')
+        const usersReviews = await Review.find({userId: userId})
 
         if (usersReviews.length === 0) {
             res.status(400).send("Bad request")

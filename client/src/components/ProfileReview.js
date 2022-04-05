@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import StarIcon from '@mui/icons-material/Star';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteReviewById } from '../actions/deleteReviewById';
 
 export class ProfileReview extends Component {
 
   render() {
-    const {title, body, rating, date, neighbourhood} = this.props
+    const {title, body, rating, date, neighbourhood, reviewId, profile} = this.props
 
     return (
-        <div className="reviewContainer">
+        <div className="withDeleteContainer">
+            <div className="reviewContainer">
             <div className="reviewContent">
 
                 <div className="infoContainer">
@@ -25,7 +28,21 @@ export class ProfileReview extends Component {
                     <p className="content">{body}</p>
                 </div>
             </div>
+            </div>
+            <DeleteIcon className="iconDelete" sx={{ fontSize: 52}} 
+            onClick={() => {
+                deleteReviewById(this, reviewId)
+                const newReviews = profile.state.reviews.filter((review, i) => {
+                    return review._id !== reviewId 
+                })
+                
+                profile.setState({
+                    reviews: newReviews
+                })
+                
+            }}/>
         </div>
+        
     )
   }
 }
