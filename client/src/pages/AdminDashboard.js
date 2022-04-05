@@ -44,10 +44,12 @@ export class AdminDashboard extends React.Component {
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
                                     <td>{user.username}</td>
-                                    <Popup trigger={<button className="button">View Reviews</button>} modal>
-                                        <AdminReviews user={user._id}>  </AdminReviews>
-                                    </Popup>
-                                    {user.isAdmin ? null : <button onClick={() => {removeUser(this, user._id)}}>Ban User</button>}
+                                    <div className="buttons">
+                                        <Popup trigger={<button className="button">View Reviews</button>} modal>
+                                            <AdminReviews user={user._id}>  </AdminReviews>
+                                        </Popup>
+                                        {user.isAdmin ? null : <button className="banBtn" onClick={() => {removeUser(this, user._id)}}>Ban User</button>}
+                                    </div>
                                 </tr> 
                                 )
                             })
@@ -68,6 +70,16 @@ const Dashboard = styled.div`
     margin-top: 200px;
     margin-left: 350px;
     background-color: #EBEBEB;
+
+    .buttons {
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        margin-top: 10px;
+    }
+    .banBtn {
+        margin-left: 20px;
+    }
   
 `
 
