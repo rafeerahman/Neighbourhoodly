@@ -101,7 +101,7 @@ app.use(
         },
         // store the sessions on the database in production
         store: MongoStore.create(
-            {mongoUrl: process.env.MONGODB_URI || 'mongodb+srv://team49:mymongo@cluster0.iot8u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+            {mongoUrl: process.env.MONGODB_URI || 'mongodb+srv://team49:mymongo@cluster0.iot8u.mongodb.net/neighbourhoodlyAPI?retryWrites=true&w=majority'
             })
     })
 )
@@ -136,7 +136,7 @@ app.get('/api/users', authenticateUser, async (req, res) => {
             log("Access Denied")
             return res.status(401).send("Unauthorized")
         }
-        const users = await User.find({}, 'email username isAdmin -_id')
+        const users = await User.find({}, 'email username isAdmin _id')
         res.send(users)
     } catch(error) {
         log(error)
@@ -317,12 +317,7 @@ app.get('/api/reviews/user=:userId', async (req, res) => {
 
     try {
         const usersReviews = await Review.find({userId: userId})
-
-        if (usersReviews.length === 0) {
-            res.status(400).send("Bad request")
-        } else {
-            res.status(200).send(usersReviews)
-        }
+        res.status(200).send(usersReviews)
     } catch (e) {
         log(e)
         res.status(500).send("Internal server error")
@@ -383,7 +378,37 @@ app.delete('/api/reviews/:id', authenticateUser, async (req, res) => {
 	}
 })
 
+app.delete('/api/users/:id', authenticateUser, async (req, res) => {
+	const id = req.params.id
 
+	// Validate id
+	if (!ObjectId.isValid(id)) {
+		res.status(404).send('Resource not found')
+		return;
+	}
+
+	// Delete a review by their id
+	try {
+		const user = await User.findById(id)
+
+        // Authenticating deletion. If the user is an admin, they can delete anyones review.
+        if (!req.user.isAdmin) {
+            log("You cannot delete another users review")
+            return res.status(401).send("Unauthorized")
+        } 
+        const deletion = await user.remove();
+
+		if (!user) {
+			res.status(404).send()
+		} else {
+            const users = await User.find({}, 'email username isAdmin _id')
+			res.send(users)
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send() // server error, could not delete.
+	}
+})
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 

@@ -1,10 +1,17 @@
 import React from 'react';
 import { uid } from 'react-uid'
-import { removeReview } from '../actions/userActions/admin';
+import { deleteReviewById } from '../actions/deleteReviewById';
+import { getReviewsByUserId } from '../actions/getReviewsByUser';
 
 export class AdminReviews extends React.Component {
+
+    state = {
+        reviews: []
+    }
+
     render() {
-        const {reviews, user} = this.props
+        const { user } = this.props
+        getReviewsByUserId(this, user)
         return (
             <table className="userTable">
                     <thead>
@@ -17,14 +24,14 @@ export class AdminReviews extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            reviews.map((review ) => {
+                            this.state.reviews.map((review ) => {
                                 return(
                                 <tr key={uid(review)}>
-                                    <td>{review.neighbourhoodTitle}</td>
-                                    <td>{review.reviewTitle}</td>
-                                    <td>{review.reviewBody}</td>
-                                    <td>{review.date}</td>
-                                    <button onClick={() => {removeReview(user)}}>Remove Review</button>
+                                    <td>{review.neighbourhoodName}</td>
+                                    <td>{review.review.reviewTitle}</td>
+                                    <td>{review.review.reviewBody}</td>
+                                    <td>{review.review.date}</td>
+                                    <button onClick={() => {deleteReviewById(review._id)}}>Remove Review</button>
                                 </tr> 
                                 )
                             })

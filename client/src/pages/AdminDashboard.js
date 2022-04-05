@@ -8,13 +8,11 @@ import 'reactjs-popup/dist/index.css';
 import { AdminReviews } from '../components/AdminReviews';
 import SidebarNonHome from '../components/SidebarNonHome';
 import UserSidebar from '../components/UserSidebar';
-import { getUsers } from '../actions/userActions/admin'
-import { getReviewsByUserId } from '../actions/getReviewsByUser';
+import { getUsers, removeUser } from '../actions/userActions/admin'
 
 export class AdminDashboard extends React.Component {
 
     state = { 
-        reviews: [],
         users: [] 
     }
 
@@ -38,7 +36,6 @@ export class AdminDashboard extends React.Component {
                         <tr>
                             <th>Email</th>
                             <th>Username</th>
-                            <th>Total Posts</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,16 +45,10 @@ export class AdminDashboard extends React.Component {
                                 <tr key={uid(user)}>
                                     <td>{user.email}</td>
                                     <td>{user.username}</td>
-                                    <td>{getReviewsByUserId(this, user._id)}</td>
                                     <Popup trigger={<button className="button">View Reviews</button>} modal>
-                                        <AdminReviews reviews={this.state.reviews} user={user._id}> </AdminReviews>
+                                        <AdminReviews user={user._id}>  </AdminReviews>
                                     </Popup>
-                                    {user.type === "admin" ? null :
-                                    <button onClick={() => {
-    
-                                        }}>
-                                        Ban User
-                                    </button>}
+                                    {user.isAdmin ? null : <button onClick={() => {removeUser(this, user._id)}}>Ban User</button>}
                                 </tr> 
                                 )
                             })

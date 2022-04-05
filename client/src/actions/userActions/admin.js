@@ -22,19 +22,26 @@ export const getUsers = (app) => {
         });
 };
 
-export const removeReview = (user) => {
-    const url = `${API_HOST}/api/reviews/user=${user}`
 
-    fetch(url)
+export const removeUser = (app, id) => {
+    const request = new Request(`${API_HOST}/api/users/${id}`, {
+        method: "delete",
+        credentials: "include", // includes cookies to the request
+    })
+
+    fetch(request)
         .then(res => {
             if (res.status === 200) {
+                console.log('successful deletion')
                 return res.json();
             } else {
-                alert("Could not get users");
+                alert("Could not delete user");
             }
+        })
+        .then(json => {
+            app.setState({users: json})
         })
         .catch(error => {
             console.log(error);
         });
-    
 }
