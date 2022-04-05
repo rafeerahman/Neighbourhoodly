@@ -62,7 +62,7 @@ export class Profile extends Component {
                         <h4>Reviews</h4>  
                         {this.state.reviews2 ? this.state.reviews2.map(review => {
                             return <ProfileReview key={uid}
-                                neighbourhood={review.neighbourhoodId}
+                                neighbourhood={review.neighbourhoodName}
                                 title={review.review.reviewTitle}
                                 body={review.review.reviewBody}
                                 rating={review.review.userRating}

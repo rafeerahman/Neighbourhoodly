@@ -3,7 +3,6 @@ const API_HOST = ENV.api_host
 
 export const getUserImageById = (userReview) => {
     const id = userReview.props.userId
-    console.log(id)
     const url = `${API_HOST}/api/users/${id}`;
 
     fetch(url)

@@ -7,11 +7,15 @@ import LogIn from '../pages/homePages/LogIn'
 import {Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 import Register from '../pages/homePages/Register';
 import '../components/Rankings.css'
+import SearchBar from './SearchBar';
 
 export class RankingsList extends Component {
-
+  
     state = {
-        sort: "highestRating"
+        sort: "highestRating",
+        filtered: [...this.props.neighbourhoods],
+        searchedList: null
+        
     }
 
     handleInputChange = event => {
@@ -23,38 +27,65 @@ export class RankingsList extends Component {
           sort: name
         });
 
-        //console.log('hi');
     };
     
     setNeighbourhoods = (neighbourhoods) => { 
-        this.props.parent.setNeighbourhoods(neighbourhoods) 
+        this.setState({filtered: neighbourhoods}) 
+    }
+
+    filterNeighbourhoods = (searchValue) => {
+        if (searchValue == "") {
+            this.setState({
+                searchedList: null 
+            })
+        } else {
+            const filter = this.state.filtered.filter((neighbourhood) => 
+                {
+                    // console.log(neighbourhood.title)
+                    // console.log(neighbourhood.title.includes(searchValue));
+                    return neighbourhood.neighbourhoodName.includes(searchValue);
+                }
+            )
+
+            this.setState({
+                searchedList: filter
+            })
+        }
     }
 
     render() {
 
-    // let sort = "highestRating"
-    const {neighbourhoods, parent} = this.props
+    const {filtered, searchedList} = this.state
     let rank = 0
 
-    if (this.state.sort == "highestRating") {
-        neighbourhoods.sort((first, second) => {
-            return second.avgUserRating - first.avgUserRating
+    if (this.state.sort === "highestRating") {
+        let sorted = []
+
+        let min = Math.min(...filtered.map(neighb => {if (neighb.data.userRating !== undefined) { return parseFloat(neighb.data.userRating)}}))
+        console.log(min)
+        
+        filtered.sort((a, b) => {
+            if (a.data.userRating === "") return 1; // can be DRY'd using *dir where dir is -1 or 1
+            if (b.data.userRating === "") return -1;
+            return b.data.userRating - a.data.userRating;
         });
-    } else if (this.state.sort == "lowestRating") {
-        neighbourhoods.sort((first, second) => {
-            return first.avgUserRating - second.avgUserRating
+    } else if (this.state.sort === "lowestRating") {
+        filtered.sort((a, b) => {
+            if (a.data.userRating === "") return 1; // can be DRY'd using *dir where dir is -1 or 1
+            if (b.data.userRating === "") return -1;
+            return a.data.userRating - b.data.userRating;
         });
-    } else if (this.state.sort == "highestSafety") {
-        neighbourhoods.sort((first, second) => {
-            return second.safetyScore - first.safetyScore
+    } else if (this.state.sort === "highestSafety") {
+        filtered.sort((first, second) => {
+            return second.data.safetyScore - first.data.safetyScore
         });
-    } else if (this.state.sort == "lowestSafety") {
-        neighbourhoods.sort((first, second) => {
-            return first.safetyScore - second.safetyScore
+    } else if (this.state.sort === "lowestSafety") {
+        filtered.sort((first, second) => {
+            return first.data.safetyScore - second.data.safetyScore
         });
-    } else if (this.state.sort == "alpha") {
-        neighbourhoods.sort((first, second) => {
-            if (first.title.toLowerCase() > second.title.toLowerCase()){
+    } else if (this.state.sort === "alpha") {
+        filtered.sort((first, second) => {
+            if (first.neighbourhoodName.toLowerCase() > second.neighbourhoodName.toLowerCase()){
               return 1
             } else {
               return -1
@@ -63,7 +94,29 @@ export class RankingsList extends Component {
     }
     
     return (
-        <div>          
+        <div>
+            <SearchBar filter={this.filterNeighbourhoods} parent={this}/>
+            <br />
+            <div className="sortBar">
+
+                <ul>
+                    <li>
+                        <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(filtered);}} name="highestRating">Highest Rating</button>
+                    </li>
+                    <li>
+                        <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(filtered);}} name="lowestRating">Lowest Rating</button>
+                    </li>
+                    <li>
+                        <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(filtered);}} name="highestSafety">Highest Safety</button>                        
+                    </li>
+                    <li>
+                        <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(filtered);}} name="lowestSafety">Lowest Safety</button>                                                
+                    </li>
+                    <li>
+                        <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(filtered);}} name="alpha">Alphabetical</button>                                                
+                    </li>                       
+                </ul>
+            </div>          
             <tbody>
                 <tr>
                     <th>
@@ -78,7 +131,8 @@ export class RankingsList extends Component {
                         Safety Score
                     </th>
                 </tr>
-                {neighbourhoods.map((neighbourhood) => {
+                {searchedList ? 
+                 searchedList.map((neighbourhood) => {
                     rank=rank+1
                     return (
                         <tr>
@@ -86,42 +140,44 @@ export class RankingsList extends Component {
                                 {rank}
                             </td>
                             <td>
-                                <Link to={`/${neighbourhood.title}`}>
-                                <a>{neighbourhood.title}</a> 
+                                <Link to={`/${neighbourhood.neighbourhoodName.replaceAll(' ', '').replaceAll('(', '').replaceAll(')', '')}`}>
+                                <a>{neighbourhood.neighbourhoodName}</a> 
                                 </Link>
                             </td>
                             <td>
-                                {neighbourhood.avgUserRating}/10
+                                {neighbourhood.data.userRating}/5
                             </td>
                             <td>
-                                {neighbourhood.safetyScore}/10
+                                {neighbourhood.data.safetyScore}/100
                             </td>
                         </tr>
                     )
-                })}
+                })
+            
+                : 
+                    filtered.map((neighbourhood) => {
+                        rank=rank+1
+                        return (
+                            <tr>
+                                <td>
+                                    {rank}
+                                </td>
+                                <td>
+                                    <Link to={`/${neighbourhood.neighbourhoodName.replaceAll(' ', '').replaceAll('(', '').replaceAll(')', '')}`}>
+                                    <a>{neighbourhood.neighbourhoodName}</a> 
+                                    </Link>
+                                </td>
+                                <td>
+                                    {neighbourhood.data.userRating}/5
+                                </td>
+                                <td>
+                                    {neighbourhood.data.safetyScore}/100
+                                </td>
+                            </tr>
+                        )
+                    })
+                }
             </tbody>
-        
-        
-            <div className="sortBar">
-                    <ul>
-                        <li><h3>Sort</h3></li>
-                        <li>
-                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="highestRating">Highest Rating</button>
-                        </li>
-                        <li>
-                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="lowestRating">Lowest Rating</button>
-                        </li>
-                        <li>
-                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="highestSafety">Highest Safety</button>                        
-                        </li>
-                        <li>
-                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="lowestSafety">Lowest Safety</button>                                                
-                        </li>
-                        <li>
-                            <button onClick={(e) => {this.handleInputChange(e); this.setNeighbourhoods(neighbourhoods);}} name="alpha">Alphabetical</button>                                                
-                        </li>                       
-                    </ul>
-            </div>
 
         </div>
     )

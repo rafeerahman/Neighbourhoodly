@@ -8,10 +8,10 @@ import NeighbourhoodPage from '../pages/NeighbourhoodPage';
 export class Neighbourhood extends Component {
   render() {
     const {neighbourhoodName} = this.props 
-
+    
     return (
       <NeighbourhoodStyled>
-          <Link to={`/${neighbourhoodName}`}>
+          <Link to={`/${neighbourhoodName.replaceAll(' ', '').replaceAll('(', '').replaceAll(')', '')}`}>
             <a>{neighbourhoodName}</a> 
             <LaunchIcon/>
           </Link>

@@ -1,7 +1,8 @@
 'use strict'
 
 const log = console.log
-const path = require('path')
+const path = require('path');
+const { getInitialProfilesData } = require('./neighbProfiles');
 
 const {addEconomics} = require("./neighEconomics")
 
@@ -19,7 +20,6 @@ async function addSafetyData(neighbourhoodsData) {
         const safetyData = JSON_Array.filter((safetyData) => {
             return safetyData["Neighbourhood"] === neighbourhood.neighbourhoodName;
         })[0]
-
       
         // Initializing safetyData 
         let safetyDataInit = {}
@@ -40,6 +40,17 @@ async function addSafetyData(neighbourhoodsData) {
     
 }
 
+async function getAllData() {
+    let data = await getInitialProfilesData();
+    data = await addEconomics(data)
+    data = await addSafetyData(data);
 
+    return data;
+}
+
+getAllData().then(data => {})
+.catch(error => {
+    console.log(error)
+})
 
 module.exports = { addSafetyData }

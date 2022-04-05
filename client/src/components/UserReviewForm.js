@@ -1,10 +1,9 @@
 import React, { Component, useState} from 'react'
 import StarIcon from '@mui/icons-material/Star';
 import styled from 'styled-components';
-import { submitReview } from '../actions/submitReview';
 import { reviewSubmission } from '../actions/reviewSubmission';
 import { withRouter } from 'react-router-dom';
-import { getReviewsByNeighbourhood } from '../actions/getReviewsByNeighbourhood';
+import { getReviewsByNeighbourhoodId } from '../actions/getReviewsByNeighbourhood';
 
 export class UserReviewForm extends Component {
     state = {
@@ -31,7 +30,7 @@ export class UserReviewForm extends Component {
 
 
   render() {
-    const {router, page, currUser, neighbId} = this.props 
+    const {router, page, currUser, neighbName, neighbId} = this.props 
 
     return (
       <ReviewFormStyled>
@@ -39,8 +38,8 @@ export class UserReviewForm extends Component {
             <form action="" onSubmit={(e) => {
                 e.preventDefault()
                 if (!currUser) { return alert("You must be logged in to post a review.") }
-                reviewSubmission(this, neighbId, () => {
-                    getReviewsByNeighbourhood(this.props.page)
+                reviewSubmission(this, neighbName, neighbId, () => {
+                    getReviewsByNeighbourhoodId(this.props.page)
                 })
             }}>
 

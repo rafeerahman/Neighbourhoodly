@@ -12,11 +12,12 @@ import { uid } from 'react-uid';
 import SidebarNonHome from '../components/SidebarNonHome';
 import UserSidebar from '../components/UserSidebar';
 import GroupsIcon from '@mui/icons-material/Groups';
-import { getReviewsByNeighbourhood } from '../actions/getReviewsByNeighbourhood';
+import { getReviewsByNeighbourhoodId } from '../actions/getReviewsByNeighbourhood';
 
 export class NeighbourhoodPage extends Component {
   componentDidMount() {
-    getReviewsByNeighbourhood(this)
+    console.log(this.props.neighbourhood)
+    getReviewsByNeighbourhoodId(this)
   }
 
   state = {
@@ -24,7 +25,6 @@ export class NeighbourhoodPage extends Component {
     allReviews: null,
     searchedReviews: null,
 
-    allDbReviews: this.props.reviews
   }
 
   filterReviews = (searchValue) => {
@@ -46,18 +46,41 @@ export class NeighbourhoodPage extends Component {
     }
   }
 
-  render() {
-    // make a func to calculate avg rating 
+  avgUserRating = (reviews) => {
+    const total = reviews.reduce((total, review) => {
+      return total += review.review.userRating
+    }, 0)
+    
+    const rating = (total / reviews.length).toFixed(2)
+    
+    return rating;
+  }
 
-    const {app, neighbourhood,   safetyScore, avgUserRating} = this.props
+  // 300 / MAX(SCORE) * 100
+  safetyScoreCalculation = (neighbourhood) => {
+    const max = this.props.maxSafetyData;
+
+    const safetyData = neighbourhood.data.safetyData;
+    let total = 0;
+    for (let key in safetyData) {
+        total += safetyData[key]
+    }
+
+    const score = (max - total) / max
+    console.log(score)
+    return (score * 100).toFixed(2);
+  }
+
+  render() {
+    const {app, neighbourhood,  max, safetyScore, } = this.props
     const {searchedReviews, allReviews} = this.state
 
     const currentUser = app.state.currentUser
     const name = neighbourhood.neighbourhoodName;
+    const neighbId = neighbourhood._id
     const population2011 = neighbourhood.data.population
 
     // Other stats
-
 
     return (
       <div>
@@ -73,13 +96,14 @@ export class NeighbourhoodPage extends Component {
                 <li>
                   <StarOutlineIcon className="icon"/>
                   <p>Overall User Rating
-                  <br/> {0}/10
+                  {allReviews ? console.log(this.avgUserRating(allReviews)) : null}
+                  <br/> {allReviews ? this.avgUserRating(allReviews) : 0}/5
                   </p>
                 </li>
                 <li>
                   <HealthAndSafetyIcon className="icon"/>
                   <p>Safety Score
-                  <br/> {0}/10
+                  <br/> {this.safetyScoreCalculation(neighbourhood)}/100
                   </p>
                   
                 </li>
@@ -117,7 +141,7 @@ export class NeighbourhoodPage extends Component {
             </UserReviewsStyled>
               
             <ReviewFormStyled className="reviewForm">
-                <UserReviewForm page={this} currUser={currentUser} neighbId={name} />
+                <UserReviewForm page={this} currUser={currentUser} neighbName={name} neighbId={neighbId} />
             </ReviewFormStyled>
           </div>
         </NeighbourhoodPageStyled>

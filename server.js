@@ -273,7 +273,8 @@ app.post('/api/reviews', authenticateUser, async (req, res) => {
     const review = new Review({
         userId: req.user._id, // username from authenticate middleware
         username: req.user.username,
-        neighbourhoodId: req.body.neighbourhoodId,
+        neighbourhoodId: req.body.neighbId,
+        neighbourhoodName: req.body.neighbourhoodName,
         review: {
             reviewTitle: req.body.review.reviewTitle,
             userRating: req.body.review.userRating,
@@ -309,16 +310,16 @@ app.get('/api/reviews/user=:username', async (req, res) => {
     }
 })
 
-// get reviews by a neighbourhood name.
-app.get('/api/reviews/neighbourhood=:neighbourhoodName', async (req, res) => {
-    const neighbourhood = req.params.neighbourhoodName
-    
+// get reviews by a neighbourhood ID.
+app.get('/api/reviews/neighbourhood=:id', async (req, res) => {
+    const id = req.params.id
+
     try {
-        const neighborhoodReviews = await Review.find({neighbourhoodId: neighbourhood}, '-_id')
+        const neighborhoodReviews = await Review.find({neighbourhoodId: id}, '-_id')
 
         if (neighborhoodReviews.length === 0) {
-            log("No reviews found")
-            res.status(404).send("Not found")
+            // log("No reviews found")
+            res.status(204).send("Not found")
         } else {
             res.status(200).send(neighborhoodReviews)
         }

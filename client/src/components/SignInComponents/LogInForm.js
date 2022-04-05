@@ -1,22 +1,10 @@
 import React, { useEffect, Component } from 'react'
-import { checkLogin } from '../../actions/checkLogin';
 import { withRouter } from 'react-router-dom';
 import {login} from './../../actions/userActions/login'
 
 class LogInForm extends Component {
     constructor (props) {
         super(props)
-    }
-    
-    handleSubmit = async (e) => {
-        e.preventDefault()
-        await checkLogin(this.props.SignInState, this.props.users, this.props.updateLogin, this.props.handleSignal)
-
-        
-        if (this.props.isLoggedIn()) {
-            this.props.history.push('/')
-        } 
-        
     }
 
   render() {

@@ -1,7 +1,7 @@
 import ENV from '../config.js'
 const API_HOST = ENV.api_host
 
-export const reviewSubmission = (userReviewForm, neighbId, callback) => {
+export const reviewSubmission = (userReviewForm, neighbName, neighbId, callback) => {
     const rating = userReviewForm.state.starRating
     const reviewTitle = userReviewForm.state.reviewTitle 
     const reviewBody = userReviewForm.state.reviewContent
@@ -15,7 +15,8 @@ export const reviewSubmission = (userReviewForm, neighbId, callback) => {
         method: "post",
         credentials: "include", // includes cookies to the request
         body: JSON.stringify({
-            neighbourhoodId: neighbId,
+            neighbId: neighbId,
+            neighbourhoodName: neighbName,
             review: {
                 reviewTitle: reviewTitle,
                 reviewBody: reviewBody,
