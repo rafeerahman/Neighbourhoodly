@@ -1,5 +1,3 @@
-# team49
-
 ## Heroku Link:
 * https://csc309neighbourhoodly.herokuapp.com/
 
